@@ -4,15 +4,15 @@ import { useState } from 'react'
 export default function Contact() {
   const [form, setForm] = useState({})
 
-  function handleOnChangeInput(ev) {
-    const { name, value } = ev.target
-
-    setForm((form) => ({ ...form, [name]: value }))
+  function register(name) {
+    return {
+      value: form[name] || '',
+      onChange: (ev) => setForm((form) => ({ ...form, [name]: ev.target.value })),
+    }
   }
 
   function handleOnSubmit(ev) {
     ev.preventDefault()
-    console.log(form)
   }
 
   return (
@@ -26,52 +26,21 @@ export default function Contact() {
             việc hợp tác với các đối tác tuyển dụng và công ty trong và ngoài nước.
           </p>
           <form className="form" onSubmit={handleOnSubmit} noValidate>
-            <TextField
-              label="Họ và tên"
-              required
-              placeholder="Họ và tên bạn"
-              name="name"
-              value={form.name || ''}
-              onChange={handleOnChangeInput}
-            />
-            <TextField
-              label="Số điện thoại"
-              placeholder="Số điện thoại của bạn"
-              name="phone"
-              value={form.phone || ''}
-              onChange={handleOnChangeInput}
-            />
-            <TextField
-              label="Email"
-              required
-              type="email"
-              placeholder="Email của bạn"
-              name="email"
-              value={form.email || ''}
-              onChange={handleOnChangeInput}
-            />
-            <TextField
-              label="Website"
-              required
-              placeholder="Đường dẫn website http://"
-              name="website"
-              value={form.website || ''}
-              onChange={handleOnChangeInput}
-            />
-            <TextField
-              label="Tiêu đề"
-              required
-              placeholder="Tiêu đề liên hệ"
-              name="title"
-              value={form.title || ''}
-              onChange={handleOnChangeInput}
-            />
+            {/* Name Input */}
+            <TextField label="Họ và tên" required placeholder="Họ và tên bạn" {...register('name')} />
+            {/* Phone Input */}
+            <TextField label="Số điện thoại" placeholder="Số điện thoại của bạn" {...register('phone')} />
+            {/* Email Input */}
+            <TextField label="Email" required type="email" placeholder="Email của bạn" {...register('email')} />
+            {/* Website Input */}
+            <TextField label="Website" required placeholder="Đường dẫn website http://" {...register('website')} />
+            {/* Contact Title Input */}
+            <TextField label="Tiêu đề" required placeholder="Tiêu đề liên hệ" {...register('title')} />
+            {/* Contact Content Textarea */}
             <TextField
               label="Nội dung"
               required
-              name="content"
-              value={form.content || ''}
-              onChange={handleOnChangeInput}
+              {...register('content')}
               render={(props) => <textarea {...props} cols={30} rows={10} />}
             />
             <button className="btn main rect">đăng ký</button>
