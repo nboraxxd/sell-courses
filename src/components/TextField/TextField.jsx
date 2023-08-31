@@ -1,11 +1,14 @@
-export default function TextField({ label, required, type = 'text', render, ...rest }) {
+export default function TextField({ label, required, type = 'text', render, error, ...rest }) {
   return (
     <label>
       <p>
         {label}
         {required && <span>*</span>}
       </p>
-      {render ? render(rest) : <input type={type} {...rest} />}
+      <div className="grow">
+        {render ? render(rest) : <input type={type} {...rest} />}
+        <p className="error !mb-1 mt-[0.125rem] min-h-[1.125rem] text-xs italic text-red-500">{error}</p>
+      </div>
     </label>
   )
 }

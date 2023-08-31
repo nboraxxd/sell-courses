@@ -3,16 +3,66 @@ import { useState } from 'react'
 
 export default function Contact() {
   const [form, setForm] = useState({})
+  const [error, setError] = useState({})
 
   function register(name) {
     return {
       value: form[name] || '',
+      error: error[name] || '',
       onChange: (ev) => setForm((form) => ({ ...form, [name]: ev.target.value })),
     }
   }
 
   function handleOnSubmit(ev) {
     ev.preventDefault()
+
+    const errorObject = {}
+
+    if (form.name === undefined || form.name.trim() === '') {
+      errorObject.name = 'Vui lòng nhập họ và tên của bạn'
+    }
+
+    if (form.email === undefined || form.email.trim() === '') {
+      errorObject.email = 'Vui lòng nhập email của bạn'
+    } else if (/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email) === false) {
+      errorObject.email = 'Email chưa đúng định dạng'
+    }
+
+    if (
+      form.phone !== undefined &&
+      /((84|0[3|5|7|8|9])+([0-9]{8})|(84[3|5|7|8|9])+([0-9]{8}))\b/.test(form.phone) === false
+    ) {
+      errorObject.phone = 'Số điện thoại chưa đúng định dạng'
+    }
+
+    if (
+      form.website !== undefined &&
+      /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/.test(form.website) ===
+        false
+    ) {
+      errorObject.website = 'Đường dẫn website chưa đúng định dạng'
+    }
+
+    if (form.title === undefined || form.title.trim() === '') {
+      errorObject.title = 'Vui lòng nhập tiêu đề liên hệ'
+    }
+
+    if (form.content === undefined || form.content.trim() === '') {
+      errorObject.content = 'Vui lòng nhập nội dung liên hệ'
+    }
+
+    setError(errorObject)
+    if (Object.keys(errorObject).length === 0) {
+      const trimmedForm = { ...form }
+      for (const key in trimmedForm) {
+        if (typeof trimmedForm[key] === 'string') {
+          trimmedForm[key] = trimmedForm[key].trim()
+        }
+      }
+      console.log('Validate success', trimmedForm)
+    } else {
+      console.log('Validate error', errorObject)
+    }
   }
 
   return (
@@ -27,13 +77,13 @@ export default function Contact() {
           </p>
           <form className="form" onSubmit={handleOnSubmit} noValidate>
             {/* Name Input */}
-            <TextField label="Họ và tên" required placeholder="Họ và tên bạn" {...register('name')} />
+            <TextField label="Họ và tên" required placeholder="Họ và tên của bạn" {...register('name')} />
             {/* Phone Input */}
             <TextField label="Số điện thoại" placeholder="Số điện thoại của bạn" {...register('phone')} />
             {/* Email Input */}
             <TextField label="Email" required type="email" placeholder="Email của bạn" {...register('email')} />
             {/* Website Input */}
-            <TextField label="Website" required placeholder="Đường dẫn website http://" {...register('website')} />
+            <TextField label="Website" placeholder="Đường dẫn website http://" {...register('website')} />
             {/* Contact Title Input */}
             <TextField label="Tiêu đề" required placeholder="Tiêu đề liên hệ" {...register('title')} />
             {/* Contact Content Textarea */}
