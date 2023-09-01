@@ -1,4 +1,5 @@
 import { TextField } from '@/components/TextField'
+import { regexp, required, validate } from '@/utils/validate'
 import { useState } from 'react'
 
 export default function Contact() {
@@ -16,39 +17,22 @@ export default function Contact() {
   function handleOnSubmit(ev) {
     ev.preventDefault()
 
-    const errorObject = {}
-
-    if (form.name === undefined || form.name.trim() === '') {
-      errorObject.name = 'Vui lòng nhập họ và tên của bạn'
-    }
-
-    if (form.email === undefined || form.email.trim() === '') {
-      errorObject.email = 'Vui lòng nhập email của bạn'
-    } else if (/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email) === false) {
-      errorObject.email = 'Email chưa đúng định dạng'
-    }
-
-    if (form.phone === undefined || form.phone.trim() === '') {
-      errorObject.phone = 'Vui lòng nhập số điện thoại của bạn'
-    } else if (/((84|0[3|5|7|8|9])+([0-9]{8})|(84[3|5|7|8|9])+([0-9]{8}))\b/.test(form.phone) === false) {
-      errorObject.phone = 'Số điện thoại chưa đúng định dạng'
-    }
-
-    if (
-      form.website !== undefined &&
-      /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/.test(form.website) ===
-        false
-    ) {
-      errorObject.website = 'Đường dẫn website chưa đúng định dạng'
-    }
-
-    if (form.title === undefined || form.title.trim() === '') {
-      errorObject.title = 'Vui lòng nhập tiêu đề liên hệ'
-    }
-
-    if (form.content === undefined || form.content.trim() === '') {
-      errorObject.content = 'Vui lòng nhập nội dung liên hệ'
-    }
+    const errorObject = validate(
+      {
+        name: [required('Vui lòng nhập họ và tên của bạn')],
+        email: [required('Vui lòng nhập email của bạn'), regexp('email', 'Email chưa đúng định dạng')],
+        phone: [required('Vui lòng nhập số điện thoại của bạn', regexp('phone', 'Số điện thoại chưa đúng định dạng'))],
+        website: [
+          regexp(
+            /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/,
+            'Đường dẫn website chưa đúng định dạng',
+          ),
+        ],
+        title: [required('Vui lòng nhập tiêu đề liên hệ')],
+        content: [required('Vui lòng nhập nội dung liên hệ')],
+      },
+      form,
+    )
 
     setError(errorObject)
     if (Object.keys(errorObject).length === 0) {
