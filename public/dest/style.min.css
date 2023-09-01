@@ -1720,7 +1720,35 @@ button {
   display: flex;
   align-items: center;
   width: 1px;
+  border-right: 1px solid #e7e7e7;
 }
+
+@media (min-width: 768px) {
+  .course .wrap .bottom .teacher .avatar {
+    display: none;
+  }
+  .course .wrap .bottom .teacher {
+    display: none;
+  }
+  .course .wrap .bottom .register-btn {
+    flex-grow: 1;
+    justify-content: center;
+  }
+}
+@media (min-width: 1024px) {
+  .course .wrap .bottom .teacher {
+    display: flex;
+  }
+  .course .wrap .bottom .register-btn {
+    flex-grow: 0;
+  }
+}
+@media (min-width: 1280px) {
+  .course .wrap .bottom .teacher .avatar {
+    display: block;
+  }
+}
+
 .course .wrap .bottom .teacher .avatar {
   border-radius: 100px;
   overflow: hidden;
@@ -1743,7 +1771,6 @@ button {
 }
 .course .wrap .bottom .register-btn {
   padding: 25px;
-  border-left: 1px solid #e7e7e7;
   cursor: pointer;
   color: #4156a6;
   font-family: ab;
@@ -2282,6 +2309,7 @@ button {
 }
 .paginate {
   display: flex;
+  align-items: center;
   gap: 5px;
 }
 .paginate .item {
@@ -3063,7 +3091,7 @@ button {
   -webkit-transform: rotateZ(90deg);
   -o-transform: rotateZ(90deg);
   cursor: pointer;
-  top: 175px;
+  top: 50%;
   letter-spacing: 3px;
   font-size: 10px;
 }

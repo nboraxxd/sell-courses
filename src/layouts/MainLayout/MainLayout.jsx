@@ -1,15 +1,14 @@
 import { Header } from '@/components/Header'
 import { Sidebar } from '@/components/Sidebar'
-import { CourseRegister } from '@/pages/CourseRegister'
 import { Footer } from '@/components/Footer'
-import { Contact } from '@/pages/Contact'
+import { Outlet } from 'react-router-dom'
 
 export default function MainLayout() {
   return (
     <>
       <Header />
       <Sidebar />
-      <CourseRegister />
+      <Outlet />
       <Footer />
     </>
   )
