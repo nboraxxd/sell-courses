@@ -9,7 +9,7 @@ export default function MainLayout() {
     <>
       <Header />
       <Sidebar />
-      <Contact />
+      <CourseRegister />
       <Footer />
     </>
   )
