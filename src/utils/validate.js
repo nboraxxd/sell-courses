@@ -30,9 +30,13 @@ export function validate(rules, forms) {
 
   for (const key in rules) {
     for (const rule of rules[key]) {
-      if (rule.required === true) {
-        if (forms[key]?.trim() === undefined) {
-          errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.required
+      if (rule.required && forms[key]?.trim() === undefined) {
+        errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.required
+      }
+
+      if (rule.regexp && forms[key]?.trim() !== undefined) {
+        if (rule.regexp.test(forms[key].trim()) === false) {
+          errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.regexp
         }
       }
     }

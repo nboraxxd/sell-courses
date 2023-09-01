@@ -21,27 +21,27 @@ export default function CourseRegister() {
     const errorObject = validate(
       {
         name: [{ required: true, message: 'Vui lòng nhập họ và tên của bạn' }],
-        email: [{ required: true, message: 'Vui lòng nhập email của bạn' }],
-        phone: [{ required: true, message: 'Số điện thoại chưa đúng định dạng' }],
+        email: [
+          { required: true, message: 'Vui lòng nhập email của bạn' },
+          { regexp: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, message: 'Email chưa đúng định dạng' },
+        ],
+        phone: [
+          { required: true, message: 'Vui lòng nhập số điện thoại của bạn' },
+          {
+            regexp: /((84|0[3|5|7|8|9])+([0-9]{8})|(84[3|5|7|8|9])+([0-9]{8}))\b/,
+            message: 'Số điện thoại chưa đúng định dạng',
+          },
+        ],
+        facebook: [
+          {
+            regexp:
+              /(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-.]*\/)*([\w\-.]*)/,
+            message: 'Địa chỉ Facebook chưa đúng định dạng',
+          },
+        ],
       },
       form,
     )
-
-    // if (form.name === undefined || form.name.trim() === '') {
-    //   errorObject.name = 'Vui lòng nhập họ và tên của bạn'
-    // }
-
-    // if (form.email === undefined || form.email.trim() === '') {
-    //   errorObject.email = 'Vui lòng nhập email của bạn'
-    // } else if (/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email) === false) {
-    //   errorObject.email = 'Email chưa đúng định dạng'
-    // }
-
-    // if (form.phone === undefined || form.phone.trim() === '') {
-    //   errorObject.phone = 'Vui lòng nhập số điện thoại của bạn'
-    // } else if (/((84|0[3|5|7|8|9])+([0-9]{8})|(84[3|5|7|8|9])+([0-9]{8}))\b/.test(form.phone) === false) {
-    //   errorObject.phone = 'Số điện thoại chưa đúng định dạng'
-    // }
 
     setError(errorObject)
     if (Object.keys(errorObject).length === 0) {
@@ -86,7 +86,7 @@ export default function CourseRegister() {
               <TextField label="Số điện thoại" required placeholder="Số điện thoại của bạn" {...register('phone')} />
 
               {/* Facebook URL */}
-              <TextField label="Facebook URL" placeholder="https://www.facebook.com/" {...register('facebook')} />
+              <TextField label="Địa chỉ Facebook" placeholder="https://www.facebook.com/" {...register('facebook')} />
 
               {/* COIN */}
               <TextField
