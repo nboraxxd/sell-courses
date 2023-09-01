@@ -23,14 +23,11 @@ export default function CourseRegister() {
         name: [{ required: true, message: 'Vui lòng nhập họ và tên của bạn' }],
         email: [
           { required: true, message: 'Vui lòng nhập email của bạn' },
-          { regexp: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, message: 'Email chưa đúng định dạng' },
+          { regexp: 'email', message: 'Email chưa đúng định dạng' },
         ],
         phone: [
           { required: true, message: 'Vui lòng nhập số điện thoại của bạn' },
-          {
-            regexp: /((84|0[3|5|7|8|9])+([0-9]{8})|(84[3|5|7|8|9])+([0-9]{8}))\b/,
-            message: 'Số điện thoại chưa đúng định dạng',
-          },
+          { regexp: 'phone', message: 'Số điện thoại chưa đúng định dạng' },
         ],
         facebook: [
           {

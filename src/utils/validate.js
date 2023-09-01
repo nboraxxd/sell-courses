@@ -1,23 +1,11 @@
-// const rules = {
-//   name: [{ required: true }],
-//   email: [
-//     { required: true, message: 'Vui lòng nhập email của bạn' },
-//     { regexp: '/^[w-.]+@([w-]+.)+[w-]{2,4}$/', message: 'Email chưa đúng định dạng' },
-//   ],
-// }
-
-// const form = {
-//   name: 'Velit',
-//   email: 'huzatok@mailinator.com',
-// }
-
-// const errorObject = {
-//   email: 'Vui lòng nhập email của bạn',
-// }
-
 const DEFAULT_ERROR_MESSAGE = {
   required: 'Trường này là bắt buộc',
   regexp: 'Vui lòng điền đúng định dạng',
+}
+
+const REGEXP = {
+  email: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+  phone: /((84|0[3|5|7|8|9])+([0-9]{8})|(84[3|5|7|8|9])+([0-9]{8}))\b/,
 }
 
 /**
@@ -35,7 +23,14 @@ export function validate(rules, forms) {
       }
 
       if (rule.regexp && forms[key]?.trim() !== undefined) {
-        if (rule.regexp.test(forms[key].trim()) === false) {
+        let _regexp = rule.regexp
+        if (_regexp in REGEXP) {
+          _regexp = REGEXP[_regexp]
+        } else if (_regexp instanceof RegExp === false) {
+          _regexp = new RegExp()
+        }
+
+        if (_regexp.test(forms[key]) === false) {
           errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.regexp
         }
       }
