@@ -1,6 +1,6 @@
 import { Header } from '@/components/Header'
 import { Sidebar } from '@/components/Sidebar'
-import { Contact } from '@/pages/Contact'
+import { CourseRegister } from '@/pages/CourseRegister'
 import { Footer } from '@/components/Footer'
 
 export default function MainLayout() {
@@ -8,7 +8,7 @@ export default function MainLayout() {
     <>
       <Header />
       <Sidebar />
-      <Contact />
+      <CourseRegister />
       <Footer />
     </>
   )

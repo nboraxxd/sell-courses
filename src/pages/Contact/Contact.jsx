@@ -28,10 +28,9 @@ export default function Contact() {
       errorObject.email = 'Email chưa đúng định dạng'
     }
 
-    if (
-      form.phone !== undefined &&
-      /((84|0[3|5|7|8|9])+([0-9]{8})|(84[3|5|7|8|9])+([0-9]{8}))\b/.test(form.phone) === false
-    ) {
+    if (form.phone === undefined || form.phone.trim() === '') {
+      errorObject.phone = 'Vui lòng nhập số điện thoại của bạn'
+    } else if (/((84|0[3|5|7|8|9])+([0-9]{8})|(84[3|5|7|8|9])+([0-9]{8}))\b/.test(form.phone) === false) {
       errorObject.phone = 'Số điện thoại chưa đúng định dạng'
     }
 
@@ -79,7 +78,7 @@ export default function Contact() {
             {/* Name Input */}
             <TextField label="Họ và tên" required placeholder="Họ và tên của bạn" {...register('name')} />
             {/* Phone Input */}
-            <TextField label="Số điện thoại" placeholder="Số điện thoại của bạn" {...register('phone')} />
+            <TextField label="Số điện thoại" required placeholder="Số điện thoại của bạn" {...register('phone')} />
             {/* Email Input */}
             <TextField label="Email" required type="email" placeholder="Email của bạn" {...register('email')} />
             {/* Website Input */}

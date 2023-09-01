@@ -129,7 +129,6 @@ table {
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   box-sizing: border-box;
   appearance: none;
@@ -2181,6 +2180,7 @@ button {
   height: 22px;
   width: 22px;
   background-color: #e0e0e0;
+  transition: all 0.2s linear;
 }
 .check-container .checkmark:after {
   content: '';
@@ -4872,6 +4872,7 @@ button {
 .register-course .wrap label p {
   flex-shrink: 0;
   width: 180px;
+  margin-bottom: 24px;
   font-family: ab;
 }
 .register-course .wrap label .error {

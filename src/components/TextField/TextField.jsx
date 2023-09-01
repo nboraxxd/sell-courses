@@ -1,6 +1,6 @@
-export default function TextField({ label, required, type = 'text', render, error, ...rest }) {
+export default function TextField({ label, labelStyle = '', required, type = 'text', render, error, ...rest }) {
   return (
-    <label>
+    <label style={{ ...labelStyle }}>
       <p>
         {label}
         {required && <span>*</span>}
