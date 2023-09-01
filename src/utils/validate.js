@@ -39,3 +39,17 @@ export function validate(rules, forms) {
 
   return errorObject
 }
+
+export function required(message) {
+  return {
+    required: true,
+    message,
+  }
+}
+
+export function regexp(pattern, message) {
+  return {
+    regexp: pattern,
+    message,
+  }
+}

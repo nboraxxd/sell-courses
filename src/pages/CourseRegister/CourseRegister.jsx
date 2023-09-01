@@ -1,6 +1,6 @@
 import { Checkbox } from '@/components/Checkbox'
 import { TextField } from '@/components/TextField'
-import { validate } from '@/utils/validate'
+import { regexp, required, validate } from '@/utils/validate'
 import { useState } from 'react'
 
 export default function CourseRegister() {
@@ -20,21 +20,14 @@ export default function CourseRegister() {
 
     const errorObject = validate(
       {
-        name: [{ required: true, message: 'Vui lòng nhập họ và tên của bạn' }],
-        email: [
-          { required: true, message: 'Vui lòng nhập email của bạn' },
-          { regexp: 'email', message: 'Email chưa đúng định dạng' },
-        ],
-        phone: [
-          { required: true, message: 'Vui lòng nhập số điện thoại của bạn' },
-          { regexp: 'phone', message: 'Số điện thoại chưa đúng định dạng' },
-        ],
+        name: [required('Vui lòng nhập họ và tên của bạn')],
+        email: [required('Vui lòng nhập email của bạn'), regexp('email', 'Email chưa đúng định dạng')],
+        phone: [required('Vui lòng nhập số điện thoại của bạn'), regexp('phone', 'Số điện thoại chưa đúng định dạng')],
         facebook: [
-          {
-            regexp:
-              /(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-.]*\/)*([\w\-.]*)/,
-            message: 'Địa chỉ Facebook chưa đúng định dạng',
-          },
+          regexp(
+            /(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-.]*\/)*([\w\-.]*)/,
+            'Địa chỉ Facebook chưa đúng định dạng',
+          ),
         ],
       },
       form,
