@@ -1,13 +1,9 @@
-export default function Checkbox({ onChange, value, children }) {
-  const _onChange = (ev) => {
-    onChange({ target: { value: ev.target.checked } })
-  }
-
+export default function Checkbox({ children }) {
   return (
     <>
       <div className="check-container">
         {children}
-        <input onChange={_onChange} checked={value} type="checkbox" />
+        <input type="checkbox" />
         <span className="checkmark" />
       </div>
     </>

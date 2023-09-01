@@ -1,10 +1,61 @@
 import { Checkbox } from '@/components/Checkbox'
 import { TextField } from '@/components/TextField'
+import { validate } from '@/utils/validate'
 import { useState } from 'react'
 
 export default function CourseRegister() {
   const [form, setForm] = useState({})
   const [error, setError] = useState({})
+
+  function register(name) {
+    return {
+      value: form[name] || '',
+      error: error[name] || '',
+      onChange: (ev) => setForm((form) => ({ ...form, [name]: ev.target.value })),
+    }
+  }
+
+  function handleOnSubmit(ev) {
+    ev.preventDefault()
+
+    const errorObject = validate(
+      {
+        name: [{ required: true, message: 'Vui lòng nhập họ và tên của bạn' }],
+        email: [{ required: true, message: 'Vui lòng nhập email của bạn' }],
+        phone: [{ required: true, message: 'Số điện thoại chưa đúng định dạng' }],
+      },
+      form,
+    )
+
+    // if (form.name === undefined || form.name.trim() === '') {
+    //   errorObject.name = 'Vui lòng nhập họ và tên của bạn'
+    // }
+
+    // if (form.email === undefined || form.email.trim() === '') {
+    //   errorObject.email = 'Vui lòng nhập email của bạn'
+    // } else if (/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email) === false) {
+    //   errorObject.email = 'Email chưa đúng định dạng'
+    // }
+
+    // if (form.phone === undefined || form.phone.trim() === '') {
+    //   errorObject.phone = 'Vui lòng nhập số điện thoại của bạn'
+    // } else if (/((84|0[3|5|7|8|9])+([0-9]{8})|(84[3|5|7|8|9])+([0-9]{8}))\b/.test(form.phone) === false) {
+    //   errorObject.phone = 'Số điện thoại chưa đúng định dạng'
+    // }
+
+    setError(errorObject)
+    if (Object.keys(errorObject).length === 0) {
+      const trimmedForm = { ...form }
+      for (const key in trimmedForm) {
+        if (typeof trimmedForm[key] === 'string') {
+          trimmedForm[key] = trimmedForm[key].trim()
+        }
+      }
+      console.log('Validate success', trimmedForm)
+    } else {
+      console.log('Validate error', errorObject)
+    }
+  }
 
   return (
     <main id="main">
@@ -24,46 +75,18 @@ export default function CourseRegister() {
                 <strong>Học phí:</strong> 6,000,000 VND
               </div>
             </div>
-            <form className="form" noValidate>
+            <form className="form" noValidate onSubmit={handleOnSubmit}>
               {/* Name Input */}
-              <TextField
-                label="Họ và tên"
-                required
-                placeholder="Họ và tên của bạn"
-                value={form.name || ''}
-                onChange={(ev) => setForm((form) => ({ ...form, name: ev.target.value }))}
-                error={error.name}
-              />
-
-              {/* Phone Input */}
-              <TextField
-                label="Số điện thoại"
-                required
-                placeholder="Số điện thoại của bạn"
-                value={form.phone || ''}
-                onChange={(ev) => setForm((form) => ({ ...form, phone: ev.target.value }))}
-                error={error.phone}
-              />
+              <TextField label="Họ và tên" required placeholder="Họ và tên của bạn" {...register('name')} />
 
               {/* Email Input */}
-              <TextField
-                label="Email"
-                type="email"
-                required
-                placeholder="Email của bạn"
-                value={form.email || ''}
-                onChange={(ev) => setForm((form) => ({ ...form, email: ev.target.value }))}
-                error={error.email}
-              />
+              <TextField label="Email" type="email" required placeholder="Email của bạn" {...register('email')} />
+
+              {/* Phone Input */}
+              <TextField label="Số điện thoại" required placeholder="Số điện thoại của bạn" {...register('phone')} />
 
               {/* Facebook URL */}
-              <TextField
-                label="Facebook URL"
-                placeholder="https://facebook.com/"
-                value={form.facebook || ''}
-                onChange={(ev) => setForm((form) => ({ ...form, facebook: ev.target.value }))}
-                error={error.facebook}
-              />
+              <TextField label="Facebook URL" placeholder="https://www.facebook.com/" {...register('facebook')} />
 
               {/* COIN */}
               <TextField
@@ -101,9 +124,7 @@ export default function CourseRegister() {
               <TextField
                 label="Ý kiến cá nhân"
                 placeholder="Mong muốn cá nhân và lịch bạn có thể học"
-                value={form.opinion || ''}
-                onChange={(ev) => setForm((form) => ({ ...form, opinion: ev.target.value }))}
-                error={error.coin}
+                {...register('opinion')}
               />
               <button className="btn main rect">đăng ký</button>
             </form>
