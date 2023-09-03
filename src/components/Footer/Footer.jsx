@@ -9,13 +9,13 @@ export default function Footer() {
             <p className="phone">(+84) 949 816 596</p>
             <div className="social">
               <a href="#">
-                <img src="img/fb-icon.png" />
+                <img src="/img/fb-icon.png" />
               </a>
               <a href="#">
-                <img src="img/email-icon.png" />
+                <img src="/img/email-icon.png" />
               </a>
               <a href="#">
-                <img src="img/skype-icon.png" />
+                <img src="/img/skype-icon.png" />
               </a>
             </div>
           </div>
@@ -48,9 +48,9 @@ export default function Footer() {
           <div className="flex gap-2">
             2023 spacedev.vn
             <div className="select flex cursor-pointer items-center gap-1">
-              <img width={15} src="img/icon-lang.svg" alt="languages" />
+              <img width={15} src="/img/icon-lang.svg" alt="languages" />
               Tiếng Việt
-              <img src="img/nav-caret.svg" style={{ marginTop: 10 }} className="rotate-180" />
+              <img src="/img/nav-caret.svg" style={{ marginTop: 10 }} className="rotate-180" />
             </div>
           </div>
           <p>Được thiết kế và lập trình bởi Spacedev Team</p>

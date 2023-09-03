@@ -11,7 +11,7 @@ export default function Header() {
           <span className="text">menu</span>
         </div>
         <a href="./" className="logo">
-          <img src="img/logo.svg" alt="logo" />
+          <img src="/img/logo.svg" alt="logo" />
           <h1>Spacedev</h1>
         </a>
         <div className="right">
@@ -20,7 +20,7 @@ export default function Header() {
               <a href="./profile.html" className="info">
                 <div className="name">Đặng Thuyền Vương</div>
                 <div className="avatar">
-                  <img src="img/avt.png" alt="avt" />
+                  <img src="/img/avt.png" alt="avt" />
                 </div>
               </a>
             </div>

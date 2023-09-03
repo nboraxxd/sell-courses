@@ -1,3 +1,5 @@
+const USER_PATH = '/user'
+
 const PATH = {
   homePage: '/',
   register: '/register',
@@ -5,12 +7,18 @@ const PATH = {
   resetPassword: '/reset-password',
   courses: '/courses',
   team: '/team',
-  project: '/project',
+  projects: '/projects',
   contact: '/contact',
   faq: '/faq',
   payment: '/payment',
   coin: '/coin',
   page404: '*',
+  user: {
+    index: USER_PATH,
+    courses: USER_PATH + '/courses',
+    projects: USER_PATH + '/projects',
+    changePassword: USER_PATH + '/change-password',
+  },
 }
 
 export default PATH

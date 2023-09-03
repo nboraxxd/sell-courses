@@ -9,7 +9,7 @@ export default function Sidebar() {
           <li>
             <a href="./profile.html" className="account">
               <div className="avatar">
-                <img src="img/avt.png" alt="avt" />
+                <img src="/img/avt.png" alt="avt" />
               </div>
               <div className="name">Đặng Thuyền Vương</div>
             </a>

@@ -1,4 +1,4 @@
-export default function Project() {
+export default function Projects() {
   return (
     <main id="main">
       <div className="projectpage">
