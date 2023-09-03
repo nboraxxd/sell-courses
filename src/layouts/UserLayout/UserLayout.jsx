@@ -1,4 +1,5 @@
-import { Outlet } from 'react-router-dom'
+import PATH from '@/constants/path'
+import { NavLink, Outlet } from 'react-router-dom'
 
 export default function UserLayout() {
   return (
@@ -16,10 +17,12 @@ export default function UserLayout() {
         <div className="container">
           <div className="tab">
             <div className="tab-title">
-              <a href="#!">Thông tin tài khoản</a>
-              <a href="#!">Khóa học của bạn</a>
-              <a href="#!">Dự án đã làm</a>
-              <a href="#!">Đổi mật khẩu</a>
+              <NavLink to={PATH.user.index} end>
+                Thông tin tài khoản
+              </NavLink>
+              <NavLink to={PATH.user.courses}>Khóa học của bạn</NavLink>
+              <NavLink to={PATH.user.projects}>Dự án đã làm</NavLink>
+              <NavLink to={PATH.user.changePassword}>Đổi mật khẩu</NavLink>
             </div>
             <div className="tab-content">
               <Outlet />

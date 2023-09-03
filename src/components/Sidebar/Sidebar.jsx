@@ -1,39 +1,29 @@
-export default function Sidebar() {
+import PATH from '@/constants/path'
+import { NavLink } from 'react-router-dom'
+
+export default function Sidebar({ handleCloseSidebar }) {
   return (
     <>
       <nav className="nav">
         <ul>
           <li>
-            <a href="./signin.html">Đăng ký / Đăng nhập</a>
+            <NavLink to={PATH.homePage}>Trang chủ</NavLink>
           </li>
           <li>
-            <a href="./profile.html" className="account">
-              <div className="avatar">
-                <img src="/img/avt.png" alt="avt" />
-              </div>
-              <div className="name">Đặng Thuyền Vương</div>
-            </a>
+            <NavLink to={PATH.team}>Spacedev Team</NavLink>
           </li>
           <li>
-            <a className="active" href="./">
-              Trang chủ
-            </a>
+            <NavLink to={PATH.courses}>Khóa Học</NavLink>
           </li>
           <li>
-            <a href="./team.html">Spacedev Team</a>
+            <NavLink to={PATH.projects}>Dự Án</NavLink>
           </li>
           <li>
-            <a href="./course-list.html">Khóa Học</a>
-          </li>
-          <li>
-            <a href="./project.html">Dự Án</a>
-          </li>
-          <li>
-            <a href="./contact.html">Liên hệ</a>
+            <NavLink to={PATH.contact}>Liên hệ</NavLink>
           </li>
         </ul>
       </nav>
-      <div className="overlay_nav" />
+      <div className="overlay_nav" onClick={handleCloseSidebar} />
     </>
   )
 }

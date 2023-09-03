@@ -1,8 +1,11 @@
-export default function Header() {
+import PATH from '@/constants/path'
+import { Link } from 'react-router-dom'
+
+export default function Header({ handleToggleSidebar }) {
   return (
     <header id="header">
       <div className="wrap">
-        <div className="menu-hambeger">
+        <div className="menu-hamburger" onClick={handleToggleSidebar}>
           <div className="button">
             <span />
             <span />
@@ -10,25 +13,27 @@ export default function Header() {
           </div>
           <span className="text">menu</span>
         </div>
-        <a href="./" className="logo">
-          <img src="/img/logo.svg" alt="logo" />
+        <Link to={PATH.homePage} className="logo">
+          <img src="/img/logo.svg" alt="Spacedev" />
           <h1>Spacedev</h1>
-        </a>
+        </Link>
         <div className="right">
           <div className="have-login">
             <div className="account">
-              <a href="./profile.html" className="info">
-                <div className="name">Đặng Thuyền Vương</div>
+              <div className="info">
+                <Link to={PATH.user.index} className="name">
+                  Đặng Thuyền Vương
+                </Link>
                 <div className="avatar">
                   <img src="/img/avt.png" alt="avt" />
                 </div>
-              </a>
+              </div>
             </div>
             <div className="hamberger" />
             <div className="sub">
-              <a href="#">Khóa học của tôi</a>
-              <a href="#">Thông tin tài khoản</a>
-              <a href="#">Đăng xuất</a>
+              <Link to={PATH.user.index}>Thông tin tài khoản</Link>
+              <Link to={PATH.user.courses}>Khóa học của tôi</Link>
+              <Link to={PATH.user.index}>Đăng xuất</Link>
             </div>
           </div>
           {/* <div class="not-login bg-none">
