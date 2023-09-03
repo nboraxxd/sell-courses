@@ -1,4 +1,8 @@
+import useScrollTop from '@/hook/useScrollTop'
+
 export default function HomePage() {
+  useScrollTop()
+
   return (
     <>
       <main id="main">
