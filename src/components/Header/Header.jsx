@@ -1,7 +1,12 @@
-import PATH from '@/constants/path'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import PATH from '@/constants/path'
+import { AuthContext } from '@/contexts/auth.context'
 
 export default function Header({ handleToggleSidebar }) {
+  const { user } = useContext(AuthContext)
+
+
   return (
     <header id="header">
       <div className="wrap">
@@ -18,28 +23,35 @@ export default function Header({ handleToggleSidebar }) {
           <h1>Spacedev</h1>
         </Link>
         <div className="right">
-          <div className="have-login">
-            <div className="account">
-              <div className="info">
-                <Link to={PATH.user.index} className="name">
-                  Đặng Thuyền Vương
-                </Link>
-                <div className="avatar">
-                  <img src="/img/avt.png" alt="avt" />
+          {user ? (
+            <div className="have-login">
+              <div className="account">
+                <div className="info">
+                  <Link to={PATH.user.index} className="name">
+                    Đặng Thuyền Vương
+                  </Link>
+                  <div className="avatar">
+                    <img src="/img/avt.png" alt="avt" />
+                  </div>
                 </div>
               </div>
+              <div className="hamberger" />
+              <div className="sub">
+                <Link to={PATH.user.index}>Thông tin tài khoản</Link>
+                <Link to={PATH.user.courses}>Khóa học của tôi</Link>
+                <Link to={PATH.user.index}>Đăng xuất</Link>
+              </div>
             </div>
-            <div className="hamberger" />
-            <div className="sub">
-              <Link to={PATH.user.index}>Thông tin tài khoản</Link>
-              <Link to={PATH.user.courses}>Khóa học của tôi</Link>
-              <Link to={PATH.user.index}>Đăng xuất</Link>
+          ) : (
+            <div className="not-login bg-none">
+              <Link to={PATH.login} className="btn-register">
+                Đăng nhập
+              </Link>
+              <Link to={PATH.register} className="btn main btn-open-login">
+                Đăng ký
+              </Link>
             </div>
-          </div>
-          {/* <div class="not-login bg-none">
-        <a href="#" class="btn-register">Đăng nhập</a>
-        <a href="login.html" class="btn main btn-open-login">Đăng ký</a>
-    </div> */}
+          )}
         </div>
       </div>
       <div className="progress" />
