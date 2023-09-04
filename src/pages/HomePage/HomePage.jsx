@@ -14,16 +14,20 @@ export default function HomePage() {
   useScrollTop()
 
   useEffect(() => {
-    setLoading(true)
-    coursesService
-      .getCourses()
-      .then((response) => response.json())
-      .then((data) => {
-        setCourses(data.data)
-      })
-      .finally(() => {
+    // eslint-disable-next-line no-extra-semi
+    ;(async () => {
+      try {
+        setLoading(true)
+        let response = await coursesService.getCourses()
+        response = await response.json()
+        setCourses(response.data)
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error)
+      } finally {
         setLoading(false)
-      })
+      }
+    })()
   }, [])
 
   return (
