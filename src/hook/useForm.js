@@ -13,8 +13,8 @@ export default function useForm(rules) {
   function register(name) {
     return {
       value: values[name] || '',
-      error: errors[name] || '',
-      onChange: (ev) => setValues((form) => ({ ...form, [name]: ev.target.value })),
+      error: errors[name],
+      onChange: (ev) => setValues((values) => ({ ...values, [name]: ev.target.value })),
     }
   }
 

@@ -1,6 +1,8 @@
 const DEFAULT_ERROR_MESSAGE = {
   required: 'Trường này là bắt buộc',
   regexp: 'Vui lòng điền đúng định dạng',
+  min: (min) => `Trường này phải có tối thiểu ${min} ký tự`,
+  max: (max) => `Trường này chỉ được phép có tối đa ${max} ký tự`,
 }
 
 const REGEXP = {
@@ -18,11 +20,19 @@ export function validate(rules, forms) {
 
   for (const key in rules) {
     for (const rule of rules[key]) {
-      if (rule.required && forms[key]?.trim() === undefined) {
+      if (rule.required && forms[key] === undefined) {
         errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.required
       }
 
-      if (rule.regexp && forms[key]?.trim() !== undefined) {
+      if (rule.min && typeof rule.min === 'number' && forms[key]?.length < rule.min) {
+        errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.min(rule.min)
+      }
+
+      if (rule.max && typeof rule.max === 'number' && forms[key]?.length > rule.max) {
+        errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.max(rule.max)
+      }
+
+      if (rule.regexp && forms[key] !== undefined) {
         let _regexp = rule.regexp
         if (_regexp in REGEXP) {
           _regexp = REGEXP[_regexp]
@@ -50,6 +60,20 @@ export function required(message) {
 export function regexp(pattern, message) {
   return {
     regexp: pattern,
+    message,
+  }
+}
+
+export function min(min, message) {
+  return {
+    min,
+    message,
+  }
+}
+
+export function max(max, message) {
+  return {
+    max,
     message,
   }
 }

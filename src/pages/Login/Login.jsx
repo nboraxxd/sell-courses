@@ -2,28 +2,49 @@ import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import PATH from '@/constants/path'
 import { AuthContext } from '@/contexts/auth.context'
+import { AuthInput } from '@/components/AuthInput'
+import useForm from '@/hook/useForm'
+import { max, min, regexp, required } from '@/utils/validate'
+
+const PASSWORD_MIN_LENGTH = 6
+const PASSWORD_MAX_LENGTH = 32
 
 export default function Login() {
   const { login } = useContext(AuthContext)
+  const { register, errors, isValid, values } = useForm({
+    email: [required('Vui lòng nhập email của bạn'), regexp('email', 'Email chưa đúng định dạng')],
+    password: [
+      required('Vui lòng nhập mật khẩu của bạn'),
+      min(PASSWORD_MIN_LENGTH, `Mật khẩu phải có tối thiểu ${PASSWORD_MIN_LENGTH} ký tự`),
+      max(PASSWORD_MAX_LENGTH, `Mật khẩu chỉ được phép có tối đa ${PASSWORD_MAX_LENGTH} ký tự`),
+    ],
+  })
+
+  function handleOnSubmit(ev) {
+    ev.preventDefault()
+
+    if (isValid() === true) {
+      login()
+    } else {
+      console.log(errors)
+    }
+  }
 
   return (
     <main id="main">
       <div className="auth">
         <div className="wrap">
           {/* login-form */}
-          <form className="ct_login">
-            <h2 className="title">Đăng nhập</h2>
-            <input type="text" placeholder="Địa chỉ Email" />
-            <p className="error !mb-1 mt-[0.125rem] min-h-[1.125rem] text-xs italic text-red-500"></p>
-            <input type="password" placeholder="Mật khẩu" />
-            <p className="error !mb-1 mt-[0.125rem] min-h-[1.125rem] text-xs italic text-red-500"></p>
+          <form className="ct_login" noValidate onSubmit={handleOnSubmit}>
+            <h1 className="title">Đăng nhập</h1>
+            <AuthInput type="email" placeholder="Địa chỉ Email" autoComplete="email" {...register('email')} />
+            <AuthInput
+              type="password"
+              placeholder="Mật khẩu"
+              autoComplete="current-password"
+              {...register('password')}
+            />
             <div className="remember">
-              <label className="btn-remember">
-                <div>
-                  <input type="checkbox" />
-                </div>
-                <p>Nhớ mật khẩu</p>
-              </label>
               <Link to={PATH.resetPassword} className="forget">
                 Quên mật khẩu?
               </Link>

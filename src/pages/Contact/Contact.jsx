@@ -21,13 +21,13 @@ export default function Contact() {
     ev.preventDefault()
 
     if (isValid() === true) {
-      const trimmedValues = { ...values }
-      for (const key in trimmedValues) {
-        if (typeof trimmedValues[key] === 'string') {
-          trimmedValues[key] = trimmedValues[key].trim()
+      const cloneValues = { ...values }
+      for (const key in cloneValues) {
+        if (typeof cloneValues[key] === 'string') {
+          cloneValues[key] = cloneValues[key].trim()
         }
       }
-      console.log('Validate success', trimmedValues)
+      console.log('Validate success', cloneValues)
     } else {
       console.log('Validate error', errors)
     }

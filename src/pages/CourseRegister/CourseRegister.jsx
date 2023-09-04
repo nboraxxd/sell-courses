@@ -32,10 +32,10 @@ export default function CourseRegister() {
     ev.preventDefault()
 
     if (isValid() === true) {
-      const trimmedForm = { ...values }
-      for (const key in trimmedForm) {
-        if (typeof trimmedForm[key] === 'string') {
-          trimmedForm[key] = trimmedForm[key].trim()
+      const cloneValues = { ...values }
+      for (const key in cloneValues) {
+        if (typeof cloneValues[key] === 'string') {
+          cloneValues[key] = cloneValues[key].trim()
         }
       }
       setIsSuccess(true)
