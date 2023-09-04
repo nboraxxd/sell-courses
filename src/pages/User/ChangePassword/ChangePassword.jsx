@@ -1,6 +1,6 @@
 export default function ChangePassword() {
   return (
-    <div className="tab4">
+    <div className="tab1">
       <label>
         <p>
           Mật khẩu cũ<span>*</span>

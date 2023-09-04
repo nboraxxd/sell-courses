@@ -4,8 +4,7 @@ import PATH from '@/constants/path'
 import { AuthContext } from '@/contexts/auth.context'
 
 export default function Header({ handleToggleSidebar }) {
-  const { user } = useContext(AuthContext)
-
+  const { user, logout } = useContext(AuthContext)
 
   return (
     <header id="header">
@@ -39,7 +38,7 @@ export default function Header({ handleToggleSidebar }) {
               <div className="sub">
                 <Link to={PATH.user.index}>Thông tin tài khoản</Link>
                 <Link to={PATH.user.courses}>Khóa học của tôi</Link>
-                <Link to={PATH.user.index}>Đăng xuất</Link>
+                <button className='w-full' onClick={logout}>Đăng xuất</button>
               </div>
             </div>
           ) : (

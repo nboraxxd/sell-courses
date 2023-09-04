@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import PATH from '@/constants/path'
 import { AuthContext } from '@/contexts/auth.context'
 import { AuthInput } from '@/components/AuthInput'
@@ -11,7 +11,8 @@ const PASSWORD_MAX_LENGTH = 32
 
 export default function Login() {
   const { login } = useContext(AuthContext)
-  const { register, errors, isValid, values } = useForm({
+
+  const { register, errors, isValid } = useForm({
     email: [required('Vui lòng nhập email của bạn'), regexp('email', 'Email chưa đúng định dạng')],
     password: [
       required('Vui lòng nhập mật khẩu của bạn'),

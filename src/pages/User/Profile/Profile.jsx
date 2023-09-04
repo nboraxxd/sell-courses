@@ -31,34 +31,6 @@ export default function Profile() {
         </p>
         <input type="text" placeholder="Skype url" />
       </label>
-      <label>
-        <p />
-        <div className="checkcontainer">
-          Thay đổi mật khẩu
-          {/* Giảm giá còn <span><strong>5.800.000 VND</strong>, còn lại 100 COIN</span> */}
-          {/* Cần ít nhất 200 COIN để giảm giá */}
-          <input type="checkbox" defaultChecked="checked" />
-          <span className="checkmark" />
-        </div>
-      </label>
-      <label>
-        <p>
-          Mật khẩu cũ<span>*</span>
-        </p>
-        <input type="password" placeholder="Mật khẩu cũ" />
-      </label>
-      <label>
-        <p>
-          Mật khẩu mới<span>*</span>
-        </p>
-        <input type="password" placeholder="Mật khẩu mới" />
-      </label>
-      <label>
-        <p>
-          Xác nhận<span>*</span>
-        </p>
-        <input type="password" placeholder="Xác nhận mật khẩu" />
-      </label>
       <div className="btn main rect">LƯU LẠI</div>
     </div>
   )

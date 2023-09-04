@@ -2736,7 +2736,8 @@ button {
   -moz-box-shadow: 4px 6px 10px 0px rgba(0, 0, 0, 0.17);
   box-shadow: 4px 6px 10px 0px rgba(0, 0, 0, 0.17);
 }
-#header .wrap .right .have-login .sub a {
+#header .wrap .right .have-login .sub a,
+#header .wrap .right .have-login .sub button {
   display: block;
   padding: 20px;
   white-space: nowrap;
@@ -2747,7 +2748,8 @@ button {
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
 }
-#header .wrap .right .have-login .sub a:hover {
+#header .wrap .right .have-login .sub a:hover,
+#header .wrap .right .have-login .sub button:hover {
   background: #e0e0e0;
 }
 #header .wrap .right .have-login:hover .sub {

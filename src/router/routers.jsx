@@ -12,9 +12,10 @@ import Register from '@/pages/Register/Register'
 import { Login } from '@/pages/Login'
 import { ResetPassword } from '@/pages/ResetPassword'
 import { Page404 } from '@/pages/404'
-import { user } from '@/router/user'
+import { user } from '@/router/user.router'
 import { CourseDetail } from '@/pages/CourseDetail'
 import { CourseRegister } from '@/pages/CourseRegister'
+import { auth } from './auth.router'
 
 export const routers = [
   {
@@ -22,18 +23,9 @@ export const routers = [
     element: <MainLayout />,
     children: [
       { index: true, element: <HomePage /> },
-      {
-        path: PATH.register,
-        element: <Register />,
-      },
-      {
-        path: PATH.login,
-        element: <Login />,
-      },
-      {
-        path: PATH.resetPassword,
-        element: <ResetPassword />,
-      },
+
+      auth,
+
       {
         path: PATH.contact,
         element: <Contact />,
@@ -74,6 +66,7 @@ export const routers = [
         path: PATH.page404,
         element: <Page404 />,
       },
+
       user,
     ],
   },
