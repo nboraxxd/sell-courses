@@ -142,7 +142,7 @@ const courses = [
 
 export const coursesService = {
   getCourses() {
-    return courses
+    return fetch('https://course.spacedev.vn/elearning/v4/courses?page=1&limit=6')
   },
 
   getCourseDetail(id) {

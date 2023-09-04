@@ -1,8 +1,30 @@
+import { CourseCardLoading } from '@/components/CourseCard'
 import { CourseList } from '@/components/CourseList'
+import { Skeleton } from '@/components/Skeleton'
+import PATH from '@/constants/path'
 import useScrollTop from '@/hook/useScrollTop'
+import { coursesService } from '@/services/courses.service'
+import { Fragment, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function HomePage() {
+  const [courses, setCourses] = useState([])
+  const [loading, setLoading] = useState(true)
+
   useScrollTop()
+
+  useEffect(() => {
+    setLoading(true)
+    coursesService
+      .getCourses()
+      .then((response) => response.json())
+      .then((data) => {
+        setCourses(data.data)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [])
 
   return (
     <>
@@ -67,12 +89,23 @@ export default function HomePage() {
                 <h3 className="sub-title">KHOÁ HỌC</h3>
                 <h2 className="main-title">OFFLINE</h2>
               </div>
-              <CourseList />
-
+              {!loading ? (
+                <div className="list row">
+                  {Array.from(Array(6)).map((_, i) => {
+                    return (
+                      <Fragment key={i}>
+                        <CourseCardLoading />
+                      </Fragment>
+                    )
+                  })}
+                </div>
+              ) : (
+                <CourseList courses={courses} />
+              )}
               <div className="flex justify-center">
-                <a href="./course-list.html" className="btn main">
+                <Link to={PATH.courses} className="btn main">
                   Tất cả khoá học
-                </a>
+                </Link>
               </div>
             </div>
           </section>

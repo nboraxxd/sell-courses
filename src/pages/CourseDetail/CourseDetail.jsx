@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, generatePath, useParams } from 'react-router-dom'
 import { formatCurrency, getIdFromParams } from '@/utils/utils'
-import { coursesService } from '@/services/courses'
+import { coursesService } from '@/services/courses.service'
 import PATH from '@/constants/path'
 import useScrollTop from '@/hook/useScrollTop'
 

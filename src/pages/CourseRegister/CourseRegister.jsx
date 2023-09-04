@@ -5,7 +5,7 @@ import { Checkbox } from '@/components/Checkbox'
 import { TextField } from '@/components/TextField'
 import { useParams } from 'react-router-dom'
 import { formatCurrency, getIdFromParams } from '@/utils/utils'
-import { coursesService } from '@/services/courses'
+import { coursesService } from '@/services/courses.service'
 import useScrollTop from '@/hook/useScrollTop'
 
 export default function CourseRegister() {
