@@ -3,8 +3,15 @@ import useForm from '@/hook/useForm'
 import { regexp, required } from '@/utils/validate'
 import { Checkbox } from '@/components/Checkbox'
 import { TextField } from '@/components/TextField'
+import { useParams } from 'react-router-dom'
+import { formatCurrency, getIdFromParams } from '@/utils/utils'
+import { coursesService } from '@/services/courses'
 
 export default function CourseRegister() {
+  const params = useParams()
+  const id = getIdFromParams(params.id)
+  const [courseDetail] = useState(() => coursesService.getCourseDetail(Number(id)))
+
   const [isSuccess, setIsSuccess] = useState(false)
 
   const { register, values, errors, isValid } = useForm({
@@ -57,7 +64,7 @@ export default function CourseRegister() {
           <div className="container">
             <div className="wrap container">
               <div className="main-sub-title">ĐĂNG KÝ</div>
-              <h1 className="main-title">Thực chiến Reactjs Advanced</h1>
+              <h1 className="main-title">{courseDetail.title}</h1>
               <div className="main-info">
                 <div className="date">
                   <strong>Khai giảng:</strong> 15/11/2020
@@ -66,7 +73,8 @@ export default function CourseRegister() {
                   <strong>Thời lượng:</strong> 18 buổi
                 </div>
                 <div className="time">
-                  <strong>Học phí:</strong> 6,000,000 VND
+                  <strong>Học phí:</strong> <span>{formatCurrency(courseDetail.money)}</span>
+                  <span>₫</span>
                 </div>
               </div>
               <form className="form" noValidate onSubmit={handleOnSubmit}>

@@ -13,6 +13,8 @@ import { Login } from '@/pages/Login'
 import { ResetPassword } from '@/pages/ResetPassword'
 import { Page404 } from '@/pages/404'
 import { user } from '@/router/user'
+import { CourseDetail } from '@/pages/CourseDetail'
+import { CourseRegister } from '@/pages/CourseRegister'
 
 export const routers = [
   {
@@ -39,6 +41,14 @@ export const routers = [
       {
         path: PATH.courses,
         element: <Courses />,
+      },
+      {
+        path: PATH.courseDetail,
+        element: <CourseDetail />,
+      },
+      {
+        path: PATH.courseRegister,
+        element: <CourseRegister />,
       },
       {
         path: PATH.team,

@@ -16,7 +16,7 @@ export default function Courses() {
             <div className="col-md-4 course">
               <div className="wrap">
                 <a className="cover" href="./course-detail.html">
-                  <img src="./img/img1.png" alt />
+                  <img src="./img/img1.png" alt="a" />
                 </a>
                 <div className="info">
                   <a className="name" href="./course-detail.html">
@@ -27,7 +27,7 @@ export default function Courses() {
                 <div className="bottom">
                   <div className="teacher">
                     <div className="avatar">
-                      <img src="img/avt.png" alt />
+                      <img src="img/avt.png" alt="a" />
                     </div>
                     <div className="name">Vương Đặng</div>
                   </div>
@@ -40,7 +40,7 @@ export default function Courses() {
             <div className="col-md-4 course">
               <div className="wrap">
                 <a href="./course-detail.html" className="cover">
-                  <img src="./img/img.png" alt />
+                  <img src="./img/img.png" alt="a" />
                 </a>
                 <div className="info">
                   <a className="name" href="./course-detail.html">
@@ -51,7 +51,7 @@ export default function Courses() {
                 <div className="bottom">
                   <div className="teacher">
                     <div className="avatar">
-                      <img src="img/avt.png" alt />
+                      <img src="img/avt.png" alt="a" />
                     </div>
                     <div className="name">Vương Đặng</div>
                   </div>
@@ -64,7 +64,7 @@ export default function Courses() {
             <div className="col-md-4 course">
               <div className="wrap">
                 <a href="./course-detail.html" className="cover">
-                  <img src="./img/img2.png" alt />
+                  <img src="./img/img2.png" alt="a" />
                 </a>
                 <div className="info">
                   <a className="name" href="./course-detail.html">
@@ -75,7 +75,7 @@ export default function Courses() {
                 <div className="bottom">
                   <div className="teacher">
                     <div className="avatar">
-                      <img src="img/avt.png" alt />
+                      <img src="img/avt.png" alt="a" />
                     </div>
                     <div className="name">Vương Đặng</div>
                   </div>
@@ -88,7 +88,7 @@ export default function Courses() {
             <div className="col-md-4 course">
               <div className="wrap">
                 <a href="./course-detail.html" className="cover">
-                  <img src="./img/img3.png" alt />
+                  <img src="./img/img3.png" alt="a" />
                 </a>
                 <div className="info">
                   <a className="name" href="./course-detail.html">
@@ -99,7 +99,7 @@ export default function Courses() {
                 <div className="bottom">
                   <div className="teacher">
                     <div className="avatar">
-                      <img src="img/avt.png" alt />
+                      <img src="img/avt.png" alt="a" />
                     </div>
                     <div className="name">Vương Đặng</div>
                   </div>
@@ -112,7 +112,7 @@ export default function Courses() {
             <div className="col-md-4 course">
               <div className="wrap">
                 <a href="./course-detail.html" className="cover">
-                  <img src="./img/img4.png" alt />
+                  <img src="./img/img4.png" alt="a" />
                 </a>
                 <div className="info">
                   <a href="./course-detail.html" className="name">
@@ -123,7 +123,7 @@ export default function Courses() {
                 <div className="bottom">
                   <div className="teacher">
                     <div className="avatar">
-                      <img src="img/avt.png" alt />
+                      <img src="img/avt.png" alt="a" />
                     </div>
                     <div className="name">Vương Đặng</div>
                   </div>
@@ -136,7 +136,7 @@ export default function Courses() {
             <div className="col-md-4 course">
               <div className="wrap">
                 <a href="./course-detail.html" className="cover">
-                  <img src="./img/img5.png" alt />
+                  <img src="./img/img5.png" alt="a" />
                 </a>
                 <div className="info">
                   <a className="name" href="./course-detail.html">
@@ -147,7 +147,7 @@ export default function Courses() {
                 <div className="bottom">
                   <div className="teacher">
                     <div className="avatar">
-                      <img src="img/avt.png" alt />
+                      <img src="img/avt.png" alt="a" />
                     </div>
                     <div className="name">Vương Đặng</div>
                   </div>

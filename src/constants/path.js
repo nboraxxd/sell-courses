@@ -1,4 +1,5 @@
 const USER_PATH = '/user'
+const COURSES_PATH = '/courses'
 
 const PATH = {
   homePage: '/',
@@ -6,6 +7,8 @@ const PATH = {
   login: '/login',
   resetPassword: '/reset-password',
   courses: '/courses',
+  courseDetail: COURSES_PATH + '/:id',
+  courseRegister: '/register/:id',
   team: '/team',
   projects: '/projects',
   contact: '/contact',
