@@ -6,8 +6,10 @@ import organizationService from '@/services/organization.service'
 import { regexp, required } from '@/utils/validate'
 import useForm from '@/hook/useForm'
 import { TextField } from '@/components/TextField'
+import { Button } from '@/components/Button'
 
 export default function Contact() {
+  const [isLoading, setIsLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
 
   const { values, register, isValid, resetValues } = useForm({
@@ -29,6 +31,7 @@ export default function Contact() {
 
     try {
       if (isValid() === true) {
+        setIsLoading(true)
         const cloneValues = { ...values }
         for (const key in cloneValues) {
           if (typeof cloneValues[key] === 'string') {
@@ -45,6 +48,8 @@ export default function Contact() {
       }
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -56,7 +61,7 @@ export default function Contact() {
             <div className="contain">
               <div className="main-title">Liên hệ thành công</div>
               <p>
-                Thông tin liên hệ của bạn đã được gởi, chúng tôi sẽ chủ động liên lạc với bạn trong thời gian sớm nhất.
+                Thông tin liên hệ của bạn đã được gửi, chúng tôi sẽ chủ động liên lạc với bạn trong thời gian sớm nhất.
                 Cảm ơn bạn đã tin tưởng và ủng hộ Spacedev.
               </p>
             </div>
@@ -89,7 +94,9 @@ export default function Contact() {
                 {...register('content')}
                 render={(props) => <textarea {...props} cols={30} rows={10} />}
               />
-              <button className="btn main rect">đăng ký</button>
+              <Button disabled={isLoading} isLoading={isLoading}>
+                Gửi liên hệ
+              </Button>
             </form>
           </section>
         )}
