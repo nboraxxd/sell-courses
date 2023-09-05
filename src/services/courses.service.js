@@ -1,3 +1,5 @@
+import { COURSE_API } from '@/utils/api'
+
 const courses = [
   {
     id: 17,
@@ -142,7 +144,7 @@ const courses = [
 
 export const coursesService = {
   getCourses() {
-    return fetch('https://course.spacedev.vn/elearning/v4/courses?page=1&limit=6')
+    return fetch(`${COURSE_API}/courses?page=1&limit=6`)
   },
 
   getCourseDetail(id) {

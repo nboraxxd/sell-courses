@@ -93,7 +93,7 @@ export default function HomePage() {
                 <h3 className="sub-title">KHOÁ HỌC</h3>
                 <h2 className="main-title">OFFLINE</h2>
               </div>
-              {!loading ? (
+              {loading ? (
                 <div className="list row">
                   {Array.from(Array(6)).map((_, i) => {
                     return (

@@ -12,8 +12,8 @@ export default function useForm(rules) {
 
   function register(name) {
     return {
-      value: values[name] || '',
       error: errors[name],
+      value: values[name] || '',
       onChange: (ev) => setValues((values) => ({ ...values, [name]: ev.target.value })),
     }
   }
@@ -25,10 +25,15 @@ export default function useForm(rules) {
     return Object.keys(errorObject).length === 0
   }
 
+  function resetValues() {
+    setValues({})
+  }
+
   return {
     values,
     errors,
     register,
     isValid,
+    resetValues,
   }
 }

@@ -20,7 +20,7 @@ export function validate(rules, forms) {
 
   for (const key in rules) {
     for (const rule of rules[key]) {
-      if (rule.required && forms[key] === undefined) {
+      if (rule.required && Boolean(forms[key]?.trim()) === false) {
         errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.required
       }
 
@@ -32,8 +32,8 @@ export function validate(rules, forms) {
         errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.max(rule.max)
       }
 
-      if (rule.regexp && forms[key] !== undefined) {
-        let _regexp = rule.regexp
+      let _regexp = rule.regexp
+      if (_regexp !== undefined && Boolean(forms[key]?.trim()) === true) {
         if (_regexp in REGEXP) {
           _regexp = REGEXP[_regexp]
         } else if (_regexp instanceof RegExp === false) {

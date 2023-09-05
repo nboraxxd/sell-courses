@@ -1,12 +1,13 @@
 import { TextField } from '@/components/TextField'
 import useForm from '@/hook/useForm'
+import organizationService from '@/services/organization.service'
 import { regexp, required } from '@/utils/validate'
 
 export default function Contact() {
-  const { values, errors, register, isValid } = useForm({
+  const { values, register, isValid, resetValues } = useForm({
     name: [required('Vui lòng nhập họ và tên của bạn')],
     email: [required('Vui lòng nhập email của bạn'), regexp('email', 'Email chưa đúng định dạng')],
-    phone: [required('Vui lòng nhập số điện thoại của bạn', regexp('phone', 'Số điện thoại chưa đúng định dạng'))],
+    phone: [required('Vui lòng nhập số điện thoại của bạn'), regexp('phone', 'Số điện thoại chưa đúng định dạng')],
     website: [
       regexp(
         /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/,
@@ -17,19 +18,25 @@ export default function Contact() {
     content: [required('Vui lòng nhập nội dung liên hệ')],
   })
 
-  function handleOnSubmit(ev) {
+  async function handleOnSubmit(ev) {
     ev.preventDefault()
 
-    if (isValid() === true) {
-      const cloneValues = { ...values }
-      for (const key in cloneValues) {
-        if (typeof cloneValues[key] === 'string') {
-          cloneValues[key] = cloneValues[key].trim()
+    try {
+      if (isValid() === true) {
+        const cloneValues = { ...values }
+        for (const key in cloneValues) {
+          if (typeof cloneValues[key] === 'string') {
+            cloneValues[key] = cloneValues[key].trim()
+          }
+        }
+
+        const response = await organizationService.contact(cloneValues)
+        if (response.data.success === true) {
+          resetValues()
         }
       }
-      console.log('Validate success', cloneValues)
-    } else {
-      console.log('Validate error', errors)
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -37,7 +44,7 @@ export default function Contact() {
     <main id="main">
       <div className="register-course">
         <section className="section-1 wrap container">
-          <h2 className="main-title">HỢP TÁC CÙNG Spacedev</h2>
+          <h1 className="main-title">HỢP TÁC CÙNG SPACEDEV</h1>
           <p className="top-des">
             Đừng ngần ngại liên hệ với <strong>Spacedev</strong> để cùng nhau tạo ra những sản phẩm giá trị, cũng như
             việc hợp tác với các đối tác tuyển dụng và công ty trong và ngoài nước.
