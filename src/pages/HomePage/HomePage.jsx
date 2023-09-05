@@ -1,6 +1,5 @@
 import { CourseCardLoading } from '@/components/CourseCard'
 import { CourseList } from '@/components/CourseList'
-import { Skeleton } from '@/components/Skeleton'
 import PATH from '@/constants/path'
 import useScrollTop from '@/hook/useScrollTop'
 import { coursesService } from '@/services/courses.service'
@@ -22,7 +21,6 @@ export default function HomePage() {
         response = await response.json()
         setCourses(response.data)
       } catch (error) {
-        // eslint-disable-next-line no-console
         console.log(error)
       } finally {
         setLoading(false)

@@ -1,9 +1,15 @@
-import { TextField } from '@/components/TextField'
-import useForm from '@/hook/useForm'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { toast } from 'sonner'
+import PATH from '@/constants/path'
 import organizationService from '@/services/organization.service'
 import { regexp, required } from '@/utils/validate'
+import useForm from '@/hook/useForm'
+import { TextField } from '@/components/TextField'
 
 export default function Contact() {
+  const [isSuccess, setIsSuccess] = useState(false)
+
   const { values, register, isValid, resetValues } = useForm({
     name: [required('Vui lòng nhập họ và tên của bạn')],
     email: [required('Vui lòng nhập email của bạn'), regexp('email', 'Email chưa đúng định dạng')],
@@ -32,6 +38,8 @@ export default function Contact() {
 
         const response = await organizationService.contact(cloneValues)
         if (response.data.success === true) {
+          toast.success('Bạn đã gởi liên hệ thành công!')
+          setIsSuccess(true)
           resetValues()
         }
       }
@@ -43,33 +51,48 @@ export default function Contact() {
   return (
     <main id="main">
       <div className="register-course">
-        <section className="section-1 wrap container">
-          <h1 className="main-title">HỢP TÁC CÙNG SPACEDEV</h1>
-          <p className="top-des">
-            Đừng ngần ngại liên hệ với <strong>Spacedev</strong> để cùng nhau tạo ra những sản phẩm giá trị, cũng như
-            việc hợp tác với các đối tác tuyển dụng và công ty trong và ngoài nước.
-          </p>
-          <form className="form" onSubmit={handleOnSubmit} noValidate>
-            {/* Name Input */}
-            <TextField label="Họ và tên" required placeholder="Họ và tên của bạn" {...register('name')} />
-            {/* Phone Input */}
-            <TextField label="Số điện thoại" required placeholder="Số điện thoại của bạn" {...register('phone')} />
-            {/* Email Input */}
-            <TextField label="Email" required type="email" placeholder="Email của bạn" {...register('email')} />
-            {/* Website Input */}
-            <TextField label="Website" placeholder="Đường dẫn website http://" {...register('website')} />
-            {/* Contact Title Input */}
-            <TextField label="Tiêu đề" required placeholder="Tiêu đề liên hệ" {...register('title')} />
-            {/* Contact Content Textarea */}
-            <TextField
-              label="Nội dung"
-              required
-              {...register('content')}
-              render={(props) => <textarea {...props} cols={30} rows={10} />}
-            />
-            <button className="btn main rect">đăng ký</button>
-          </form>
-        </section>
+        {isSuccess ? (
+          <div className="register-success">
+            <div className="contain">
+              <div className="main-title">Liên hệ thành công</div>
+              <p>
+                Thông tin liên hệ của bạn đã được gởi, chúng tôi sẽ chủ động liên lạc với bạn trong thời gian sớm nhất.
+                Cảm ơn bạn đã tin tưởng và ủng hộ Spacedev.
+              </p>
+            </div>
+            <Link to={PATH.homePage} className="btn main rect">
+              về trang chủ
+            </Link>
+          </div>
+        ) : (
+          <section className="section-1 wrap container">
+            <h1 className="main-title">HỢP TÁC CÙNG SPACEDEV</h1>
+            <p className="top-des">
+              Đừng ngần ngại liên hệ với <strong>Spacedev</strong> để cùng nhau tạo ra những sản phẩm giá trị, cũng như
+              việc hợp tác với các đối tác tuyển dụng và công ty trong và ngoài nước.
+            </p>
+            <form className="form" onSubmit={handleOnSubmit} noValidate>
+              {/* Name Input */}
+              <TextField label="Họ và tên" required placeholder="Họ và tên của bạn" {...register('name')} />
+              {/* Phone Input */}
+              <TextField label="Số điện thoại" required placeholder="Số điện thoại của bạn" {...register('phone')} />
+              {/* Email Input */}
+              <TextField label="Email" required type="email" placeholder="Email của bạn" {...register('email')} />
+              {/* Website Input */}
+              <TextField label="Website" placeholder="Đường dẫn website http://" {...register('website')} />
+              {/* Contact Title Input */}
+              <TextField label="Tiêu đề" required placeholder="Tiêu đề liên hệ" {...register('title')} />
+              {/* Contact Content Textarea */}
+              <TextField
+                label="Nội dung"
+                required
+                {...register('content')}
+                render={(props) => <textarea {...props} cols={30} rows={10} />}
+              />
+              <button className="btn main rect">đăng ký</button>
+            </form>
+          </section>
+        )}
       </div>
     </main>
   )
