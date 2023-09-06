@@ -1,4 +1,35 @@
+import { Fragment, useEffect, useState } from 'react'
+import useScrollTop from '@/hook/useScrollTop'
+import { CourseCardLoading } from '@/components/CourseCard'
+import { CourseList } from '@/components/CourseList'
+import useQueryParams from '@/hook/useQueryParams'
+import coursesService from '@/services/courses.service'
+import { Pagination } from '@/pages/Courses'
+
 export default function Courses() {
+  useScrollTop()
+
+  const [courses, setCourses] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  const queryParams = useQueryParams()
+
+  useEffect(() => {
+    // eslint-disable-next-line no-extra-semi
+    ;(async () => {
+      try {
+        setIsLoading(true)
+        const response = await coursesService.getCourses(queryParams.page, queryParams.limit)
+
+        setCourses(response.data)
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setIsLoading(false)
+      }
+    })()
+  }, [queryParams.limit, queryParams.page])
+
   return (
     <main id="main">
       <section className="section-1">
@@ -13,166 +44,18 @@ export default function Courses() {
             <h2 className="main-title">OFFLINE</h2>
           </div>
           <div className="list row">
-            <div className="col-md-4 course">
-              <div className="wrap">
-                <a className="cover" href="./course-detail.html">
-                  <img src="./img/img1.png" alt="a" />
-                </a>
-                <div className="info">
-                  <a className="name" href="./course-detail.html">
-                    Reactjs Advanced
-                  </a>
-                  <p className="des">One of the best corporate fashion brands in Sydney</p>
-                </div>
-                <div className="bottom">
-                  <div className="teacher">
-                    <div className="avatar">
-                      <img src="img/avt.png" alt="a" />
-                    </div>
-                    <div className="name">Vương Đặng</div>
-                  </div>
-                  <a href="/register.html" className="register-btn">
-                    6,000,000 đ
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4 course">
-              <div className="wrap">
-                <a href="./course-detail.html" className="cover">
-                  <img src="./img/img.png" alt="a" />
-                </a>
-                <div className="info">
-                  <a className="name" href="./course-detail.html">
-                    React JS
-                  </a>
-                  <p className="des">One of the best corporate fashion brands in Sydney</p>
-                </div>
-                <div className="bottom">
-                  <div className="teacher">
-                    <div className="avatar">
-                      <img src="img/avt.png" alt="a" />
-                    </div>
-                    <div className="name">Vương Đặng</div>
-                  </div>
-                  <a href="/register.html" className="register-btn">
-                    6,000,000 đ
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4 course">
-              <div className="wrap">
-                <a href="./course-detail.html" className="cover">
-                  <img src="./img/img2.png" alt="a" />
-                </a>
-                <div className="info">
-                  <a className="name" href="./course-detail.html">
-                    Devops
-                  </a>
-                  <p className="des">One of the best corporate fashion brands in Sydney</p>
-                </div>
-                <div className="bottom">
-                  <div className="teacher">
-                    <div className="avatar">
-                      <img src="img/avt.png" alt="a" />
-                    </div>
-                    <div className="name">Vương Đặng</div>
-                  </div>
-                  <a href="/register.html" className="register-btn">
-                    6,000,000 đ
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4 course">
-              <div className="wrap">
-                <a href="./course-detail.html" className="cover">
-                  <img src="./img/img3.png" alt="a" />
-                </a>
-                <div className="info">
-                  <a className="name" href="./course-detail.html">
-                    Lập trình Nodejs
-                  </a>
-                  <p className="des">One of the best corporate fashion brands in Sydney</p>
-                </div>
-                <div className="bottom">
-                  <div className="teacher">
-                    <div className="avatar">
-                      <img src="img/avt.png" alt="a" />
-                    </div>
-                    <div className="name">Vương Đặng</div>
-                  </div>
-                  <a href="/register.html" className="register-btn">
-                    6,000,000 đ
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4 course">
-              <div className="wrap">
-                <a href="./course-detail.html" className="cover">
-                  <img src="./img/img4.png" alt="a" />
-                </a>
-                <div className="info">
-                  <a href="./course-detail.html" className="name">
-                    HTML, CSS, JS Cơ bản
-                  </a>
-                  <p className="des">One of the best corporate fashion brands in Sydney</p>
-                </div>
-                <div className="bottom">
-                  <div className="teacher">
-                    <div className="avatar">
-                      <img src="img/avt.png" alt="a" />
-                    </div>
-                    <div className="name">Vương Đặng</div>
-                  </div>
-                  <a href="/register.html" className="register-btn">
-                    6,000,000 đ
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4 course">
-              <div className="wrap">
-                <a href="./course-detail.html" className="cover">
-                  <img src="./img/img5.png" alt="a" />
-                </a>
-                <div className="info">
-                  <a className="name" href="./course-detail.html">
-                    Web Responsive
-                  </a>
-                  <p className="des">One of the best corporate fashion brands in Sydney</p>
-                </div>
-                <div className="bottom">
-                  <div className="teacher">
-                    <div className="avatar">
-                      <img src="img/avt.png" alt="a" />
-                    </div>
-                    <div className="name">Vương Đặng</div>
-                  </div>
-                  <a href="/register.html" className="register-btn">
-                    6,000,000 đ
-                  </a>
-                </div>
-              </div>
-            </div>
+            {isLoading === true ? (
+              Array.from(Array(6)).map((_, i) => (
+                <Fragment key={i}>
+                  <CourseCardLoading />
+                </Fragment>
+              ))
+            ) : (
+              <CourseList courses={courses.data} />
+            )}
           </div>
           <div className="mt-10 flex justify-end">
-            <div className="paginate">
-              <a href="#" className="prev">
-                Trang trước
-              </a>
-              <a href="#" className="item active">
-                1
-              </a>
-              <a href="#" className="item">
-                2
-              </a>
-              <a href="#" className="next">
-                Trang sau
-              </a>
-            </div>
+            <Pagination totalPage={courses.paginate?.totalPage} queryParams={queryParams} />
           </div>
         </div>
       </section>

@@ -18,7 +18,7 @@ export default function CourseCardLoading() {
           </p>
         </div>
         <div className="bottom" style={{ borderColor: 'transparent' }}>
-          <div className="teacher">
+          <div className="teacher" style={{ borderColor: 'transparent' }}>
             <div className="avatar">
               <Skeleton shap="circle" height={36} width={36} />
             </div>

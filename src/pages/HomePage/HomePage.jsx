@@ -1,14 +1,14 @@
-import { CourseCardLoading } from '@/components/CourseCard'
-import { CourseList } from '@/components/CourseList'
-import PATH from '@/constants/path'
-import useScrollTop from '@/hook/useScrollTop'
-import { coursesService } from '@/services/courses.service'
 import { Fragment, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import PATH from '@/constants/path'
+import coursesService from '@/services/courses.service'
+import useScrollTop from '@/hook/useScrollTop'
+import { CourseList } from '@/components/CourseList'
+import { CourseCardLoading } from '@/components/CourseCard'
 
 export default function HomePage() {
   const [courses, setCourses] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
 
   useScrollTop()
 
@@ -16,14 +16,13 @@ export default function HomePage() {
     // eslint-disable-next-line no-extra-semi
     ;(async () => {
       try {
-        setLoading(true)
-        let response = await coursesService.getCourses()
-        response = await response.json()
-        setCourses(response.data)
+        setIsLoading(true)
+        const response = await coursesService.getCourses()
+        setCourses(response.data.data)
       } catch (error) {
         console.log(error)
       } finally {
-        setLoading(false)
+        setIsLoading(false)
       }
     })()
   }, [])
@@ -91,7 +90,7 @@ export default function HomePage() {
                 <h3 className="sub-title">KHOÁ HỌC</h3>
                 <h2 className="main-title">OFFLINE</h2>
               </div>
-              {loading ? (
+              {isLoading ? (
                 <div className="list row">
                   {Array.from(Array(6)).map((_, i) => {
                     return (

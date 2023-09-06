@@ -1,4 +1,5 @@
 import { COURSE_API } from '@/utils/api'
+import axios from 'axios'
 
 const courses = [
   {
@@ -142,12 +143,17 @@ const courses = [
   },
 ]
 
-export const coursesService = {
-  getCourses() {
-    return fetch('https://course.spacedev.vn/elearning/v4/courses?page=1&limit=6')
+const DEFAULT_PAGE = 1
+const DEFAULT_LIMIT = 6
+
+const coursesService = {
+  getCourses(page = DEFAULT_PAGE, limit = DEFAULT_LIMIT) {
+    return axios.get(`${COURSE_API}/courses?page=${page}&limit=${limit}`)
   },
 
   getCourseDetail(id) {
     return courses.find((course) => course.id === id)
   },
 }
+
+export default coursesService
