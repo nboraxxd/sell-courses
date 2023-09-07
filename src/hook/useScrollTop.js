@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const useScrollTop = (dependencyList = []) => {
+export default function useScrollTop(dependencyList = []) {
   useEffect(() => {
     window.scroll({
       top: 0,
@@ -9,5 +9,3 @@ const useScrollTop = (dependencyList = []) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencyList)
 }
-
-export default useScrollTop

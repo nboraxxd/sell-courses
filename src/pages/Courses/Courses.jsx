@@ -7,12 +7,11 @@ import coursesService from '@/services/courses.service'
 import { Pagination } from '@/pages/Courses'
 
 export default function Courses() {
-  useScrollTop()
+  const queryParams = useQueryParams()
+  useScrollTop([queryParams.limit, queryParams.page])
 
   const [courses, setCourses] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-
-  const queryParams = useQueryParams()
 
   useEffect(() => {
     // eslint-disable-next-line no-extra-semi
