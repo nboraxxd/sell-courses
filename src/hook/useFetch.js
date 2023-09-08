@@ -4,6 +4,7 @@ export default function (promise, dependencyList = []) {
   const [error, setError] = useState()
   const [status, setStatus] = useState('idle')
   const [data, setData] = useState()
+  console.log(dependencyList)
 
   useEffect(() => {
     // eslint-disable-next-line no-extra-semi

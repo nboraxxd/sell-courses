@@ -151,7 +151,7 @@ const coursesService = {
   },
 
   getCourseDetail(id) {
-    return courses.find((course) => course.id === id)
+    return api.get(`${COURSE_API}/courses/${id}`)
   },
 }
 

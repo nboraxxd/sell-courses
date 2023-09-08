@@ -1,21 +1,32 @@
-import { useState } from 'react'
 import { Link, generatePath, useParams } from 'react-router-dom'
+import useScrollTop from '@/hook/useScrollTop'
+import useFetch from '@/hook/useFetch'
 import PATH from '@/constants/path'
 import coursesService from '@/services/courses.service'
 import { formatCurrency, getIdFromParams } from '@/utils/utils'
-import useScrollTop from '@/hook/useScrollTop'
+import { Page404 } from '@/pages/404'
+import CourseDetailLoading from './CourseDetailLoading'
 
 export default function CourseDetail() {
   useScrollTop()
   const params = useParams()
   const id = getIdFromParams(params.id)
-  const [courseDetail] = useState(() => coursesService.getCourseDetail(Number(id)))
+
+  const courseDetailService = useFetch(() => coursesService.getCourseDetail(id), [id])
+  const courseDetail = courseDetailService.data?.data
+  console.log('🔥 ~ CourseDetail ~ courseDetailService:', courseDetail)
 
   const courseRegisterPath = generatePath(PATH.courseRegister, {
-    id: `${courseDetail.slug}-id${courseDetail.id}`,
+    id: `${courseDetail?.slug}-id${courseDetail?.id}`,
   })
 
-  return (
+  if (courseDetailService.status === 'pending' || courseDetailService.status === 'idle') {
+    return <CourseDetailLoading />
+  }
+
+  return courseDetailService.status === 'successful' && courseDetail === null ? (
+    <Page404 desc='Không tìm thấy khoá học' to={PATH.courses} linkText='Danh sách khóa học' />
+  ) : (
     <main id="main">
       <div className="course-detail">
         <section className="banner style2" style={{ '--background': '#cde6fb' }}>
@@ -55,7 +66,7 @@ export default function CourseDetail() {
             <p className="des">{courseDetail.long_description}</p>
             <h2 className="title">giới thiệu về khóa học</h2>
             <div className="cover">
-              <img src={courseDetail.thumbnailUrl} alt={courseDetail.title} />
+              <img src={courseDetail?.thumbnailUrl} alt={courseDetail?.title} />
             </div>
             <h3 className="title">nội dung khóa học</h3>
             <div className="accordion">

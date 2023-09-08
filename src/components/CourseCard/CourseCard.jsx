@@ -4,7 +4,7 @@ import { Link, generatePath } from 'react-router-dom'
 ;('tensp-id:id')
 
 export default function CourseCard({ course }) {
-  const CourseDetailPath = generatePath(PATH.courseDetail, {
+  const courseDetailPath = generatePath(PATH.courseDetail, {
     id: `${course.slug}-id${course.id}`,
   })
 
@@ -15,11 +15,11 @@ export default function CourseCard({ course }) {
   return (
     <div className="col-md-4 course">
       <div className="wrap">
-        <Link className="cover" to={CourseDetailPath}>
+        <Link className="cover" to={courseDetailPath}>
           <img src={course.thumbnailUrl} alt={course.title} />
         </Link>
         <div className="info">
-          <Link className="name" to={CourseDetailPath}>
+          <Link className="name" to={courseDetailPath}>
             {course.title}
           </Link>
           <p className="des">{course.short_description}</p>
