@@ -1,31 +1,17 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment } from 'react'
 import { Link } from 'react-router-dom'
+import useScrollTop from '@/hook/useScrollTop'
+import useFetch from '@/hook/useFetch'
 import PATH from '@/constants/path'
 import coursesService from '@/services/courses.service'
-import useScrollTop from '@/hook/useScrollTop'
 import { CourseList } from '@/components/CourseList'
 import { CourseCardLoading } from '@/components/CourseCard'
 
 export default function HomePage() {
-  const [courses, setCourses] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-
   useScrollTop()
 
-  useEffect(() => {
-    // eslint-disable-next-line no-extra-semi
-    ;(async () => {
-      try {
-        setIsLoading(true)
-        const response = await coursesService.getCourses()
-        setCourses(response.data.data)
-      } catch (error) {
-        console.log(error)
-      } finally {
-        setIsLoading(false)
-      }
-    })()
-  }, [])
+  const { status, data } = useFetch(coursesService.getCourses, [coursesService.getCourses])
+  const courses = data?.data
 
   return (
     <>
@@ -90,7 +76,7 @@ export default function HomePage() {
                 <h3 className="sub-title">KHOÁ HỌC</h3>
                 <h2 className="main-title">OFFLINE</h2>
               </div>
-              {isLoading ? (
+              {status === 'pending' || status === 'idle' ? (
                 <div className="list row">
                   {Array.from(Array(6)).map((_, i) => {
                     return (

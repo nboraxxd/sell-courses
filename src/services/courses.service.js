@@ -1,5 +1,4 @@
-import { COURSE_API } from '@/utils/api'
-import axios from 'axios'
+import { COURSE_API, api } from '@/utils/api'
 
 const courses = [
   {
@@ -148,7 +147,7 @@ const DEFAULT_LIMIT = 6
 
 const coursesService = {
   getCourses(page = DEFAULT_PAGE, limit = DEFAULT_LIMIT) {
-    return axios.get(`${COURSE_API}/courses?page=${page}&limit=${limit}`)
+    return api.get(`${COURSE_API}/courses?page=${page}&limit=${limit}`)
   },
 
   getCourseDetail(id) {

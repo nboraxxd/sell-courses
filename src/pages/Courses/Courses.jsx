@@ -1,33 +1,17 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment } from 'react'
 import useScrollTop from '@/hook/useScrollTop'
+import useQueryParams from '@/hook/useQueryParams'
+import useFetch from '@/hook/useFetch'
+import coursesService from '@/services/courses.service'
 import { CourseCardLoading } from '@/components/CourseCard'
 import { CourseList } from '@/components/CourseList'
-import useQueryParams from '@/hook/useQueryParams'
-import coursesService from '@/services/courses.service'
 import { Pagination } from '@/pages/Courses'
 
 export default function Courses() {
   const queryParams = useQueryParams()
   useScrollTop([queryParams.limit, queryParams.page])
 
-  const [courses, setCourses] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    // eslint-disable-next-line no-extra-semi
-    ;(async () => {
-      try {
-        setIsLoading(true)
-        const response = await coursesService.getCourses(queryParams.page, queryParams.limit)
-
-        setCourses(response.data)
-      } catch (error) {
-        console.log(error)
-      } finally {
-        setIsLoading(false)
-      }
-    })()
-  }, [queryParams.limit, queryParams.page])
+  const { status, data: courses } = useFetch(coursesService.getCourses, [queryParams.limit, queryParams.page])
 
   return (
     <main id="main">
@@ -43,7 +27,7 @@ export default function Courses() {
             <h2 className="main-title">OFFLINE</h2>
           </div>
           <div className="list row">
-            {isLoading === true ? (
+            {status === 'pending' || status === 'idle' ? (
               Array.from(Array(6)).map((_, i) => (
                 <Fragment key={i}>
                   <CourseCardLoading />
@@ -54,7 +38,7 @@ export default function Courses() {
             )}
           </div>
           <div className="mt-10 flex justify-end">
-            <Pagination totalPage={courses.paginate?.totalPage} queryParams={queryParams} />
+            <Pagination totalPage={courses?.paginate.totalPage} queryParams={queryParams} />
           </div>
         </div>
       </section>

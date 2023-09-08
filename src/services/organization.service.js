@@ -1,9 +1,8 @@
-import { ORGANIZATION } from '@/utils/api'
-import axios from 'axios'
+import { ORGANIZATION, api } from '@/utils/api'
 
 const organizationService = {
   contact(body) {
-    return axios.post(`${ORGANIZATION}/contact`, body)
+    return api.post(`${ORGANIZATION}/contact`, body)
   },
 }
 

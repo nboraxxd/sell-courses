@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export default function (promise) {
-  const [isLoading, setIsLoading] = useState(true)
+export default function (promise, dependencyList = []) {
   const [error, setError] = useState()
   const [status, setStatus] = useState('idle')
   const [data, setData] = useState()
@@ -10,24 +9,21 @@ export default function (promise) {
     // eslint-disable-next-line no-extra-semi
     ;(async () => {
       try {
-        setIsLoading(true)
         setStatus('pending')
 
         const response = await promise()
 
-        setData(response.data)
-        setStatus('success')
+        setData(response)
+        setStatus('successful')
       } catch (err) {
         setError(err)
-        setStatus('error')
-      } finally {
-        setIsLoading(false)
+        setStatus('rejected')
       }
     })()
-  }, [promise])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, dependencyList)
 
   return {
-    isLoading,
     error,
     status,
     data,
