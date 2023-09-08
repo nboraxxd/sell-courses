@@ -1,16 +1,18 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
-import PATH from '@/constants/path'
-import organizationService from '@/services/organization.service'
-import { regexp, required } from '@/utils/validate'
+
+import useScrollTop from '@/hook/useScrollTop'
 import useForm from '@/hook/useForm'
+import useAsync from '@/hook/useAsync'
+import { regexp, required } from '@/utils/validate'
+import organizationService from '@/services/organization.service'
+import PATH from '@/constants/path'
 import { TextField } from '@/components/TextField'
 import { Button } from '@/components/Button'
 
 export default function Contact() {
-  const [isLoading, setIsLoading] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
+  const { status, excute, data } = useAsync(organizationService.contact)
+  useScrollTop([data])
 
   const { values, register, isValid, resetValues } = useForm({
     name: [required('Vui lòng nhập họ và tên của bạn')],
@@ -31,7 +33,6 @@ export default function Contact() {
 
     try {
       if (isValid() === true) {
-        setIsLoading(true)
         const cloneValues = { ...values }
         for (const key in cloneValues) {
           if (typeof cloneValues[key] === 'string') {
@@ -39,25 +40,22 @@ export default function Contact() {
           }
         }
 
-        const response = await organizationService.contact(cloneValues)
-        if (response.data.success === true) {
+        const response = await excute(cloneValues)
+        if (response.success === true) {
           toast.success('Bạn đã gởi liên hệ thành công!')
-          setIsSuccess(true)
           resetValues()
         }
       }
     } catch (error) {
       console.log(error)
-    } finally {
-      setIsLoading(false)
     }
   }
 
   return (
     <main id="main">
       <div className="register-course">
-        {isSuccess ? (
-          <div className="register-success">
+        {status === 'successful' ? (
+          <div className="register-success !my-40">
             <div className="contain">
               <div className="main-title">Liên hệ thành công</div>
               <p>
@@ -94,7 +92,7 @@ export default function Contact() {
                 {...register('content')}
                 render={(props) => <textarea {...props} cols={30} rows={10} />}
               />
-              <Button disabled={isLoading} isLoading={isLoading}>
+              <Button disabled={status === 'pending'} isLoading={status === 'pending'}>
                 Gửi liên hệ
               </Button>
             </form>

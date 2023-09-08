@@ -5469,4 +5469,8 @@ button {
 }
 .auth .wrap .ct_email .btn {
   margin-top: 25px;
+}
+section[aria-label] {
+  padding: 0;
+  position: static;
 } /*# sourceMappingURL=style.min.css.map */

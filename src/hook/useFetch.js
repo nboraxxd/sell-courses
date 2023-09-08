@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 
 export default function (promise, dependencyList = []) {
-  const [error, setError] = useState()
   const [status, setStatus] = useState('idle')
   const [data, setData] = useState()
+  const [error, setError] = useState()
 
   useEffect(() => {
     // eslint-disable-next-line no-extra-semi

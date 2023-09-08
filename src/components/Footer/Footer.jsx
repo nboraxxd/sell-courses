@@ -1,3 +1,6 @@
+import PATH from '@/constants/path'
+import { Link } from 'react-router-dom'
+
 export default function Footer() {
   return (
     <footer id="footer">
@@ -23,16 +26,16 @@ export default function Footer() {
             <nav>
               <ul>
                 <li>
-                  <a href="./">Trang chủ</a>
+                  <Link to={PATH.homePage}>Trang chủ</Link>
                 </li>
                 <li>
-                  <a href="./course-list.html">Khóa Học</a>
+                  <Link to={PATH.courses}>Khóa Học</Link>
                 </li>
                 <li>
-                  <a href="#">Thanh toán</a>
+                  <Link to={PATH.faq}>Câu hỏi thường gặp</Link>
                 </li>
                 <li>
-                  <a href="#">Điều khoản</a>
+                  <Link to={PATH.contact}>Liên hệ</Link>
                 </li>
               </ul>
             </nav>
