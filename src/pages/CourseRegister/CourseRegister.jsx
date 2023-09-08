@@ -7,12 +7,18 @@ import useScrollTop from '@/hook/useScrollTop'
 import useForm from '@/hook/useForm'
 import { Checkbox } from '@/components/Checkbox'
 import { TextField } from '@/components/TextField'
+import useFetch from '@/hook/useFetch'
+import CourseRegisterLoading from './CourseRegisterLoading'
+import { Page404 } from '../404'
+import PATH from '@/constants/path'
 
 export default function CourseRegister() {
-  useScrollTop()
   const params = useParams()
   const id = getIdFromParams(params.id)
-  const [courseDetail] = useState(() => coursesService.getCourseDetail(Number(id)))
+  useScrollTop([id])
+
+  const { data, status } = useFetch(() => coursesService.getCourseDetail(id))
+  const courseDetail = data?.data
 
   const [isSuccess, setIsSuccess] = useState(false)
 
@@ -44,7 +50,13 @@ export default function CourseRegister() {
     }
   }
 
-  return (
+  if (status === 'idle' || status === 'pending') {
+    return <CourseRegisterLoading />
+  }
+
+  return status === 'successful' && courseDetail === null ? (
+    <Page404 desc="Không tìm thấy khoá học" to={PATH.courses} linkText="Danh sách khóa học" />
+  ) : (
     <main id="main">
       <section className="register-course">
         {isSuccess ? (
