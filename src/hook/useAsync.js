@@ -17,6 +17,7 @@ export default function (promise) {
     } catch (err) {
       setError(err)
       setStatus('rejected')
+      throw err
     }
   }
 

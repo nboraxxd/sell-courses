@@ -3,6 +3,7 @@ const DEFAULT_ERROR_MESSAGE = {
   regexp: 'Vui lòng điền đúng định dạng',
   min: (min) => `Trường này phải có tối thiểu ${min} ký tự`,
   max: (max) => `Trường này chỉ được phép có tối đa ${max} ký tự`,
+  confirm: (field) => `Trường này chưa khớp với trường ${field}`,
 }
 
 const REGEXP = {
@@ -44,6 +45,12 @@ export function validate(rules, forms) {
           errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.regexp
         }
       }
+
+      if (rule.confirm && Boolean(forms[key]?.trim()) === true) {
+        if (forms[key] !== forms[rule.confirm]) {
+          errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.confirm(forms[rule.confirm])
+        }
+      }
     }
   }
 
@@ -74,6 +81,13 @@ export function min(min, message) {
 export function max(max, message) {
   return {
     max,
+    message,
+  }
+}
+
+export function confirm(field, message) {
+  return {
+    confirm: field,
     message,
   }
 }
