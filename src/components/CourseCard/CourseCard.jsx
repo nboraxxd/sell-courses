@@ -27,7 +27,7 @@ export default function CourseCard({ course }) {
         <div className="bottom">
           <div className="teacher">
             <div className="avatar">
-              <img src="img/avt.png" alt="a" />
+              <img src="/img/avt.png" alt="a" />
             </div>
             <div className="name">Vương Đặng</div>
           </div>

@@ -17,7 +17,7 @@ export default function CourseDetailLoading() {
                 <Skeleton height={24} width={200} />
               </div>
             </div>
-            <span className="btn white round">
+            <span className="mt-10 white round">
               <Skeleton height={46} width={140} />
             </span>
           </div>

@@ -6,15 +6,18 @@ import coursesService from '@/services/courses.service'
 import { formatCurrency, getIdFromParams } from '@/utils/utils'
 import { Page404 } from '@/pages/404'
 import CourseDetailLoading from './CourseDetailLoading'
+import { CourseList } from '@/components/CourseList'
 
 export default function CourseDetail() {
-  useScrollTop()
   const params = useParams()
   const id = getIdFromParams(params.id)
+  useScrollTop([id])
 
   const courseDetailService = useFetch(() => coursesService.getCourseDetail(id), [id])
   const courseDetail = courseDetailService.data?.data
-  console.log('🔥 ~ CourseDetail ~ courseDetailService:', courseDetail)
+
+  const coursesRelatedService = useFetch(() => coursesService.getCoursesRelated(id), [id])
+  const coursesRelated = coursesRelatedService.data?.data
 
   const courseRegisterPath = generatePath(PATH.courseRegister, {
     id: `${courseDetail?.slug}-id${courseDetail?.id}`,
@@ -25,7 +28,7 @@ export default function CourseDetail() {
   }
 
   return courseDetailService.status === 'successful' && courseDetail === null ? (
-    <Page404 desc='Không tìm thấy khoá học' to={PATH.courses} linkText='Danh sách khóa học' />
+    <Page404 desc="Không tìm thấy khoá học" to={PATH.courses} linkText="Danh sách khóa học" />
   ) : (
     <main id="main">
       <div className="course-detail">
@@ -66,7 +69,7 @@ export default function CourseDetail() {
             <p className="des">{courseDetail.long_description}</p>
             <h2 className="title">giới thiệu về khóa học</h2>
             <div className="cover">
-              <img src={courseDetail?.thumbnailUrl} alt={courseDetail?.title} />
+              <img src="/img/course-detail-img.png" alt={courseDetail?.title} />
             </div>
             <h3 className="title">nội dung khóa học</h3>
             <div className="accordion">
@@ -196,74 +199,7 @@ export default function CourseDetail() {
               <h3 className="sub-title">Khóa học</h3>
               <h2 className="main-title">Liên quan</h2>
             </div>
-            <div className="list row">
-              <div className="col-md-4 course">
-                <div className="wrap">
-                  <a href="#" className="cover">
-                    <img src="/img/img.png" alt="" />
-                  </a>
-                  <div className="info">
-                    <a className="name" href="#">
-                      Reactjs Advanced
-                    </a>
-                    <p className="des">One of the best corporate fashion brands in Sydney</p>
-                  </div>
-                  <div className="bottom">
-                    <div className="teacher">
-                      <div className="avatar">
-                        <img src="/img/avt.png" alt="" />
-                      </div>
-                      <div className="name">Vương Đặng</div>
-                    </div>
-                    <div className="register-btn">Đăng Ký</div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4 course">
-                <div className="wrap">
-                  <a href="#" className="cover">
-                    <img src="/img/img2.png" alt="" />
-                  </a>
-                  <div className="info">
-                    <a className="name" href="#">
-                      Nodejs Advanced
-                    </a>
-                    <p className="des">One of the best corporate fashion brands in Sydney</p>
-                  </div>
-                  <div className="bottom">
-                    <div className="teacher">
-                      <div className="avatar">
-                        <img src="/img/avt.png" alt="" />
-                      </div>
-                      <div className="name">Vương Đặng</div>
-                    </div>
-                    <div className="register-btn">Đăng Ký</div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-4 course">
-                <div className="wrap">
-                  <a href="#" className="cover">
-                    <img src="/img/img3.png" alt="" />
-                  </a>
-                  <div className="info">
-                    <a className="name" href="#">
-                      Laravel framework
-                    </a>
-                    <p className="des">One of the best corporate fashion brands in Sydney</p>
-                  </div>
-                  <div className="bottom">
-                    <div className="teacher">
-                      <div className="avatar">
-                        <img src="/img/avt.png" alt="" />
-                      </div>
-                      <div className="name">Vương Đặng</div>
-                    </div>
-                    <div className="register-btn">Đăng Ký</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <CourseList courses={coursesRelated} />
           </div>
         </section>
       </div>
