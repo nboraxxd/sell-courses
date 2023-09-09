@@ -1,10 +1,13 @@
 import { AuthInput } from '@/components/AuthInput'
 import { Button } from '@/components/Button'
+import PATH from '@/constants/path'
 import useAsync from '@/hook/useAsync'
 import useForm from '@/hook/useForm'
 import userService from '@/services/user.service'
 import { confirm, max, min, regexp, required } from '@/utils/validate'
+import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
+import { twJoin } from 'tailwind-merge'
 
 const PASSWORD_MIN_LENGTH = 6
 const PASSWORD_MAX_LENGTH = 32
@@ -24,15 +27,23 @@ export default function Register() {
     ],
   })
 
-  const { status, excute } = useAsync(userService.register)
+  const registerService = useAsync(userService.register)
+  const resendEmailService = useAsync(userService.resendEmail)
 
   async function handleOnSubmit(ev) {
     ev.preventDefault()
 
     try {
       if (isValid() === true) {
-        const response = await excute({ username: values.email, name: values.name, password: values.password })
-        console.log(response)
+        const response = await registerService.excute({
+          username: values.email,
+          name: values.name,
+          password: values.password,
+        })
+
+        if (response.success === true) {
+          toast.success(response.message)
+        }
       }
     } catch (error) {
       if (error?.response?.data?.message) {
@@ -41,27 +52,67 @@ export default function Register() {
     }
   }
 
+  async function handleResendEmail() {
+    try {
+      const respoonse = await resendEmailService.excute({ username: values.email })
+      if (respoonse.message) {
+        toast.success(respoonse.message)
+      }
+    } catch (error) {
+      if (error?.response?.status === 400 && error?.response?.data) {
+        toast.error(error.response.data.message)
+      }
+    }
+  }
+
   return (
     <main id="main">
       <div className="auth">
-        <form className="wrap" onSubmit={handleOnSubmit}>
-          <h1 className="title">Đăng ký</h1>
-          <AuthInput type="email" placeholder="Email của bạn" autoComplete="email" {...register('email')} />
-          <AuthInput placeholder="Tên của bạn" autoComplete="off" {...register('name')} />
-          <AuthInput type="password" placeholder="Mật khẩu" autoComplete="new-password" {...register('password')} />
-          <AuthInput
-            type="password"
-            placeholder="Nhập lại mật khẩu"
-            autoComplete="new-password"
-            {...register('confirmPassword')}
-          />
-          <p className="policy">
-            Bằng việc đăng kí, bạn đã đồng ý <a href="#!">Điều khoản bảo mật</a> của Spacedev
-          </p>
-          <Button className="btn-login" isLoading={status === 'pending'} disabled={status === 'pending'}>
-            Đăng ký
-          </Button>
-        </form>
+        {registerService.status === 'successful' ? (
+          <div className="register-success mx-auto my-40 max-w-[43rem] bg-white">
+            <div className="contain p-12 text-center">
+              <h1 className="main-title mb-5 capitalize">Tạo tài khoản thành công</h1>
+              <p className="mb-5">
+                <strong className="text-lg">Bạn vui lòng kiểm tra email để kích hoạt tài khoản.</strong>
+              </p>
+              <button
+                className={twJoin('link', resendEmailService.status === 'pending' && 'cursor-not-allowed opacity-60')}
+                onClick={handleResendEmail}
+              >
+                {resendEmailService.status === 'pending' && (
+                  <span className=" mr-2 inline-block h-[15px] w-[15px] animate-spin rounded-[50%] border-[3px] border-solid border-b-transparent"></span>
+                )}
+                Gửi lại email kích hoạt
+              </button>
+            </div>
+            <Link to={PATH.login} className="btn main rect w-full">
+              Đăng nhập
+            </Link>
+          </div>
+        ) : (
+          <form className="wrap" onSubmit={handleOnSubmit}>
+            <h1 className="title">Đăng ký</h1>
+            <AuthInput type="email" placeholder="Email của bạn" autoComplete="email" {...register('email')} />
+            <AuthInput placeholder="Tên của bạn" autoComplete="off" {...register('name')} />
+            <AuthInput type="password" placeholder="Mật khẩu" autoComplete="new-password" {...register('password')} />
+            <AuthInput
+              type="password"
+              placeholder="Nhập lại mật khẩu"
+              autoComplete="new-password"
+              {...register('confirmPassword')}
+            />
+            <p className="policy">
+              Bằng việc đăng kí, bạn đã đồng ý <a href="#!">Điều khoản bảo mật</a> của Spacedev
+            </p>
+            <Button
+              className="btn-login"
+              isLoading={registerService.status === 'pending'}
+              disabled={registerService.status === 'pending'}
+            >
+              Đăng ký
+            </Button>
+          </form>
+        )}
       </div>
     </main>
   )

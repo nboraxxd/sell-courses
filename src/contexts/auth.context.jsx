@@ -26,7 +26,7 @@ export default function AuthProvider({ children }) {
         setTokenToLS(response.data)
 
         try {
-          const response = await userService.getProfileUserFromLS()
+          const response = await userService.getProfile()
           setProfileUserToLS(response.data)
           setUser(response.data)
           toast.success('Đăng nhập tài khoản thành công')

@@ -5,7 +5,11 @@ const userService = {
     return api.post(`${USER_API}/register`, body)
   },
 
-  getProfileUserFromLS() {
+  resendEmail(body) {
+    return api.post(`${USER_API}/resend-email`, body)
+  },
+
+  getProfile() {
     return api.get(USER_API)
   },
 }
