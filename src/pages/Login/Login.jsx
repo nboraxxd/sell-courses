@@ -12,7 +12,7 @@ const PASSWORD_MAX_LENGTH = 32
 export default function Login() {
   const { login } = useContext(AuthContext)
 
-  const { register, errors, isValid } = useForm({
+  const { register, isValid, values } = useForm({
     email: [required('Vui lòng nhập email của bạn'), regexp('email', 'Email chưa đúng định dạng')],
     password: [
       required('Vui lòng nhập mật khẩu của bạn'),
@@ -25,9 +25,7 @@ export default function Login() {
     ev.preventDefault()
 
     if (isValid() === true) {
-      login()
-    } else {
-      console.log(errors)
+      login({ username: values.email, password: values.password })
     }
   }
 

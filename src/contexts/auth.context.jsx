@@ -1,30 +1,49 @@
-import { createContext, useEffect, useState } from 'react'
+/* eslint-disable no-console */
+import PATH from '@/constants/path'
+import authService from '@/services/auth.service'
+import userService from '@/services/user.service'
+import { clearProfileUserFromLS, clearTokenFromLS, getProfileUserFromLS, setProfileUserToLS, setTokenToLS } from '@/utils/token'
+import { createContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 
 export const AuthContext = createContext({})
 
 export default function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => {
+  const [user, setUser] = useState(getProfileUserFromLS)
+  const navigate = useNavigate()
+
+  async function login(body) {
     try {
-      return JSON.parse(localStorage.getItem('user'))
+      const response = await authService.login(body)
+      if (response.data) {
+        setTokenToLS(response.data)
+        try {
+          const response = await userService.getProfileUserFromLS()
+          setProfileUserToLS(response.data)
+          setUser(response.data)
+          toast.success('Đăng nhập tài khoản thành công')
+          navigate(PATH.user.index)
+        } catch (error) {
+          console.error(error)
+          if (error?.response?.status === 404) {
+            toast.error(error?.message)
+          }
+        }
+      }
     } catch (error) {
-      return null
+      console.error(error)
+      if (error?.response?.data?.message) {
+        toast.error(error.response.data.message)
+      }
     }
-  })
-
-  useEffect(() => {
-    localStorage.setItem('user', JSON.stringify(user))
-  }, [user])
-
-  function login() {
-    setUser({
-      name: 'Dang Thuyen Vuong',
-      avatar: '/img/logo.svg',
-    })
   }
 
   function logout() {
     setUser(null)
-    localStorage.clear('user')
+    clearTokenFromLS()
+    clearProfileUserFromLS()
+    toast.success('Đăng xuất tài khoản thành công')
   }
 
   return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>

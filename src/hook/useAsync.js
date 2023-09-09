@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function (promise) {
+export default function useAsync(promise) {
   const [status, setStatus] = useState('idle')
   const [data, setData] = useState()
   const [error, setError] = useState()
