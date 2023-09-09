@@ -1,21 +1,19 @@
 import PATH from '@/constants/path'
 import { MainLayout } from '@/layouts/MainLayout'
-import { HomePage } from '@/pages/HomePage'
-import { Courses } from '@/pages/Courses'
-import { Team } from '@/pages/Team'
-import { Contact } from '@/pages/Contact'
-import { Projects } from '@/pages/Projects'
-import { FAQ } from '@/pages/FAQ'
-import { Payment } from '@/pages/Payment'
-import { Coin } from '@/pages/Coin'
-import Register from '@/pages/Register/Register'
-import { Login } from '@/pages/Login'
-import { ResetPassword } from '@/pages/ResetPassword'
 import { Page404 } from '@/pages/404'
-import { user } from '@/router/user.router'
+import { Coin } from '@/pages/Coin'
+import { Contact } from '@/pages/Contact'
+import { ContextAPI } from '@/pages/ContextAPI'
 import { CourseDetail } from '@/pages/CourseDetail'
 import { CourseRegister } from '@/pages/CourseRegister'
-import { auth } from './auth.router'
+import { Courses } from '@/pages/Courses'
+import { FAQ } from '@/pages/FAQ'
+import { HomePage } from '@/pages/HomePage'
+import { Payment } from '@/pages/Payment'
+import { Projects } from '@/pages/Projects'
+import { Team } from '@/pages/Team'
+import { user } from '@/router/user.router'
+import { auth } from '@/router/auth.router'
 
 export const routers = [
   {
@@ -68,6 +66,11 @@ export const routers = [
       },
 
       user,
+
+      {
+        path: '/context',
+        element: <ContextAPI />,
+      },
     ],
   },
 ]
