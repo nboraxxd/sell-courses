@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import PATH from '@/constants/path'
 import { AuthContext } from '@/contexts/auth.context'
+import { avatarDefault } from '@/constants/images'
 
 export default function Header({ handleToggleSidebar }) {
   const { user, logout } = useContext(AuthContext)
@@ -27,10 +28,10 @@ export default function Header({ handleToggleSidebar }) {
               <div className="account">
                 <div className="info">
                   <Link to={PATH.user.index} className="name">
-                    Đặng Thuyền Vương
+                    {user.name}
                   </Link>
                   <div className="avatar">
-                    <img src="/img/avt.png" alt="avt" />
+                    <img src={user.avatar || avatarDefault} alt={user.name} />
                   </div>
                 </div>
               </div>
@@ -38,7 +39,9 @@ export default function Header({ handleToggleSidebar }) {
               <div className="sub">
                 <Link to={PATH.user.index}>Thông tin tài khoản</Link>
                 <Link to={PATH.user.courses}>Khóa học của tôi</Link>
-                <button className='w-full' onClick={logout}>Đăng xuất</button>
+                <button className="w-full" onClick={logout}>
+                  Đăng xuất
+                </button>
               </div>
             </div>
           ) : (

@@ -2,7 +2,13 @@
 import PATH from '@/constants/path'
 import authService from '@/services/auth.service'
 import userService from '@/services/user.service'
-import { clearProfileUserFromLS, clearTokenFromLS, getProfileUserFromLS, setProfileUserToLS, setTokenToLS } from '@/utils/token'
+import {
+  clearProfileUserFromLS,
+  clearTokenFromLS,
+  getProfileUserFromLS,
+  setProfileUserToLS,
+  setTokenToLS,
+} from '@/utils/token'
 import { createContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -18,24 +24,30 @@ export default function AuthProvider({ children }) {
       const response = await authService.login(body)
       if (response.data) {
         setTokenToLS(response.data)
+
         try {
           const response = await userService.getProfileUserFromLS()
           setProfileUserToLS(response.data)
           setUser(response.data)
           toast.success('Đăng nhập tài khoản thành công')
-          navigate(PATH.user.index)
+          navigate(PATH.homePage)
+
+          return response.data
         } catch (error) {
-          console.error(error)
           if (error?.response?.status === 404) {
             toast.error(error?.message)
           }
+          console.log(error)
+          throw error
         }
       }
+      return response.data
     } catch (error) {
-      console.error(error)
       if (error?.response?.data?.message) {
         toast.error(error.response.data.message)
       }
+      console.log(error)
+      throw error
     }
   }
 

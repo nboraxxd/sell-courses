@@ -1,3 +1,4 @@
+import { avatarDefault } from '@/constants/images'
 import PATH from '@/constants/path'
 import { AuthContext } from '@/contexts/auth.context'
 import { useContext } from 'react'
@@ -12,7 +13,7 @@ export default function UserLayout() {
         <div className="top-info">
           <div className="avatar">
             {/* <span class="text">H</span> */}
-            <img src={user.avatar} alt="" />
+            <img src={user.avatar || avatarDefault} alt={user.name} />
             <div className="camera" />
           </div>
           <div className="name">{user.name}</div>

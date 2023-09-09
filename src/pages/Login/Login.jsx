@@ -5,6 +5,8 @@ import { AuthContext } from '@/contexts/auth.context'
 import { AuthInput } from '@/components/AuthInput'
 import useForm from '@/hook/useForm'
 import { max, min, regexp, required } from '@/utils/validate'
+import useAsync from '@/hook/useAsync'
+import { Button } from '@/components/Button'
 
 const PASSWORD_MIN_LENGTH = 6
 const PASSWORD_MAX_LENGTH = 32
@@ -21,11 +23,13 @@ export default function Login() {
     ],
   })
 
-  function handleOnSubmit(ev) {
+  const loginService = useAsync(login)
+
+  async function handleOnSubmit(ev) {
     ev.preventDefault()
 
     if (isValid() === true) {
-      login({ username: values.email, password: values.password })
+      await loginService.excute({ username: values.email, password: values.password })
     }
   }
 
@@ -48,7 +52,13 @@ export default function Login() {
                 Quên mật khẩu?
               </Link>
             </div>
-            <button className="btn rect main btn-login">đăng nhập</button>
+            <Button
+              className="btn rect main btn-login"
+              isLoading={loginService.status === 'pending'}
+              disabled={loginService.status === 'pending'}
+            >
+              đăng nhập
+            </Button>
             <div className="text-register">
               <span>Nếu bạn chưa có tài khoản?</span>{' '}
               <Link className="link" to={PATH.register}>
