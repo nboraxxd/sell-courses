@@ -7,11 +7,15 @@ import { formatCurrency, getIdFromParams } from '@/utils/utils'
 import { Page404 } from '@/pages/404'
 import CourseDetailLoading from './CourseDetailLoading'
 import { CourseList } from '@/components/CourseList'
+import { Accordion } from '@/components/Accordion'
+import { useState } from 'react'
 
 export default function CourseDetail() {
   const params = useParams()
   const id = getIdFromParams(params.id)
   useScrollTop([id])
+
+  const [activeAccordion, setActiveAccordion] = useState(-1)
 
   const courseDetailService = useFetch(() => coursesService.getCourseDetail(id), [id])
   const courseDetail = courseDetailService.data?.data
@@ -72,66 +76,21 @@ export default function CourseDetail() {
               <img src="/img/course-detail-img.png" alt={courseDetail?.title} />
             </div>
             <h3 className="title">nội dung khóa học</h3>
-            <div className="accordion">
-              <div className="accordion__title">
-                <div className="date">Ngày 1</div>
-                <h3>Giới thiệu HTML, SEO, BEM.</h3>
-              </div>
-              <div className="content">
-                I&apos;d like to demonstrate a powerful little pattern called “Server-Fetched Partials” that offers some
-                tangible benefits over alternatives like VueJS for simple page interactions.
-              </div>
-            </div>
-            <div className="accordion">
-              <div className="accordion__title">
-                <div className="date">Ngày 2</div>
-                <h3>CSS, CSS3, Flexbox, Grid</h3>
-              </div>
-              <div className="content">
-                I&apos;d like to demonstrate a powerful little pattern called “Server-Fetched Partials” that offers some
-                tangible benefits over alternatives like VueJS for simple page interactions.
-              </div>
-            </div>
-            <div className="accordion">
-              <div className="accordion__title">
-                <div className="date">Ngày 3</div>
-                <h3>Media Queries</h3>
-              </div>
-              <div className="content">
-                I&apos;d like to demonstrate a powerful little pattern called “Server-Fetched Partials” that offers some
-                tangible benefits over alternatives like VueJS for simple page interactions.
-              </div>
-            </div>
-            <div className="accordion">
-              <div className="accordion__title">
-                <div className="date">Ngày 4</div>
-                <h3>Boostrap 4</h3>
-              </div>
-              <div className="content">
-                I&apos;d like to demonstrate a powerful little pattern called “Server-Fetched Partials” that offers some
-                tangible benefits over alternatives like VueJS for simple page interactions.
-              </div>
-            </div>
-            <div className="accordion">
-              <div className="accordion__title">
-                <div className="date">Ngày 5</div>
-                <h3>Thực hành dự án website Landing Page</h3>
-              </div>
-              <div className="content">
-                I&apos;d like to demonstrate a powerful little pattern called “Server-Fetched Partials” that offers some
-                tangible benefits over alternatives like VueJS for simple page interactions.
-              </div>
-            </div>
-            <div className="accordion">
-              <div className="accordion__title">
-                <div className="date">Ngày 6</div>
-                <h3>Cài đặt Grunt và cấu trúc thư mục dự án</h3>
-              </div>
-              <div className="content">
-                I&apos;d like to demonstrate a powerful little pattern called “Server-Fetched Partials” that offers some
-                tangible benefits over alternatives like VueJS for simple page interactions.
-              </div>
-            </div>
+            {courseDetail.content.map((item, index) => {
+              const date = index + 1
+
+              return (
+                <Accordion
+                  key={index}
+                  date={date}
+                  active={activeAccordion === index}
+                  title={item.title}
+                  onClick={() => setActiveAccordion(index)}
+                >
+                  {item.content}
+                </Accordion>
+              )
+            })}
             <h3 className="title">yêu cầu cần có</h3>
             <div className="row row-check">
               <div className="col-md-6">Đã từng học qua HTML, CSS</div>
