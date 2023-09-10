@@ -1,4 +1,5 @@
 import { Accordion } from '@/components/Accordion'
+import useScrollTop from '@/hook/useScrollTop'
 
 const GENERAL_INFO = [
   {
@@ -42,7 +43,9 @@ const _FAQ = [
   },
 ]
 
-export default function FAQ() {
+export default function About() {
+  useScrollTop()
+
   return (
     <main id="main">
       <div className="faqpage">

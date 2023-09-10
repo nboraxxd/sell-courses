@@ -12,7 +12,7 @@ const PATH = {
   team: '/team',
   projects: '/projects',
   contact: '/contact',
-  faq: '/faq',
+  about: '/about',
   payment: '/payment',
   coin: '/coin',
   page404: '*',

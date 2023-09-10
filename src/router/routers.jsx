@@ -7,7 +7,7 @@ import { ContextAPI } from '@/pages/ContextAPI'
 import { CourseDetail } from '@/pages/CourseDetail'
 import { CourseRegister } from '@/pages/CourseRegister'
 import { Courses } from '@/pages/Courses'
-import { FAQ } from '@/pages/FAQ'
+import { About } from '@/pages/About'
 import { HomePage } from '@/pages/HomePage'
 import { Payment } from '@/pages/Payment'
 import { Projects } from '@/pages/Projects'
@@ -49,8 +49,8 @@ export const routers = [
         element: <Projects />,
       },
       {
-        path: PATH.faq,
-        element: <FAQ />,
+        path: PATH.about,
+        element: <About />,
       },
       {
         path: PATH.payment,

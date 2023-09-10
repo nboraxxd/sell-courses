@@ -32,7 +32,7 @@ export default function Footer() {
                   <Link to={PATH.courses}>Khóa Học</Link>
                 </li>
                 <li>
-                  <Link to={PATH.faq}>Câu hỏi thường gặp</Link>
+                  <Link to={PATH.about}>Về chúng tôi</Link>
                 </li>
                 <li>
                   <Link to={PATH.contact}>Liên hệ</Link>
