@@ -3,7 +3,6 @@ import { MainLayout } from '@/layouts/MainLayout'
 import { Page404 } from '@/pages/404'
 import { Coin } from '@/pages/Coin'
 import { Contact } from '@/pages/Contact'
-import { ContextAPI } from '@/pages/ContextAPI'
 import { CourseDetail } from '@/pages/CourseDetail'
 import { CourseRegister } from '@/pages/CourseRegister'
 import { Courses } from '@/pages/Courses'
@@ -14,7 +13,6 @@ import { Projects } from '@/pages/Projects'
 import { Team } from '@/pages/Team'
 import { user } from '@/router/user.router'
 import { auth } from '@/router/auth.router'
-import { Ref } from '@/pages/Ref'
 
 export const routers = [
   {
@@ -67,15 +65,6 @@ export const routers = [
       },
 
       user,
-
-      {
-        path: PATH.context,
-        element: <ContextAPI />,
-      },
-      {
-        path: PATH.ref,
-        element: <Ref />,
-      },
     ],
   },
 ]
