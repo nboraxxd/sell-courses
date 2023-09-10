@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 import useScrollTop from '@/hook/useScrollTop'
 import useFetch from '@/hook/useFetch'
@@ -6,9 +6,11 @@ import PATH from '@/constants/path'
 import coursesService from '@/services/courses.service'
 import { CourseList } from '@/components/CourseList'
 import { CourseCardLoading } from '@/components/CourseCard'
+import { Modal } from '@/components/Modal'
 
 export default function HomePage() {
   useScrollTop()
+  const [isOpenVideoModal, setIsOpenVideoModal] = useState(false)
 
   const { status, data } = useFetch(coursesService.getCourses, [coursesService.getCourses])
   const courses = data?.data
@@ -104,12 +106,29 @@ export default function HomePage() {
                   <h2 className="main-title white textleft">
                     <span>Giá trị Cốt lỗi</span> <br /> tại Spacedev
                   </h2>
-                  <div className="videodif" data-src="video/cfd-video-intro.mp4">
-                    <img src="https://svtech.com.vn/wp-content/uploads/2020/07/dexus-office-space.jpg" alt="" />
+                  <div className="videodif" onClick={() => setIsOpenVideoModal(true)}>
+                    <img
+                      src="https://svtech.com.vn/wp-content/uploads/2020/07/dexus-office-space.jpg"
+                      alt="Video modal thumbnail"
+                    />
                     <div className="play-btn btn-video-intro">
-                      <img src="img/play-icon.svg" alt="" />
+                      <img src="img/play-icon.svg" alt="Play icon" />
                     </div>
                   </div>
+                  <Modal
+                    visible={isOpenVideoModal}
+                    handleCloseVideoModal={() => setIsOpenVideoModal(false)}
+                    maskCloseable
+                  >
+                    <iframe
+                      width="840"
+                      height="472.5"
+                      src="https://www.youtube.com/embed/oTsopKtMS_0?si=azZr4wNAax67UcS2"
+                      title="Free React Course - Setup Project React - Spacedev.vn"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  </Modal>
                   <div className="item" style={{ marginTop: '35px' }}>
                     <h4>Sáng tạo và đơn giản</h4>
                     <p>
