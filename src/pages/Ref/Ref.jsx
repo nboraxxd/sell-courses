@@ -1,3 +1,4 @@
+import { TextField } from '@/components/TextField'
 import { useEffect, useRef } from 'react'
 /**
  *
@@ -15,10 +16,9 @@ export default function Ref() {
   const inputRef = useRef()
 
   useEffect(() => {
-    inputRef.current.focus()
+    console.log(inputRef.current)
   }, [])
 
-  console.log(inputRef.current)
   return (
     <main id="main">
       <div className="register-course">
@@ -29,12 +29,8 @@ export default function Ref() {
             việc hợp tác với các đối tác tuyển dụng và công ty trong và ngoài nước.
           </p>
           <form className="form">
-            <label>
-              <p>
-                Họ và tên<span>*</span>
-              </p>
-              <input ref={inputRef} type="text" placeholder="Họ và tên bạn" />
-            </label>
+            <TextField ref={inputRef} label="Họ và tên" required placeholder="Họ và tên bạn" />
+
             <label>
               <p>Số điện thoại</p>
               <input type="text" placeholder="Số điện thoại" />

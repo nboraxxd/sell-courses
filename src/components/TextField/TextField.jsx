@@ -1,4 +1,6 @@
-export default function TextField({ label, labelStyle = '', required, type = 'text', render, error, ...rest }) {
+import { forwardRef } from 'react'
+
+const TextField = forwardRef(({ label, labelStyle = '', required, type = 'text', render, error, ...rest }, ref) => {
   return (
     <label style={{ ...labelStyle }}>
       <p>
@@ -6,9 +8,11 @@ export default function TextField({ label, labelStyle = '', required, type = 'te
         {required && <span>*</span>}
       </p>
       <div className="grow">
-        {render ? render(rest) : <input type={type} {...rest} />}
+        {render ? render(rest) : <input ref={ref} type={type} {...rest} />}
         <p className="error !mb-1 mt-[0.125rem] min-h-[1.125rem] text-xs italic text-red-500">{error}</p>
       </div>
     </label>
   )
-}
+})
+
+export default TextField
