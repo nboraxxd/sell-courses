@@ -7,7 +7,8 @@ import coursesService from '@/services/courses.service'
 import { CourseList } from '@/components/CourseList'
 import { CourseCardLoading } from '@/components/CourseCard'
 import { Modal } from '@/components/Modal'
-import { Testimonial } from '@/components/Testimonial'
+import { Testimonial } from './components/Testimonial'
+import { TeamGallery } from './components/TeamGallery'
 
 export default function HomePage() {
   useScrollTop()
@@ -99,7 +100,6 @@ export default function HomePage() {
               </div>
             </div>
           </section>
-
           <section className="section-different">
             <div className="container">
               <div className="row">
@@ -166,106 +166,8 @@ export default function HomePage() {
               </div>
             </div>
           </section>
-          {/* <section class="section-3">
-                <div class="container">
-                    <div class="video">
-                        <iframe id="video-intro"
-                            src="https://www.youtube-nocookie.com/embed/6t-MjBazs3o?controls=0&showinfo=0&rel=0&enablejsapi=1&version=3&playerapiid=ytplayer"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen allowscriptaccess="always"></iframe>
-                        <div class="video-src" data-src="video/Spacedev-video-intro.mp4"></div>
-                        <div class="play-btn btn-video-intro">
-                            <img src="img/play-video-btn.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </section> */}
           <Testimonial />
-          <section className="section-gallery">
-            <div className="textbox">
-              <h2 className="main-title">Hình ảnh hoạt động</h2>
-            </div>
-            <div className="list">
-              <div className="item">
-                <div>
-                  <img data-flickity-lazyload="./img/img_team1.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team2.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team3.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team4.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team5.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team6.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team7.jpg" alt="" />
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <img data-flickity-lazyload="./img/img_team8.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team9.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team10.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team11.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team12.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team13.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team14.jpg" alt="" />
-                </div>
-              </div>
-              <div className="item">
-                <div>
-                  <img data-flickity-lazyload="./img/img_team15.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team16.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team17.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team18.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team19.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team20.jpg" alt="" />
-                </div>
-                <div>
-                  <img data-flickity-lazyload="./img/img_team21.jpg" alt="" />
-                </div>
-              </div>
-            </div>
-            <div className="controls">
-              <div className="btn_ctr prev" />
-              <span>Trượt qua</span>
-              <div className="timeline">
-                <div className="process" />
-              </div>
-              <div className="btn_ctr next" />
-            </div>
-          </section>
+          <TeamGallery />
           <section className="section-action">
             <div className="container">
               <h3>Học thử trước khi đăng ký KHOÁ học tại Spacedev?</h3>

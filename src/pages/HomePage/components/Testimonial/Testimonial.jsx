@@ -1,6 +1,5 @@
-/* eslint-disable no-undef */
-import useTestimonialSlider from '@/hook/useTestimonialSlider'
 import { useEffect } from 'react'
+import useTestimonialSlider from '@/hook/useTestimonialSlider'
 
 export default function Testimonial() {
   const { testimonialRef, handleTestimonialSlider } = useTestimonialSlider()
