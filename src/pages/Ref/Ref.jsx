@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 /**
  *
  * Cách 1: Lưu trữ giá trị không bị thay đổi sau mỗi component re-render
@@ -12,18 +12,13 @@ import { useEffect, useRef, useState } from 'react'
  */
 
 export default function Ref() {
-  const [count, setCount] = useState(0)
-  let tempRef = useRef(10)
+  const inputRef = useRef()
 
   useEffect(() => {
-    const countTimeout = setTimeout(() => {
-      setCount((count) => count + 1)
-      tempRef.current = Math.random()
-    }, 1000)
+    inputRef.current.focus()
+  }, [])
 
-    return () => clearTimeout(countTimeout)
-  }, [count])
-
+  console.log(inputRef.current)
   return (
     <main id="main">
       <div className="register-course">
@@ -38,7 +33,7 @@ export default function Ref() {
               <p>
                 Họ và tên<span>*</span>
               </p>
-              <input type="text" placeholder="Họ và tên bạn" />
+              <input ref={inputRef} type="text" placeholder="Họ và tên bạn" />
             </label>
             <label>
               <p>Số điện thoại</p>
@@ -67,9 +62,6 @@ export default function Ref() {
               <textarea cols={30} rows={10} defaultValue="" />
             </label>
             <button className="btn main rect">đăng ký</button>
-            COUNT: {count}
-            <br />
-            TEMP: {tempRef.current}
           </form>
         </section>
       </div>
