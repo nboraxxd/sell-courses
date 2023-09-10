@@ -17,6 +17,7 @@ export default function Ref() {
 
   useEffect(() => {
     console.log(inputRef.current)
+    inputRef.current.setValue('hello world!')
   }, [])
 
   return (

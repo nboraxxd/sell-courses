@@ -53,8 +53,6 @@ export default function Contact() {
     }
   }
 
-  console.log(data)
-
   return (
     <main id="main">
       <div className="register-course">
