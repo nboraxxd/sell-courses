@@ -8,14 +8,11 @@ import { Page404 } from '@/pages/404'
 import CourseDetailLoading from './CourseDetailLoading'
 import { CourseList } from '@/components/CourseList'
 import { Accordion } from '@/components/Accordion'
-import { useState } from 'react'
 
 export default function CourseDetail() {
   const params = useParams()
   const id = getIdFromParams(params.id)
   useScrollTop([id])
-
-  const [activeAccordion, setActiveAccordion] = useState(-1)
 
   const courseDetailService = useFetch(() => coursesService.getCourseDetail(id), [id])
   const courseDetail = courseDetailService.data?.data
@@ -76,21 +73,16 @@ export default function CourseDetail() {
               <img src="/img/course-detail-img.png" alt={courseDetail?.title} />
             </div>
             <h3 className="title">nội dung khóa học</h3>
-            {courseDetail.content.map((item, index) => {
-              const date = index + 1
-
-              return (
-                <Accordion
-                  key={index}
-                  date={date}
-                  active={activeAccordion === index}
-                  title={item.title}
-                  onClick={() => setActiveAccordion(index)}
-                >
-                  {item.content}
-                </Accordion>
-              )
-            })}
+            <Accordion>
+              {courseDetail.content.map((item, index) => {
+                const date = index + 1
+                return (
+                  <Accordion.Content key={index} date={date} title={item.title}>
+                    {item.content}
+                  </Accordion.Content>
+                )
+              })}
+            </Accordion>
             <h3 className="title">yêu cầu cần có</h3>
             <div className="row row-check">
               <div className="col-md-6">Đã từng học qua HTML, CSS</div>

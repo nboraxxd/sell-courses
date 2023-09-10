@@ -1,5 +1,4 @@
 import { Accordion } from '@/components/Accordion'
-import { useState } from 'react'
 
 const GENERAL_INFO = [
   {
@@ -44,9 +43,6 @@ const _FAQ = [
 ]
 
 export default function FAQ() {
-  const [activeInfo, setActiveInfo] = useState(-1)
-  const [activeFAQ, setActiveFAQ] = useState(-1)
-
   return (
     <main id="main">
       <div className="faqpage">
@@ -56,30 +52,23 @@ export default function FAQ() {
             <div className="row">
               <div className="accordion_wrap col-md-8 offset-md-2 col-sm-12">
                 <h2 className="accordion__title-main">Thông tin chung</h2>
-                {GENERAL_INFO.map((item, index) => (
-                  <Accordion
-                    key={item.id}
-                    title={item.title}
-                    active={activeInfo === index}
-                    onClick={() => setActiveInfo(index)}
-                  >
-                    {item.content}
-                  </Accordion>
-                ))}
+                <Accordion>
+                  {GENERAL_INFO.map((item) => (
+                    <Accordion.Content key={item.id} title={item.title}>
+                      {item.content}
+                    </Accordion.Content>
+                  ))}
+                </Accordion>
               </div>
-
               <div className="accordion_wrap col-md-8 offset-md-2 col-sm-12">
                 <h3 className="accordion__title-main">Câu hỏi thường gặp</h3>
-                {_FAQ.map((item, index) => (
-                  <Accordion
-                    key={item.id}
-                    title={item.title}
-                    active={activeFAQ === index}
-                    onClick={() => setActiveFAQ(index)}
-                  >
-                    {item.content}
-                  </Accordion>
-                ))}
+                <Accordion>
+                  {_FAQ.map((item) => (
+                    <Accordion.Content key={item.id} title={item.title}>
+                      {item.content}
+                    </Accordion.Content>
+                  ))}
+                </Accordion>
               </div>
             </div>
           </section>
