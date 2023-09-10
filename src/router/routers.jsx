@@ -14,6 +14,7 @@ import { Projects } from '@/pages/Projects'
 import { Team } from '@/pages/Team'
 import { user } from '@/router/user.router'
 import { auth } from '@/router/auth.router'
+import { Ref } from '@/pages/Ref'
 
 export const routers = [
   {
@@ -68,8 +69,12 @@ export const routers = [
       user,
 
       {
-        path: '/context',
+        path: PATH.context,
         element: <ContextAPI />,
+      },
+      {
+        path: PATH.ref,
+        element: <Ref />,
       },
     ],
   },

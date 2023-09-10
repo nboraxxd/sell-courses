@@ -15,6 +15,8 @@ const PATH = {
   about: '/about',
   payment: '/payment',
   coin: '/coin',
+  context: '/context',
+  ref: '/ref',
   page404: '*',
   user: {
     index: USER_PATH,
