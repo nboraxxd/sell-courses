@@ -22,8 +22,13 @@ export function validate(rules, forms) {
 
   for (const key in rules) {
     for (const rule of rules[key]) {
-      if (rule.required && Boolean(forms[key]?.trim()) === false) {
-        errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.required
+      if (rule.required) {
+        if (
+          (typeof forms[key] === 'boolean' && Boolean(forms[key]) === false) ||
+          (typeof forms[key] !== 'boolean' && Boolean(forms[key]?.trim()) === false)
+        ) {
+          errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.required
+        }
       }
 
       if (
