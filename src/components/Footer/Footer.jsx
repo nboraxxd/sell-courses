@@ -41,10 +41,15 @@ export default function Footer() {
             </nav>
           </div>
         </div>
-        <a href="#" className="back-to-top">
+        <button
+          className="back-to-top"
+          onClick={() => {
+            window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+          }}
+        >
           <div className="line" />
           CUỘN LÊN
-        </a>
+        </button>
       </div>
       <div className="copy-right">
         <div className="container">
