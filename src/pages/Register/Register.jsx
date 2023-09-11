@@ -1,5 +1,6 @@
 import { AuthInput } from '@/components/AuthInput'
 import { Button } from '@/components/Button'
+import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '@/constants/passwordLength'
 import PATH from '@/constants/path'
 import useAsync from '@/hook/useAsync'
 import useForm from '@/hook/useForm'
@@ -9,9 +10,6 @@ import { confirm, max, min, regexp, required } from '@/utils/validate'
 import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
 import { twJoin } from 'tailwind-merge'
-
-const PASSWORD_MIN_LENGTH = 6
-const PASSWORD_MAX_LENGTH = 32
 
 export default function Register() {
   const { register, isValid, values } = useForm({
@@ -38,7 +36,7 @@ export default function Register() {
       if (isValid() === true) {
         const response = await registerService.excute({
           username: values.email,
-          name: values.name,
+          name: values.name.trim(),
           password: values.password,
         })
 

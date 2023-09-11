@@ -4,6 +4,7 @@ const DEFAULT_ERROR_MESSAGE = {
   min: (min) => `Trường này phải có tối thiểu ${min} ký tự`,
   max: (max) => `Trường này chỉ được phép có tối đa ${max} ký tự`,
   confirm: (field) => `Trường này chưa khớp với trường ${field}`,
+  different: (field) => `Trường này không được trùng với ${field}`,
 }
 
 const REGEXP = {
@@ -51,6 +52,12 @@ export function validate(rules, forms) {
           errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.confirm(forms[rule.confirm])
         }
       }
+
+      if (rule.different && Boolean(forms[key]?.trim()) === true) {
+        if (forms[key] === forms[rule.different]) {
+          errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.confirm(forms[rule.different])
+        }
+      }
     }
   }
 
@@ -88,6 +95,13 @@ export function max(max, message) {
 export function confirm(field, message) {
   return {
     confirm: field,
+    message,
+  }
+}
+
+export function different(field, message) {
+  return {
+    different: field,
     message,
   }
 }

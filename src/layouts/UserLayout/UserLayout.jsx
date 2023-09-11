@@ -28,7 +28,7 @@ export default function UserLayout() {
               <NavLink to={PATH.user.changePassword}>Đổi mật khẩu</NavLink>
             </div>
             <div className="tab-content">
-              <Outlet />
+              <Outlet context={{ user }} />
             </div>
           </div>
         </div>

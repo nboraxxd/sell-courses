@@ -16,6 +16,10 @@ const userService = {
   updateProfile(body) {
     return api.patch(USER_API, body)
   },
+
+  changePassword(body) {
+    return api.post(`${USER_API}/change-password`, body)
+  },
 }
 
 export default userService
