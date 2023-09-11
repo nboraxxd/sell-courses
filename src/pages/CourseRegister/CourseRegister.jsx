@@ -22,11 +22,11 @@ export default function CourseRegister() {
 
   const [isSuccess, setIsSuccess] = useState(false)
 
-  const { register, values, errors, isValid } = useForm({
+  const { register, values, isValid } = useForm({
     name: [required('Vui lòng nhập họ và tên của bạn')],
     email: [required('Vui lòng nhập email của bạn'), regexp('email', 'Email chưa đúng định dạng')],
     phone: [required('Vui lòng nhập số điện thoại của bạn'), regexp('phone', 'Số điện thoại chưa đúng định dạng')],
-    facebook: [
+    fb: [
       regexp(
         /(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-.]*\/)*([\w\-.]*)/,
         'Địa chỉ Facebook chưa đúng định dạng',
@@ -45,8 +45,6 @@ export default function CourseRegister() {
         }
       }
       setIsSuccess(true)
-    } else {
-      console.log('Validate error', errors)
     }
   }
 
@@ -102,7 +100,7 @@ export default function CourseRegister() {
                 <TextField label="Số điện thoại" required placeholder="Số điện thoại của bạn" {...register('phone')} />
 
                 {/* Facebook URL */}
-                <TextField label="Địa chỉ Facebook" placeholder="https://www.facebook.com/" {...register('facebook')} />
+                <TextField label="Địa chỉ Facebook" placeholder="https://www.facebook.com/" {...register('fb')} />
 
                 {/* COIN */}
                 <TextField

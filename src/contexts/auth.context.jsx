@@ -2,6 +2,7 @@
 import PATH from '@/constants/path'
 import authService from '@/services/auth.service'
 import userService from '@/services/user.service'
+import { handleError } from '@/utils/handleError'
 import {
   clearProfileUserFromLS,
   clearTokenFromLS,
@@ -9,7 +10,7 @@ import {
   setProfileUserToLS,
   setTokenToLS,
 } from '@/utils/token'
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
@@ -19,6 +20,10 @@ export default function AuthProvider({ children }) {
   const [user, setUser] = useState(getProfileUserFromLS)
   const navigate = useNavigate()
 
+  useEffect(() => {
+    setProfileUserToLS(user || null)
+  }, [user])
+
   async function login(body) {
     try {
       const response = await authService.login(body)
@@ -27,7 +32,6 @@ export default function AuthProvider({ children }) {
 
         try {
           const response = await userService.getProfile()
-          setProfileUserToLS(response.data)
           setUser(response.data)
           toast.success('Đăng nhập tài khoản thành công')
           navigate(PATH.homePage)
@@ -43,10 +47,7 @@ export default function AuthProvider({ children }) {
       }
       return response.data
     } catch (error) {
-      if (error?.response?.data?.message) {
-        toast.error(error.response.data.message)
-      }
-      console.log(error)
+      handleError(error)
       throw error
     }
   }
@@ -58,5 +59,5 @@ export default function AuthProvider({ children }) {
     toast.success('Đăng xuất tài khoản thành công')
   }
 
-  return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ user, setUser, login, logout }}>{children}</AuthContext.Provider>
 }

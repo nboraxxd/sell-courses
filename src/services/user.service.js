@@ -12,6 +12,10 @@ const userService = {
   getProfile() {
     return api.get(USER_API)
   },
+
+  updateProfile(body) {
+    return api.patch(USER_API, body)
+  },
 }
 
 export default userService

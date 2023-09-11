@@ -9,6 +9,7 @@ import organizationService from '@/services/organization.service'
 import PATH from '@/constants/path'
 import { TextField } from '@/components/TextField'
 import { Button } from '@/components/Button'
+import { handleError } from '@/utils/handleError'
 
 export default function Contact() {
   const { status, excute, data } = useAsync(organizationService.contact)
@@ -47,9 +48,7 @@ export default function Contact() {
         }
       }
     } catch (error) {
-      if (error?.response?.data?.message) {
-        toast.error(error?.response?.data?.message)
-      }
+      handleError(error)
     }
   }
 

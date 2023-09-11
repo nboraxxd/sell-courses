@@ -1,8 +1,8 @@
-import { avatarDefault } from '@/constants/images'
-import PATH from '@/constants/path'
-import { AuthContext } from '@/contexts/auth.context'
 import { useContext } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
+import { AuthContext } from '@/contexts/auth.context'
+import PATH from '@/constants/path'
+import { avatarDefault } from '@/constants/images'
 
 export default function UserLayout() {
   const { user } = useContext(AuthContext)
@@ -12,12 +12,10 @@ export default function UserLayout() {
       <section>
         <div className="top-info">
           <div className="avatar">
-            {/* <span class="text">H</span> */}
             <img src={user.avatar || avatarDefault} alt={user.name} />
             <div className="camera" />
           </div>
           <div className="name">{user.name}</div>
-          <p className="des">Thành viên của spacedev từ ngày 20 tháng 10 năm 2022</p>
         </div>
         <div className="container">
           <div className="tab">

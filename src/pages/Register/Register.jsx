@@ -4,6 +4,7 @@ import PATH from '@/constants/path'
 import useAsync from '@/hook/useAsync'
 import useForm from '@/hook/useForm'
 import userService from '@/services/user.service'
+import { handleError } from '@/utils/handleError'
 import { confirm, max, min, regexp, required } from '@/utils/validate'
 import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -46,9 +47,7 @@ export default function Register() {
         }
       }
     } catch (error) {
-      if (error?.response?.data?.message) {
-        toast.error(error.response.data.message)
-      }
+      handleError(error)
     }
   }
 
@@ -59,9 +58,7 @@ export default function Register() {
         toast.success(respoonse.message)
       }
     } catch (error) {
-      if (error?.response?.status === 400 && error?.response?.data) {
-        toast.error(error.response.data.message)
-      }
+      handleError(error)
     }
   }
 
