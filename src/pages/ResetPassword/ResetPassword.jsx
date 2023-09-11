@@ -8,7 +8,12 @@ import useForm from '@/hook/useForm'
 import useQueryParams from '@/hook/useQueryParams'
 import userService from '@/services/user.service'
 import { handleError } from '@/utils/handleError'
-import { clearEmailToResetPasswordFromLS, getEmailToResetPasswordFromLS, setEmailToResetPasswordToLS, setTokenToLS } from '@/utils/token'
+import {
+  clearEmailToResetPasswordFromLS,
+  getEmailToResetPasswordFromLS,
+  setEmailToResetPasswordToLS,
+  setTokenToLS,
+} from '@/utils/token'
 import { confirm, max, min, regexp, required } from '@/utils/validate'
 import { useContext } from 'react'
 import { toast } from 'sonner'
@@ -100,11 +105,16 @@ export default function ResetPassword() {
         )}
 
         {resetPasswordService.status === SERVICE_STATUS.successful && code === undefined && (
-          <div className="wrap !my-[47px] !max-w-[620px]">
-            <h1 className="title">Gửi email lấy lại mật khẩu thành công</h1>
-            <p className="text-center">
-              Chúng tôi đã gửi cho bạn email lấy lại mật khẩu, xin vui lòng kiểm tra email và làm theo hướng dẫn
-            </p>
+          <div className="register-success mx-auto my-40 max-w-[43rem] bg-white">
+            <div className="contain p-12 text-center">
+              <h1 className="title text-2xl font-bold uppercase text-[#db3244]">
+                Gửi email lấy lại mật khẩu thành công
+              </h1>
+              <p className="mt-8 flex flex-col gap-1">
+                <strong className="text-lg">Chúng tôi đã gửi email cho bạn</strong>
+                <strong className="text-lg">Vui lòng kiểm tra email và làm theo hướng dẫn</strong>
+              </p>
+            </div>
           </div>
         )}
 
