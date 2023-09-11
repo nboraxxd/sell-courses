@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import useScrollTop from '@/hook/useScrollTop'
 import useQueryParams from '@/hook/useQueryParams'
 import useFetch from '@/hook/useFetch'
@@ -27,17 +26,15 @@ export default function Courses() {
             <h3 className="sub-title">KHÓA HỌC</h3>
             <h2 className="main-title">OFFLINE</h2>
           </div>
-          <div className="list row">
-            {status === SERVICE_STATUS.pending || status === SERVICE_STATUS.idle ? (
-              Array.from(Array(6)).map((_, i) => (
-                <Fragment key={i}>
-                  <CourseCardLoading />
-                </Fragment>
-              ))
-            ) : (
-              <CourseList courses={courses.data} />
-            )}
-          </div>
+          {status === SERVICE_STATUS.pending || status === SERVICE_STATUS.idle ? (
+            <div className="list row">
+              {Array.from(Array(6)).map((_, i) => (
+                <CourseCardLoading key={i} />
+              ))}
+            </div>
+          ) : (
+            <CourseList courses={courses.data} />
+          )}
           <div className="mt-10 flex justify-end">
             <Pagination totalPage={courses?.paginate.totalPage} queryParams={queryParams} />
           </div>

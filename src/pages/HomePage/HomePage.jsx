@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import useScrollTop from '@/hook/useScrollTop'
 import useFetch from '@/hook/useFetch'
@@ -83,13 +83,9 @@ export default function HomePage() {
               </div>
               {status === SERVICE_STATUS.pending || status === SERVICE_STATUS.idle ? (
                 <div className="list row">
-                  {Array.from(Array(6)).map((_, i) => {
-                    return (
-                      <Fragment key={i}>
-                        <CourseCardLoading />
-                      </Fragment>
-                    )
-                  })}
+                  {Array.from(Array(6)).map((_, i) => (
+                    <CourseCardLoading key={i} />
+                  ))}
                 </div>
               ) : (
                 <CourseList courses={courses} />

@@ -9,6 +9,7 @@ import CourseDetailLoading from './CourseDetailLoading'
 import { CourseList } from '@/components/CourseList'
 import { Accordion } from '@/components/Accordion'
 import { SERVICE_STATUS } from '@/constants/serviceStatus'
+import { CourseCardLoading } from '@/components/CourseCard'
 
 export default function CourseDetail() {
   const params = useParams()
@@ -151,7 +152,16 @@ export default function CourseDetail() {
               <h3 className="sub-title">Khóa học</h3>
               <h2 className="main-title">Liên quan</h2>
             </div>
-            <CourseList courses={coursesRelated} />
+            {coursesRelatedService.status === SERVICE_STATUS.pending ||
+            coursesRelatedService.status === SERVICE_STATUS.idle ? (
+                <div className="list row">
+                  {Array.from(Array(3)).map((_, i) => (
+                    <CourseCardLoading key={i} />
+                  ))}
+                </div>
+              ) : (
+                <CourseList courses={coursesRelated} />
+              )}
           </div>
         </section>
       </div>
