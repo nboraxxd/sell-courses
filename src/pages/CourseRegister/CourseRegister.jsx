@@ -12,6 +12,8 @@ import CourseRegisterLoading from './CourseRegisterLoading'
 import { Page404 } from '@/pages/404'
 import PATH from '@/constants/path'
 import { SERVICE_STATUS } from '@/constants/serviceStatus'
+import { Select } from '@/components/Select'
+import { Button } from '@/components/Button'
 
 export default function CourseRegister() {
   const params = useParams()
@@ -33,6 +35,7 @@ export default function CourseRegister() {
         'Địa chỉ Facebook chưa đúng định dạng',
       ),
     ],
+    payment: [required('Vui lòng chọn hình thức thanh toán')],
   })
 
   function handleOnSubmit(ev) {
@@ -117,15 +120,17 @@ export default function CourseRegister() {
                 {/* Payment */}
                 <TextField
                   label="Hình thức thanh toán"
+                  {...register('payment')}
                   required
                   render={(props) => (
-                    <div className="select" {...props}>
-                      <div className="head">Chuyển khoản</div>
-                      <div className="sub">
-                        <a href="#">Chuyển khoản</a>
-                        <a href="#">Thanh toán tiền mặt</a>
-                      </div>
-                    </div>
+                    <Select
+                      {...props}
+                      placeholder="Hình thức thanh toán"
+                      options={[
+                        { value: 'chuyen-khoan', label: 'Chuyển khoản' },
+                        { value: 'thanh-toan-tien-mat', label: 'Thanh toán tiền mặt' },
+                      ]}
+                    />
                   )}
                 />
 
@@ -135,7 +140,7 @@ export default function CourseRegister() {
                   placeholder="Mong muốn cá nhân và lịch bạn có thể học"
                   {...register('opinion')}
                 />
-                <button className="btn main rect">đăng ký</button>
+                <Button className="btn main rect">đăng ký</Button>
               </form>
             </div>
           </div>

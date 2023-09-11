@@ -1,12 +1,7 @@
-import { useEffect } from 'react'
 import useTestimonialSlider from '@/hook/useTestimonialSlider'
 
 export default function Testimonial() {
-  const { testimonialRef, handleTestimonialSlider } = useTestimonialSlider()
-
-  useEffect(() => {
-    handleTestimonialSlider()
-  }, [handleTestimonialSlider])
+  const testimonialRef = useTestimonialSlider()
 
   return (
     <section className="section-testimonial" ref={testimonialRef}>

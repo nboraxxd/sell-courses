@@ -37,7 +37,7 @@ export default function CourseDetail() {
   }
 
   return courseDetailService.status === SERVICE_STATUS.successful && courseDetail === null ? (
-    <Page404 desc="Không tìm thấy khoá học" to={PATH.courses} linkText="Danh sách khóa học" />
+    <Page404 desc="Không tìm thấy khoá học" to={PATH.courses} linkText="Về trang danh sách khóa học" />
   ) : (
     <main id="main">
       <div className="course-detail">
@@ -149,7 +149,7 @@ export default function CourseDetail() {
               <a
                 className="btn-share btn overlay round btn-icon"
                 href="https://www.facebook.com/spacedev.vn"
-                rel="noopener"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 <img src="/img/facebook.svg" alt="Facebook" />

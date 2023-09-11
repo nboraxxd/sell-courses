@@ -1,12 +1,7 @@
 import useTeamSlider from '@/hook/useTeamSlider'
-import { useEffect } from 'react'
 
 export default function TeamGallery() {
-  const { teamSliderRef, handleTeamSlider } = useTeamSlider()
-
-  useEffect(() => {
-    handleTeamSlider()
-  }, [handleTeamSlider])
+  const teamSliderRef = useTeamSlider()
 
   return (
     <section className="section-gallery" ref={teamSliderRef}>

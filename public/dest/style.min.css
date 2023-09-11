@@ -4990,7 +4990,7 @@ button {
   background: #f8f8f8;
   z-index: 100;
 }
-.register-course .wrap .select .sub a {
+.register-course .wrap .select .sub div {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -5002,8 +5002,9 @@ button {
   width: 100%;
   margin-top: -1px;
   display: block;
+  cursor: pointer;
 }
-.register-course .wrap .select .sub a:hover {
+.register-course .wrap .select .sub div:hover {
   background: #f1f1f1;
 }
 @media screen and (min-width: 320px) and (max-width: 767px) {
