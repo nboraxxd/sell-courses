@@ -46,7 +46,7 @@ export default function Header({ handleToggleSidebar }) {
             </div>
           ) : (
             <div className="not-login bg-none">
-              <Link to={PATH.login} className="btn-register">
+              <Link to={PATH.signin} className="btn-register">
                 Đăng nhập
               </Link>
               <Link to={PATH.register} className="btn main btn-open-login">

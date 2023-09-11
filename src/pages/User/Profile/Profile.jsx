@@ -30,8 +30,8 @@ export default function Profile() {
   async function handleOnSubmit(ev) {
     ev.preventDefault()
 
-    try {
-      if (isValid() === true) {
+    if (isValid() === true) {
+      try {
         const cloneValues = { ...values }
         for (const key in cloneValues) {
           if (typeof cloneValues[key] === 'string') {
@@ -44,9 +44,9 @@ export default function Profile() {
           setUser(response.data)
           toast.success('Cập nhật thông tin thành công')
         }
+      } catch (error) {
+        handleError(error)
       }
-    } catch (error) {
-      handleError(error)
     }
   }
 

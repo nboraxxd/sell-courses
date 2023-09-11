@@ -3,7 +3,7 @@ import { AuthContext } from '@/contexts/auth.context'
 import { Navigate, Outlet } from 'react-router-dom'
 import PATH from '@/constants/path'
 
-export default function PrivateRouter({ redirect = PATH.login }) {
+export default function PrivateRouter({ redirect = PATH.signin }) {
   const { user } = useContext(AuthContext)
 
   return user ? <Outlet /> : <Navigate to={redirect} />

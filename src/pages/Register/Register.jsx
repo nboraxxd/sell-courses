@@ -33,8 +33,8 @@ export default function Register() {
   async function handleOnSubmit(ev) {
     ev.preventDefault()
 
-    try {
-      if (isValid() === true) {
+    if (isValid() === true) {
+      try {
         const response = await registerService.excute({
           username: values.email,
           name: values.name.trim(),
@@ -44,9 +44,9 @@ export default function Register() {
         if (response.success === true) {
           toast.success(response.message)
         }
+      } catch (error) {
+        handleError(error)
       }
-    } catch (error) {
-      handleError(error)
     }
   }
 
@@ -72,7 +72,10 @@ export default function Register() {
                 <strong className="text-lg">Bạn vui lòng kiểm tra email để kích hoạt tài khoản.</strong>
               </p>
               <button
-                className={twJoin('link', resendEmailService.status === SERVICE_STATUS.pending && 'cursor-not-allowed opacity-60')}
+                className={twJoin(
+                  'link',
+                  resendEmailService.status === SERVICE_STATUS.pending && 'cursor-not-allowed opacity-60',
+                )}
                 onClick={handleResendEmail}
               >
                 {resendEmailService.status === SERVICE_STATUS.pending && (
@@ -81,7 +84,7 @@ export default function Register() {
                 Gửi lại email kích hoạt
               </button>
             </div>
-            <Link to={PATH.login} className="btn main rect w-full">
+            <Link to={PATH.signin} className="btn main rect w-full">
               Đăng nhập
             </Link>
           </div>

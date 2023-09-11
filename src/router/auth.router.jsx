@@ -12,7 +12,7 @@ export const auth = {
       element: <Register />,
     },
     {
-      path: PATH.login,
+      path: PATH.signin,
       element: <Login />,
     },
     {

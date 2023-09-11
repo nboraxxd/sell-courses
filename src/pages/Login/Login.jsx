@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import PATH from '@/constants/path'
 import { AuthContext } from '@/contexts/auth.context'
 import { AuthInput } from '@/components/AuthInput'
@@ -14,6 +14,8 @@ const PASSWORD_MAX_LENGTH = 32
 
 export default function Login() {
   const { login } = useContext(AuthContext)
+  const { state } = useLocation()
+  const navigate = useNavigate()
 
   const { register, isValid, values } = useForm({
     email: [required('Vui lòng nhập email của bạn'), regexp('email', 'Email chưa đúng định dạng')],
@@ -31,6 +33,10 @@ export default function Login() {
 
     if (isValid() === true) {
       await loginService.excute({ username: values.email, password: values.password })
+
+      if (state?.redirect) {
+        navigate(state.redirect)
+      }
     }
   }
 

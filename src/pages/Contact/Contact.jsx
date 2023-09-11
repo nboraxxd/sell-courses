@@ -33,8 +33,8 @@ export default function Contact() {
   async function handleOnSubmit(ev) {
     ev.preventDefault()
 
-    try {
-      if (isValid() === true) {
+    if (isValid() === true) {
+      try {
         const cloneValues = { ...values }
         for (const key in cloneValues) {
           if (typeof cloneValues[key] === 'string') {
@@ -47,9 +47,9 @@ export default function Contact() {
           toast.success('Bạn đã gởi liên hệ thành công!')
           resetValues()
         }
+      } catch (error) {
+        handleError(error)
       }
-    } catch (error) {
-      handleError(error)
     }
   }
 

@@ -4,7 +4,7 @@ const COURSES_PATH = '/courses'
 const PATH = {
   homePage: '/',
   register: '/register',
-  login: '/signin',
+  signin: '/signin',
   resetPassword: '/reset-password',
   courses: '/courses',
   courseDetail: COURSES_PATH + '/:id',
