@@ -7,6 +7,7 @@ import useForm from '@/hook/useForm'
 import { max, min, regexp, required } from '@/utils/validate'
 import useAsync from '@/hook/useAsync'
 import { Button } from '@/components/Button'
+import { SERVICE_STATUS } from '@/constants/serviceStatus'
 
 const PASSWORD_MIN_LENGTH = 6
 const PASSWORD_MAX_LENGTH = 32
@@ -54,8 +55,8 @@ export default function Login() {
             </div>
             <Button
               className="btn rect main btn-login"
-              isLoading={loginService.status === 'pending'}
-              disabled={loginService.status === 'pending'}
+              isLoading={loginService.status === SERVICE_STATUS.pending}
+              disabled={loginService.status === SERVICE_STATUS.pending}
             >
               đăng nhập
             </Button>

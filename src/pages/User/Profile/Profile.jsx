@@ -8,6 +8,7 @@ import useForm from '@/hook/useForm'
 import { regexp, required } from '@/utils/validate'
 import { handleError } from '@/utils/handleError'
 import { toast } from 'sonner'
+import { SERVICE_STATUS } from '@/constants/serviceStatus'
 
 export default function Profile() {
   const { user, setUser } = useContext(AuthContext)
@@ -81,8 +82,8 @@ export default function Profile() {
         {...register('fb')}
       />
       <Button
-        disabled={updateProfileService.status === 'pending'}
-        isLoading={updateProfileService.status === 'pending'}
+        disabled={updateProfileService.status === SERVICE_STATUS.pending}
+        isLoading={updateProfileService.status === SERVICE_STATUS.pending}
         className="btn main rect"
       >
         LƯU LẠI

@@ -2,6 +2,7 @@ import { AuthInput } from '@/components/AuthInput'
 import { Button } from '@/components/Button'
 import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '@/constants/passwordLength'
 import PATH from '@/constants/path'
+import { SERVICE_STATUS } from '@/constants/serviceStatus'
 import useAsync from '@/hook/useAsync'
 import useForm from '@/hook/useForm'
 import userService from '@/services/user.service'
@@ -63,7 +64,7 @@ export default function Register() {
   return (
     <main id="main">
       <div className="auth">
-        {registerService.status === 'successful' ? (
+        {registerService.status === SERVICE_STATUS.successful ? (
           <div className="register-success mx-auto my-40 max-w-[43rem] bg-white">
             <div className="contain p-12 text-center">
               <h1 className="main-title mb-5 capitalize">Tạo tài khoản thành công</h1>
@@ -71,10 +72,10 @@ export default function Register() {
                 <strong className="text-lg">Bạn vui lòng kiểm tra email để kích hoạt tài khoản.</strong>
               </p>
               <button
-                className={twJoin('link', resendEmailService.status === 'pending' && 'cursor-not-allowed opacity-60')}
+                className={twJoin('link', resendEmailService.status === SERVICE_STATUS.pending && 'cursor-not-allowed opacity-60')}
                 onClick={handleResendEmail}
               >
-                {resendEmailService.status === 'pending' && (
+                {resendEmailService.status === SERVICE_STATUS.pending && (
                   <span className=" mr-2 inline-block h-[15px] w-[15px] animate-spin rounded-[50%] border-[3px] border-solid border-b-transparent"></span>
                 )}
                 Gửi lại email kích hoạt
@@ -101,8 +102,8 @@ export default function Register() {
             </p>
             <Button
               className="btn-login"
-              isLoading={registerService.status === 'pending'}
-              disabled={registerService.status === 'pending'}
+              isLoading={registerService.status === SERVICE_STATUS.pending}
+              disabled={registerService.status === SERVICE_STATUS.pending}
             >
               Đăng ký
             </Button>

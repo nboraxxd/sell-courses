@@ -6,6 +6,7 @@ import coursesService from '@/services/courses.service'
 import { CourseCardLoading } from '@/components/CourseCard'
 import { CourseList } from '@/components/CourseList'
 import { Pagination } from '@/pages/Courses'
+import { SERVICE_STATUS } from '@/constants/serviceStatus'
 
 export default function Courses() {
   const queryParams = useQueryParams()
@@ -27,7 +28,7 @@ export default function Courses() {
             <h2 className="main-title">OFFLINE</h2>
           </div>
           <div className="list row">
-            {status === 'pending' || status === 'idle' ? (
+            {status === SERVICE_STATUS.pending || status === SERVICE_STATUS.idle ? (
               Array.from(Array(6)).map((_, i) => (
                 <Fragment key={i}>
                   <CourseCardLoading />

@@ -9,8 +9,9 @@ import { Checkbox } from '@/components/Checkbox'
 import { TextField } from '@/components/TextField'
 import useFetch from '@/hook/useFetch'
 import CourseRegisterLoading from './CourseRegisterLoading'
-import { Page404 } from '../404'
+import { Page404 } from '@/pages/404'
 import PATH from '@/constants/path'
+import { SERVICE_STATUS } from '@/constants/serviceStatus'
 
 export default function CourseRegister() {
   const params = useParams()
@@ -48,11 +49,11 @@ export default function CourseRegister() {
     }
   }
 
-  if (status === 'idle' || status === 'pending') {
+  if (status === SERVICE_STATUS.idle || status === SERVICE_STATUS.pending) {
     return <CourseRegisterLoading />
   }
 
-  return status === 'successful' && courseDetail === null ? (
+  return status === SERVICE_STATUS.successful && courseDetail === null ? (
     <Page404 desc="Không tìm thấy khoá học" to={PATH.courses} linkText="Danh sách khóa học" />
   ) : (
     <main id="main">

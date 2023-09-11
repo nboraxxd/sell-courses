@@ -9,6 +9,7 @@ import { CourseCardLoading } from '@/components/CourseCard'
 import { Modal } from '@/components/Modal'
 import { Testimonial } from './components/Testimonial'
 import { TeamGallery } from './components/TeamGallery'
+import { SERVICE_STATUS } from '@/constants/serviceStatus'
 
 export default function HomePage() {
   useScrollTop()
@@ -80,7 +81,7 @@ export default function HomePage() {
                 <h3 className="sub-title">KHOÁ HỌC</h3>
                 <h2 className="main-title">OFFLINE</h2>
               </div>
-              {status === 'pending' || status === 'idle' ? (
+              {status === SERVICE_STATUS.pending || status === SERVICE_STATUS.idle ? (
                 <div className="list row">
                   {Array.from(Array(6)).map((_, i) => {
                     return (

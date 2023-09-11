@@ -8,6 +8,7 @@ import { Page404 } from '@/pages/404'
 import CourseDetailLoading from './CourseDetailLoading'
 import { CourseList } from '@/components/CourseList'
 import { Accordion } from '@/components/Accordion'
+import { SERVICE_STATUS } from '@/constants/serviceStatus'
 
 export default function CourseDetail() {
   const params = useParams()
@@ -24,11 +25,11 @@ export default function CourseDetail() {
     id: `${courseDetail?.slug}-id${courseDetail?.id}`,
   })
 
-  if (courseDetailService.status === 'pending' || courseDetailService.status === 'idle') {
+  if (courseDetailService.status === SERVICE_STATUS.pending || courseDetailService.status === SERVICE_STATUS.idle) {
     return <CourseDetailLoading />
   }
 
-  return courseDetailService.status === 'successful' && courseDetail === null ? (
+  return courseDetailService.status === SERVICE_STATUS.successful && courseDetail === null ? (
     <Page404 desc="Không tìm thấy khoá học" to={PATH.courses} linkText="Danh sách khóa học" />
   ) : (
     <main id="main">
