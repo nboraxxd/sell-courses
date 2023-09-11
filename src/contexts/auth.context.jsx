@@ -31,10 +31,7 @@ export default function AuthProvider({ children }) {
         setTokenToLS(response.data)
 
         try {
-          const response = await userService.getProfile()
-          setUser(response.data)
-          toast.success('Đăng nhập tài khoản thành công')
-          navigate(PATH.homePage)
+          await getProfileUser()
 
           return response.data
         } catch (error) {
@@ -52,6 +49,13 @@ export default function AuthProvider({ children }) {
     }
   }
 
+  async function getProfileUser() {
+    const response = await userService.getProfile()
+    setUser(response.data)
+    toast.success('Đăng nhập tài khoản thành công')
+    navigate(PATH.homePage)
+  }
+
   function logout() {
     setUser(null)
     clearTokenFromLS()
@@ -59,5 +63,7 @@ export default function AuthProvider({ children }) {
     toast.success('Đăng xuất tài khoản thành công')
   }
 
-  return <AuthContext.Provider value={{ user, setUser, login, logout }}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ user, setUser, getProfileUser, login, logout }}>{children}</AuthContext.Provider>
+  )
 }

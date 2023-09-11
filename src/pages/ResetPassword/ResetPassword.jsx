@@ -2,17 +2,20 @@ import { AuthInput } from '@/components/AuthInput'
 import { Button } from '@/components/Button'
 import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '@/constants/passwordLength'
 import { SERVICE_STATUS } from '@/constants/serviceStatus'
+import { AuthContext } from '@/contexts/auth.context'
 import useAsync from '@/hook/useAsync'
 import useForm from '@/hook/useForm'
 import useQueryParams from '@/hook/useQueryParams'
 import userService from '@/services/user.service'
 import { handleError } from '@/utils/handleError'
-import { getEmailToResetPasswordFromLS, setEmailToResetPasswordToLS, setTokenToLS } from '@/utils/token'
+import { clearEmailToResetPasswordFromLS, getEmailToResetPasswordFromLS, setEmailToResetPasswordToLS, setTokenToLS } from '@/utils/token'
 import { confirm, max, min, regexp, required } from '@/utils/validate'
+import { useContext } from 'react'
 import { toast } from 'sonner'
 
 export default function ResetPassword() {
   const { code } = useQueryParams()
+  const { getProfileUser } = useContext(AuthContext)
 
   const resetPasswordForm = useForm({
     email: [required('Vui lòng nhập email của bạn'), regexp('email', 'Email chưa đúng định dạng')],
@@ -33,7 +36,7 @@ export default function ResetPassword() {
   const resetPasswordService = useAsync(userService.resetPassword)
   const changePasswordByCodeService = useAsync(userService.changePasswordByCode)
 
-  async function handleOnSendEmail(ev) {
+  async function onResetPassword(ev) {
     ev.preventDefault()
 
     if (resetPasswordForm.isValid() === true) {
@@ -49,7 +52,7 @@ export default function ResetPassword() {
     }
   }
 
-  async function handleOnResetPassword(ev) {
+  async function onChangePasswordByCode(ev) {
     ev.preventDefault()
 
     if (changePasswordByCodeForm.isValid() === true && code !== undefined) {
@@ -60,8 +63,13 @@ export default function ResetPassword() {
         })
 
         if (response.data) {
-          setTokenToLS(response.data)
-          toast.success('Đặt lại mật khẩu thành công')
+          try {
+            setTokenToLS(response.data)
+            clearEmailToResetPasswordFromLS()
+            await getProfileUser()
+          } catch (error) {
+            handleError(error)
+          }
         }
       } catch (error) {
         handleError(error)
@@ -73,7 +81,7 @@ export default function ResetPassword() {
     <main id="main">
       <div className="auth">
         {resetPasswordService.status !== SERVICE_STATUS.successful && code === undefined && (
-          <form className="wrap" onSubmit={handleOnSendEmail} noValidate>
+          <form className="wrap" onSubmit={onResetPassword} noValidate>
             <h1 className="title">Đặt lại mật khẩu</h1>
             <AuthInput
               type="email"
@@ -101,7 +109,7 @@ export default function ResetPassword() {
         )}
 
         {code !== undefined && (
-          <form className="wrap" onSubmit={handleOnResetPassword} noValidate>
+          <form className="wrap" onSubmit={onChangePasswordByCode} noValidate>
             <h1 className="title">Đặt lại mật khẩu</h1>
             <AuthInput
               type="email"
