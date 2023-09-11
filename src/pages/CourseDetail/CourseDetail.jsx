@@ -10,11 +10,17 @@ import { CourseList } from '@/components/CourseList'
 import { Accordion } from '@/components/Accordion'
 import { SERVICE_STATUS } from '@/constants/serviceStatus'
 import { CourseCardLoading } from '@/components/CourseCard'
+import dayjs from 'dayjs'
+import { Teacher } from '@/pages/CourseDetail'
+import { Modal } from '@/components/Modal'
+import { useState } from 'react'
 
 export default function CourseDetail() {
   const params = useParams()
   const id = getIdFromParams(params.id)
   useScrollTop([id])
+
+  const [isOpenVideoModal, setIsOpenVideoModal] = useState(false)
 
   const courseDetailService = useFetch(() => coursesService.getCourseDetail(id), [id])
   const courseDetail = courseDetailService.data?.data
@@ -35,31 +41,45 @@ export default function CourseDetail() {
   ) : (
     <main id="main">
       <div className="course-detail">
-        <section className="banner style2" style={{ '--background': '#cde6fb' }}>
+        <section className="banner style2" style={{ '--background': courseDetail.template_color_banner || '#cde6fb' }}>
           <div className="container">
             <div className="info">
               <h1>{courseDetail.title}</h1>
               <div className="row">
                 <div className="date">
-                  <strong>Khai giảng:</strong> 12/10/2020
+                  <strong>Khai giảng:</strong> {dayjs(courseDetail.opening_time).format('DD/MM/YYYY')}
                 </div>
                 <div className="time">
-                  <strong>Thời lượng:</strong> 18 buổi
+                  <strong>Thời lượng:</strong> {courseDetail.count_video} buổi
                 </div>
               </div>
-              <Link className="btn white round" style={{ '--color-btn': '#292929' }} to={courseRegisterPath}>
+              <Link
+                className="btn white round"
+                style={{ '--color-btn': courseDetail.template_color_btn || '#292929' }}
+                to={courseRegisterPath}
+              >
                 đăng ký
               </Link>
             </div>
           </div>
           <div className="bottom">
             <div className="container">
-              <div className="video">
+              <button className="video" onClick={() => setIsOpenVideoModal(true)}>
                 <div className="icon">
                   <img src="/img/play-icon-white.png" alt="" />
-                </div>{' '}
+                </div>
                 <span>giới thiệu</span>
-              </div>
+              </button>
+              <Modal visible={isOpenVideoModal} handleCloseVideoModal={() => setIsOpenVideoModal(false)} maskCloseable>
+                <iframe
+                  width="840"
+                  height="472.5"
+                  src="https://www.youtube.com/embed/oTsopKtMS_0?si=azZr4wNAax67UcS2"
+                  title="Free React Course - Setup Project React - Spacedev.vn"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
+              </Modal>
               <div className="money">
                 <span>{formatCurrency(courseDetail.money)}</span>
                 <span>₫</span>
@@ -72,7 +92,7 @@ export default function CourseDetail() {
             <p className="des">{courseDetail.long_description}</p>
             <h2 className="title">giới thiệu về khóa học</h2>
             <div className="cover">
-              <img src="/img/course-detail-img.png" alt={courseDetail?.title} />
+              <img src="/img/course-detail-img.png" alt={courseDetail.title} />
             </div>
             <h3 className="title">nội dung khóa học</h3>
             <Accordion>
@@ -87,62 +107,53 @@ export default function CourseDetail() {
             </Accordion>
             <h3 className="title">yêu cầu cần có</h3>
             <div className="row row-check">
-              <div className="col-md-6">Đã từng học qua HTML, CSS</div>
-              <div className="col-md-6">Cài đặt phần mềm Photoshop, Adobe illustrator, Skype</div>
+              {courseDetail.required.map((e, i) => (
+                <div className="col-md-6" key={i}>
+                  {e.content}
+                </div>
+              ))}
             </div>
             <h3 className="title">hình thức học</h3>
             <div className="row row-check">
-              <div className="col-md-6">Học offline tại văn phòng, cùng Vương Đặng và 3 đồng nghiệp.</div>
-              <div className="col-md-6">Dạy và thực hành thêm bài tập online thông qua Skype.</div>
-              <div className="col-md-6">
-                Được các mentor và các bạn trong team Spacedev hổ trợ thông qua group Spacedev Facebook hoặc phần mềm
-                điều khiển máy tính.
-              </div>
-              <div className="col-md-6">Thực hành 2 dự án thực tế với sự hướng dẫn của Spacedev Team.</div>
+              {courseDetail.benefits.map((e, i) => (
+                <div className="col-md-6" key={i}>
+                  {e.content}
+                </div>
+              ))}
             </div>
             <h3 className="title">
               <div className="date-start">lịch học</div>
               <div className="sub">*Lịch học và thời gian có thể thống nhất lại theo số đông học viên.</div>
             </h3>
             <p>
-              <strong>Ngày bắt đầu: </strong> 09/09/2020 <br />
-              <strong>Thời gian học: </strong> Thứ 3 từ 18h45-21h45, Thứ 7 từ 12h-15h, Chủ nhật từ 15h-18h
+              <strong>Ngày bắt đầu: </strong> {dayjs(courseDetail.opening_time).format('DD/MM/YYYY')} <br />
+              <strong>Thời gian học: </strong> {courseDetail.schedule}
             </p>
             <h3 className="title">Người dạy</h3>
-            <div className="teaches">
-              <div className="teacher">
-                <div className="avatar">
-                  <img src="/img/avt.png" alt="" />
-                </div>
-                <div className="info">
-                  <div className="name">Đặng Thuyền Vương</div>
-                  <div className="title">Founder Spacedev &amp; Fullstack developer</div>
-                  <p className="intro">
-                    My education, career, and even personal life have been molded by one simple principle; well designed
-                    information resonates with people and can change lives.I have a passion for making information
-                    resonate. It all starts with how people think. With how humans work. As humans we have learned how
-                    to read and write and while that is incredible, we are also already hard-wired to do some things a
-                    bit more &quot;automatically&quot;
-                  </p>
-                  <p>
-                    <strong>Website:</strong>{' '}
-                    <a href="#" target="_blank">
-                      https://dangthuyenvuong.github.io/
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </div>
+            <Teacher {...courseDetail.teacher} />
+            {courseDetail.mentor.length > 0 && (
+              <>
+                <h3 className="title">Người hướng dẫn</h3>
+                {courseDetail.mentor.map((item) => (
+                  <Teacher key={item.id} {...item} />
+                ))}
+              </>
+            )}
             <div className="bottom">
               <div className="user">
-                <img src="/img/user-group-icon.png" alt="" /> 12 bạn đã đăng ký
+                <img src="/img/user-group-icon.png" alt="" /> {courseDetail.number_student_default} bạn đã đăng ký
               </div>
-              <a className="btn main btn-register round" href="#!">
+              <Link className="btn main btn-register round" to={courseRegisterPath}>
                 đăng ký
+              </Link>
+              <a
+                className="btn-share btn overlay round btn-icon"
+                href="https://www.facebook.com/spacedev.vn"
+                rel="noopener"
+                target="_blank"
+              >
+                <img src="/img/facebook.svg" alt="Facebook" />
               </a>
-              <div className="btn-share btn overlay round btn-icon">
-                <img src="/img/facebook.svg" alt="" />
-              </div>
             </div>
           </div>
         </section>
@@ -154,14 +165,14 @@ export default function CourseDetail() {
             </div>
             {coursesRelatedService.status === SERVICE_STATUS.pending ||
             coursesRelatedService.status === SERVICE_STATUS.idle ? (
-                <div className="list row">
-                  {Array.from(Array(3)).map((_, i) => (
-                    <CourseCardLoading key={i} />
-                  ))}
-                </div>
-              ) : (
-                <CourseList courses={coursesRelated} />
-              )}
+              <div className="list row">
+                {Array.from(Array(3)).map((_, i) => (
+                  <CourseCardLoading key={i} />
+                ))}
+              </div>
+            ) : (
+              <CourseList courses={coursesRelated} />
+            )}
           </div>
         </section>
       </div>

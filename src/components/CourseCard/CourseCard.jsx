@@ -1,7 +1,6 @@
 import PATH from '@/constants/path'
 import { formatCurrency } from '@/utils/utils'
 import { Link, generatePath } from 'react-router-dom'
-;('tensp-id:id')
 
 export default function CourseCard({ course }) {
   const courseDetailPath = generatePath(PATH.courseDetail, {

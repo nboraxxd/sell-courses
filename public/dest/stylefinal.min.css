@@ -62,7 +62,6 @@ ul {
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   box-sizing: border-box;
   appearance: none;
@@ -1870,15 +1869,7 @@ strong {
   overflow: hidden;
   margin: 0;
 }
-.homepage
-  .section-testimonial
-  .testimonial
-  .testimonial-item
-  .item
-  .images
-  .carousel-cell
-  picture
-  img {
+.homepage .section-testimonial .testimonial .testimonial-item .item .images .carousel-cell picture img {
   min-width: 100%;
   min-height: 100%;
   object-fit: cover;
