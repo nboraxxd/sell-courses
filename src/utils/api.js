@@ -1,5 +1,8 @@
 import axios from 'axios'
-import { getTokenFromLS } from '@/utils/token'
+import { clearProfileUserFromLS, clearTokenFromLS, getTokenFromLS, setTokenToLS } from '@/utils/token'
+import authService from '@/services/auth.service'
+import { useContext } from 'react'
+import { AuthContext } from '@/contexts/auth.context'
 
 export const COURSE_API = import.meta.env.VITE_COURSES_API
 export const ORGANIZATION_API = import.meta.env.VITE_ORGANIZATION_API
@@ -29,7 +32,26 @@ api.interceptors.response.use(
   function (response) {
     return response.data
   },
-  function (error) {
+  async function (error) {
+    if (error.response.status === 403 && error.response.data.error_code === 'TOKEN_EXPIRED') {
+      try {
+        const token = getTokenFromLS()
+
+        const response = await authService.refreshToken({ refreshToken: token.refreshToken })
+        if (response?.data) {
+          setTokenToLS(response.data)
+          return api(error.config)
+        }
+      } catch (error) {
+        const { setUser } = useContext(AuthContext)
+
+        setUser(null)
+        clearTokenFromLS()
+        clearProfileUserFromLS()
+        throw error
+      }
+    }
+
     throw error
   },
 )
