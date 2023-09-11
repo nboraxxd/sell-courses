@@ -16,7 +16,16 @@ export default function CourseCard({ course }) {
     <div className="col-md-4 course">
       <div className="wrap">
         <Link className="cover" to={courseDetailPath}>
-          <img src={course.thumbnailUrl} alt={course.title} />
+          <img
+            src={course.thumbnailUrl}
+            onError={(e) => {
+              if (e.target.src !== '/img/course-detail-img.png') {
+                e.target.onerror = null
+                e.target.src = '/img/course-detail-img.png'
+              }
+            }}
+            alt={course.title}
+          />
         </Link>
         <div className="info">
           <Link className="name" to={courseDetailPath}>
