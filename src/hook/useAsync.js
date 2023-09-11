@@ -1,22 +1,23 @@
 import { useState } from 'react'
+import { SERVICE_STATUS } from '@/constants/serviceStatus'
 
 export default function useAsync(promise) {
-  const [status, setStatus] = useState('idle')
+  const [status, setStatus] = useState(SERVICE_STATUS.idle)
   const [data, setData] = useState()
   const [error, setError] = useState()
 
   async function excute(...body) {
     try {
-      setStatus('pending')
+      setStatus(SERVICE_STATUS.pending)
 
       const response = await promise(...body)
       setData(response)
-      setStatus('successful')
+      setStatus(SERVICE_STATUS.successful)
 
       return response
     } catch (err) {
       setError(err)
-      setStatus('rejected')
+      setStatus(SERVICE_STATUS.rejected)
       throw err
     }
   }

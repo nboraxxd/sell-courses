@@ -10,6 +10,7 @@ import PATH from '@/constants/path'
 import { TextField } from '@/components/TextField'
 import { Button } from '@/components/Button'
 import { handleError } from '@/utils/handleError'
+import { SERVICE_STATUS } from '@/constants/serviceStatus'
 
 export default function Contact() {
   const { status, excute, data } = useAsync(organizationService.contact)
@@ -55,7 +56,7 @@ export default function Contact() {
   return (
     <main id="main">
       <div className="register-course">
-        {status === 'successful' ? (
+        {status === SERVICE_STATUS.successful ? (
           <div className="register-success !my-40">
             <div className="contain">
               <div className="main-title">Liên hệ thành công</div>
@@ -93,7 +94,7 @@ export default function Contact() {
                 {...register('content')}
                 render={(props) => <textarea {...props} cols={30} rows={10} />}
               />
-              <Button disabled={status === 'pending'} isLoading={status === 'pending'}>
+              <Button disabled={status === SERVICE_STATUS.pending} isLoading={status === SERVICE_STATUS.pending}>
                 Gửi liên hệ
               </Button>
             </form>

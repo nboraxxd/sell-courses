@@ -20,6 +20,14 @@ const userService = {
   changePassword(body) {
     return api.post(`${USER_API}/change-password`, body)
   },
+
+  resetPassword(body) {
+    return api.post(`${USER_API}/reset-password`, body)
+  },
+
+  changePasswordByCode(body) {
+    return api.post(`${USER_API}/change-password-by-code`, body)
+  },
 }
 
 export default userService

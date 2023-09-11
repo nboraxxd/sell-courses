@@ -26,11 +26,21 @@ export function validate(rules, forms) {
         errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.required
       }
 
-      if (rule.min && typeof rule.min === 'number' && forms[key]?.length < rule.min) {
+      if (
+        rule.min &&
+        Boolean(forms[key]?.trim()) === true &&
+        typeof rule.min === 'number' &&
+        forms[key]?.length < rule.min
+      ) {
         errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.min(rule.min)
       }
 
-      if (rule.max && typeof rule.max === 'number' && forms[key]?.length > rule.max) {
+      if (
+        rule.max &&
+        Boolean(forms[key]?.trim()) === true &&
+        typeof rule.max === 'number' &&
+        forms[key]?.length > rule.max
+      ) {
         errorObject[key] = rule.message || DEFAULT_ERROR_MESSAGE.max(rule.max)
       }
 

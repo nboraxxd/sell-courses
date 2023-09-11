@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
+import { SERVICE_STATUS } from '@/constants/serviceStatus'
 
 export default function (promise, dependencyList = []) {
-  const [status, setStatus] = useState('idle')
+  const [status, setStatus] = useState(SERVICE_STATUS.idle)
   const [data, setData] = useState()
   const [error, setError] = useState()
 
@@ -9,15 +10,15 @@ export default function (promise, dependencyList = []) {
     // eslint-disable-next-line no-extra-semi
     ;(async () => {
       try {
-        setStatus('pending')
+        setStatus(SERVICE_STATUS.pending)
 
         const response = await promise()
 
         setData(response)
-        setStatus('successful')
+        setStatus(SERVICE_STATUS.successful)
       } catch (err) {
         setError(err)
-        setStatus('rejected')
+        setStatus(SERVICE_STATUS.rejected)
       }
     })()
     // eslint-disable-next-line react-hooks/exhaustive-deps

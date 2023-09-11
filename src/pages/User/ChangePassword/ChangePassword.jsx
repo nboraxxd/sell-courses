@@ -1,15 +1,13 @@
-import { Button } from '@/components/Button'
-import { TextField } from '@/components/TextField'
-import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '@/constants/passwordLength'
-import { AuthContext } from '@/contexts/auth.context'
+import { useOutletContext } from 'react-router-dom'
+import { toast } from 'sonner'
 import useAsync from '@/hook/useAsync'
 import useForm from '@/hook/useForm'
 import userService from '@/services/user.service'
 import { handleError } from '@/utils/handleError'
 import { confirm, different, max, min, required } from '@/utils/validate'
-import { useContext } from 'react'
-import { useOutletContext } from 'react-router-dom'
-import { toast } from 'sonner'
+import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '@/constants/passwordLength'
+import { Button } from '@/components/Button'
+import { TextField } from '@/components/TextField'
 
 export default function ChangePassword() {
   const { user } = useOutletContext()
