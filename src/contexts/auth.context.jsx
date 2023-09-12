@@ -10,7 +10,7 @@ import {
   setProfileUserToLS,
   setTokenToLS,
 } from '@/utils/token'
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
@@ -24,37 +24,43 @@ export default function AuthProvider({ children }) {
     setProfileUserToLS(user || null)
   }, [user])
 
-  async function login(body) {
-    try {
-      const response = await authService.login(body)
-      if (response.data) {
-        setTokenToLS(response.data)
+  const getProfileUser = useCallback(
+    async function () {
+      const response = await userService.getProfile()
+      setUser(response.data)
+      toast.success('Đăng nhập tài khoản thành công')
+      navigate(PATH.homePage)
+    },
+    [navigate],
+  )
 
-        try {
-          await getProfileUser()
+  const login = useCallback(
+    async function (body) {
+      try {
+        const response = await authService.login(body)
+        if (response.data) {
+          setTokenToLS(response.data)
 
-          return response.data
-        } catch (error) {
-          if (error?.response?.status === 404) {
-            toast.error(error?.message)
+          try {
+            await getProfileUser()
+
+            return response.data
+          } catch (error) {
+            if (error?.response?.status === 404) {
+              toast.error(error?.message)
+            }
+            console.log(error)
+            throw error
           }
-          console.log(error)
-          throw error
         }
+        return response.data
+      } catch (error) {
+        handleError(error)
+        throw error
       }
-      return response.data
-    } catch (error) {
-      handleError(error)
-      throw error
-    }
-  }
-
-  async function getProfileUser() {
-    const response = await userService.getProfile()
-    setUser(response.data)
-    toast.success('Đăng nhập tài khoản thành công')
-    navigate(PATH.homePage)
-  }
+    },
+    [getProfileUser],
+  )
 
   function logout() {
     setUser(null)
@@ -63,7 +69,9 @@ export default function AuthProvider({ children }) {
     toast.success('Đăng xuất tài khoản thành công')
   }
 
-  return (
-    <AuthContext.Provider value={{ user, setUser, getProfileUser, login, logout }}>{children}</AuthContext.Provider>
-  )
+  const value = useMemo(() => {
+    return { user, setUser, getProfileUser, login, logout }
+  }, [getProfileUser, login, user])
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

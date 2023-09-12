@@ -1,11 +1,14 @@
 import { useContext } from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { AuthContext } from '@/contexts/auth.context'
 import PATH from '@/constants/path'
 import { avatarDefault } from '@/constants/images'
+import useScrollTop from '@/hook/useScrollTop'
 
 export default function UserLayout() {
   const { user } = useContext(AuthContext)
+  const { pathname } = useLocation()
+  useScrollTop([pathname])
 
   return (
     <main id="main" className="profile">
