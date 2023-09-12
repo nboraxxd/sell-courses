@@ -1,6 +1,7 @@
+import { memo } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-export default function Button({ children, className, isLoading, ...rest }) {
+const Button = memo(function Button({ children, className, isLoading, ...rest }) {
   return (
     <button
       className={twMerge('btn main rect disabled:cursor-not-allowed disabled:opacity-70', className && className)}
@@ -12,4 +13,6 @@ export default function Button({ children, className, isLoading, ...rest }) {
       {children}
     </button>
   )
-}
+})
+
+export default Button

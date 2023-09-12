@@ -101,7 +101,7 @@ export default function Register() {
               {...register('confirmPassword')}
             />
             <p className="policy">
-              Bằng việc đăng kí, bạn đã đồng ý <a href="#!">Điều khoản bảo mật</a> của Spacedev
+              Bằng việc đăng kí, bạn đã đồng ý <Link to={PATH.about}>Điều khoản bảo mật</Link> của Spacedev
             </p>
             <Button
               className="btn-login"

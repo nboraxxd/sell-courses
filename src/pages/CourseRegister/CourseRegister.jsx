@@ -42,7 +42,7 @@ export default function CourseRegister() {
       ],
       payment: [required('Vui lòng chọn hình thức thanh toán')],
     },
-    { email: user.username, name: user.name, fb: user.fb, phone: user.phone },
+    { email: user?.username, name: user?.name, fb: user?.fb, phone: user?.phone },
   )
 
   const courseRegisterService = useAsync(coursesService.courseRegister)

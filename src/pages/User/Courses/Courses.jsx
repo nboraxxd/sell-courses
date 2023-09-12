@@ -9,7 +9,6 @@ import dayjs from 'dayjs'
 export default function Courses() {
   const { data, status } = useFetch(coursesService.getMyCourse)
   const myCoursesData = data?.data
-  console.log('🔥 ~ Courses ~ myCoursesData:', myCoursesData)
 
   if (status === SERVICE_STATUS.pending || status === SERVICE_STATUS.idle) {
     return (
