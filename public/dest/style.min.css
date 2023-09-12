@@ -4081,7 +4081,6 @@ button {
 }
 .profile .tab .tab-content {
   flex: 1;
-  width: 1px;
   margin-left: 30px;
 }
 .profile .tab .tab-content .tab1 {
@@ -4186,6 +4185,7 @@ button {
 }
 .profile .tab .tab-content .tab2 .item {
   display: flex;
+  width: 100%;
   margin-bottom: 30px;
   background: #fff;
 }

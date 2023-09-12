@@ -78,7 +78,7 @@ export default function CourseRegister() {
   }
 
   return CourseDetailService.status === SERVICE_STATUS.successful && courseDetailData === null ? (
-    <Page404 desc="Không tìm thấy khoá học" to={PATH.courses} linkText="Danh sách khóa học" />
+    <Page404 desc="Không tìm thấy khoá học" to={PATH.courses} linkText="Về trang danh sách khóa học" />
   ) : (
     <main id="main">
       <section className="register-course">

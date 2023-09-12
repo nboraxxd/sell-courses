@@ -19,6 +19,10 @@ const coursesService = {
   courseRegister(id, body) {
     return api.post(`${COURSE_API}/register/${id}`, body)
   },
+
+  getMyCourse() {
+    return api.get(`${COURSE_API}/my-course`)
+  },
 }
 
 export default coursesService
