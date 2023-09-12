@@ -1,8 +1,12 @@
+/* eslint-disable react-refresh/only-export-components */
+import { lazy } from 'react'
 import PATH from '@/constants/path'
 import AuthRouter from './AuthRouter/AuthRouter'
-import { Register } from '@/pages/Register'
-import { Login } from '@/pages/Login'
-import { ResetPassword } from '@/pages/ResetPassword'
+
+const Register = lazy(() => import('@/pages/Register/Register'))
+const Login = lazy(() => import('@/pages/Login/Login'))
+const ResetPassword = lazy(() => import('@/pages/ResetPassword/ResetPassword'))
+
 
 export const auth = {
   element: <AuthRouter />,

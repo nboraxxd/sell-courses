@@ -1,8 +1,9 @@
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { Header } from '@/components/Header'
 import { Sidebar } from '@/components/Sidebar'
 import { Footer } from '@/components/Footer'
+import { SuspenseLoading } from '@/components/SuspenseLoading'
 
 export default function MainLayout() {
   const { pathname } = useLocation()
@@ -23,7 +24,9 @@ export default function MainLayout() {
     <>
       <Header handleToggleSidebar={handleToggleSidebar} />
       <Sidebar handleCloseSidebar={handleCloseSidebar} />
-      <Outlet />
+      <Suspense fallback={<SuspenseLoading />}>
+        <Outlet />
+      </Suspense>
       <Footer />
     </>
   )

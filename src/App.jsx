@@ -1,7 +1,7 @@
+import { useEffect } from 'react'
 import { useRoutes } from 'react-router-dom'
 import { routers } from '@/router'
 import { Toaster } from 'sonner'
-import { useEffect } from 'react'
 
 export default function App() {
   const element = useRoutes(routers)

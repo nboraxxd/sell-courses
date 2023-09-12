@@ -1,18 +1,21 @@
+/* eslint-disable react-refresh/only-export-components */
 import PATH from '@/constants/path'
-import { MainLayout } from '@/layouts/MainLayout'
-import { Page404 } from '@/pages/404'
-import { Coin } from '@/pages/Coin'
-import { Contact } from '@/pages/Contact'
-import { CourseDetail } from '@/pages/CourseDetail'
-import { CourseRegister } from '@/pages/CourseRegister'
-import { Courses } from '@/pages/Courses'
-import { About } from '@/pages/About'
-import { HomePage } from '@/pages/HomePage'
-import { Payment } from '@/pages/Payment'
-import { Projects } from '@/pages/Projects'
-import { Team } from '@/pages/Team'
+import { lazy } from 'react'
 import { user } from '@/router/user.router'
 import { auth } from '@/router/auth.router'
+import { MainLayout } from '@/layouts/MainLayout'
+
+const Page404 = lazy(() => import('@/pages/404/404'))
+const Contact = lazy(() => import('@/pages/Contact/Contact'))
+const CourseDetail = lazy(() => import('@/pages/CourseDetail/CourseDetail'))
+const CourseRegister = lazy(() => import('@/pages/CourseRegister/CourseRegister'))
+const Courses = lazy(() => import('@/pages/Courses/Courses'))
+const About = lazy(() => import('@/pages/About/About'))
+const HomePage = lazy(() => import('@/pages/HomePage/HomePage'))
+const Payment = lazy(() => import('@/pages/Payment/Payment'))
+const Projects = lazy(() => import('@/pages/Projects/Projects'))
+const Team = lazy(() => import('@/pages/Team/Team'))
+const Coin = lazy(() => import('@/pages/Coin/Coin'))
 
 export const routers = [
   {
