@@ -128,7 +128,9 @@ export default function HomePage() {
           <section className="section-action">
             <div className="container">
               <h3>Học thử trước khi đăng ký KHOÁ học tại Spacedev?</h3>
-              <div className="btn main round bg-white">Học thử</div>
+              <Link className="btn main round bg-white" to={PATH.courses}>
+                Học thử
+              </Link>
             </div>
           </section>
         </div>
