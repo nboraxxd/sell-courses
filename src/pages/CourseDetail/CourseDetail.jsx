@@ -13,7 +13,7 @@ import { CourseCardLoading } from '@/components/CourseCard'
 import dayjs from 'dayjs'
 import { Teacher } from '@/pages/CourseDetail'
 import { Modal } from '@/components/Modal'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 export default function CourseDetail() {
   const params = useParams()
@@ -28,9 +28,18 @@ export default function CourseDetail() {
   const coursesRelatedService = useFetch(() => coursesService.getCoursesRelated(id), [id])
   const coursesRelated = coursesRelatedService.data?.data
 
-  const courseRegisterPath = generatePath(PATH.courseRegister, {
-    id: `${courseDetail?.slug}-id${courseDetail?.id}`,
-  })
+  const courseRegisterPath = useMemo(
+    () =>
+      generatePath(PATH.courseRegister, {
+        id: `${courseDetail?.slug}-id${courseDetail?.id}`,
+      }),
+    [courseDetail?.id, courseDetail?.slug],
+  )
+
+  const openingTime = useMemo(
+    () => dayjs(courseDetail?.opening_time).format('DD/MM/YYYY'),
+    [courseDetail?.opening_time],
+  )
 
   if (courseDetailService.status === SERVICE_STATUS.pending || courseDetailService.status === SERVICE_STATUS.idle) {
     return <CourseDetailLoading />
@@ -47,7 +56,7 @@ export default function CourseDetail() {
               <h1>{courseDetail.title}</h1>
               <div className="row">
                 <div className="date">
-                  <strong>Khai giảng:</strong> {dayjs(courseDetail.opening_time).format('DD/MM/YYYY')}
+                  <strong>Khai giảng:</strong> {openingTime}
                 </div>
                 <div className="time">
                   <strong>Thời lượng:</strong> {courseDetail.count_video} buổi
@@ -126,7 +135,7 @@ export default function CourseDetail() {
               <div className="sub">*Lịch học và thời gian có thể thống nhất lại theo số đông học viên.</div>
             </h3>
             <p>
-              <strong>Ngày bắt đầu: </strong> {dayjs(courseDetail.opening_time).format('DD/MM/YYYY')} <br />
+              <strong>Ngày bắt đầu: </strong> {openingTime} <br />
               <strong>Thời gian học: </strong> {courseDetail.schedule}
             </p>
             <h3 className="title">Người dạy</h3>
