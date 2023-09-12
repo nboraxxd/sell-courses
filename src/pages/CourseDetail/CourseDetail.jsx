@@ -10,10 +10,10 @@ import { CourseList } from '@/components/CourseList'
 import { Accordion } from '@/components/Accordion'
 import { SERVICE_STATUS } from '@/constants/serviceStatus'
 import { CourseCardLoading } from '@/components/CourseCard'
-import dayjs from 'dayjs'
 import { Teacher } from '@/pages/CourseDetail'
 import { Modal } from '@/components/Modal'
 import { useMemo, useState } from 'react'
+import dayjs from 'dayjs'
 
 export default function CourseDetail() {
   const params = useParams()
