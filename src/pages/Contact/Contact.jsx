@@ -11,6 +11,7 @@ import { TextField } from '@/components/TextField'
 import { Button } from '@/components/Button'
 import { handleError } from '@/utils/handleError'
 import { SERVICE_STATUS } from '@/constants/serviceStatus'
+import { Helmet } from 'react-helmet-async'
 
 export default function Contact() {
   const { status, excute, data } = useAsync(organizationService.contact)
@@ -55,6 +56,10 @@ export default function Contact() {
 
   return (
     <main id="main">
+      <Helmet>
+        <title>Liên hệ - Sell Courses</title>
+        <meta name="description" content="Liên hệ với Spacedev" />
+      </Helmet>
       <div className="register-course">
         {status === SERVICE_STATUS.successful ? (
           <div className="register-success !my-40">

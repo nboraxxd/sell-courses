@@ -9,6 +9,7 @@ import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from '@/constants/passwordLe
 import { Button } from '@/components/Button'
 import { TextField } from '@/components/TextField'
 import { SERVICE_STATUS } from '@/constants/serviceStatus'
+import { Helmet } from 'react-helmet-async'
 
 export default function ChangePassword() {
   const { user } = useOutletContext()
@@ -51,6 +52,10 @@ export default function ChangePassword() {
 
   return (
     <form className="tab1" onSubmit={handleOnSubmit}>
+      <Helmet>
+        <title>Đổi mật khẩu - Sell Courses</title>
+        <meta name="description" content="Đổi mật khẩu tài khoản dự án Sell Courses của Spacedev" />
+      </Helmet>
       <TextField
         label="Email"
         placeholder="Email của bạn"
@@ -87,7 +92,11 @@ export default function ChangePassword() {
         autoComplete="new-password"
         {...register('confirmNewPassword')}
       />
-      <Button disabled={status === SERVICE_STATUS.pending} isLoading={status === SERVICE_STATUS.pending} className="btn main rect">
+      <Button
+        disabled={status === SERVICE_STATUS.pending}
+        isLoading={status === SERVICE_STATUS.pending}
+        className="btn main rect"
+      >
         Đổi mật khẩu
       </Button>
     </form>

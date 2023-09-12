@@ -5,6 +5,7 @@ import { SERVICE_STATUS } from '@/constants/serviceStatus'
 import { Link, generatePath } from 'react-router-dom'
 import PATH from '@/constants/path'
 import dayjs from 'dayjs'
+import { Helmet } from 'react-helmet-async'
 
 export default function Courses() {
   const { data, status } = useFetch(coursesService.getMyCourse)
@@ -22,6 +23,10 @@ export default function Courses() {
 
   return (
     <div className="tab2">
+      <Helmet>
+        <title>Khóa của của bạn - Sell Courses</title>
+        <meta name="description" content="Khóa học bạn đang mua trong dự án Sell Courses của Spacedev" />
+      </Helmet>
       {status === SERVICE_STATUS.successful && myCoursesData.length === 0 ? (
         <div className="item !mb-0 h-80 flex-col items-center gap-10 px-2 py-12 md:h-64">
           <p className="text-xl font-bold uppercase">Bạn chưa đăng ký khoá học</p>

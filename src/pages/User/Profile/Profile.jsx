@@ -9,6 +9,7 @@ import { regexp, required } from '@/utils/validate'
 import { handleError } from '@/utils/handleError'
 import { toast } from 'sonner'
 import { SERVICE_STATUS } from '@/constants/serviceStatus'
+import { Helmet } from 'react-helmet-async'
 
 export default function Profile() {
   const { user, setUser } = useContext(AuthContext)
@@ -52,6 +53,10 @@ export default function Profile() {
 
   return (
     <form className="tab1" noValidate onSubmit={handleOnSubmit}>
+      <Helmet>
+        <title>Thông tin tài khoản - Sell Courses</title>
+        <meta name="description" content="Thông tin tài khoản của bạn trong dự án Sell Courses của Spacedev" />
+      </Helmet>
       <TextField
         label="Họ và tên"
         required

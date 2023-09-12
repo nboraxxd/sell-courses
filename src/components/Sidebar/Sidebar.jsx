@@ -19,6 +19,9 @@ export default function Sidebar({ handleCloseSidebar }) {
             <NavLink to={PATH.projects}>Dự Án</NavLink>
           </li>
           <li>
+            <NavLink to={PATH.payment}>Thanh toán</NavLink>
+          </li>
+          <li>
             <NavLink to={PATH.contact}>Liên hệ</NavLink>
           </li>
         </ul>

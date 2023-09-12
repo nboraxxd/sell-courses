@@ -10,6 +10,7 @@ import { Modal } from '@/components/Modal'
 import { Testimonial } from './components/Testimonial'
 import { TeamGallery } from './components/TeamGallery'
 import { SERVICE_STATUS } from '@/constants/serviceStatus'
+import { Helmet } from 'react-helmet-async'
 
 export default function HomePage() {
   useScrollTop()
@@ -71,6 +72,10 @@ export default function HomePage() {
           </div> */}
 
           <section className="section-1">
+            <Helmet>
+              <title>Trang chủ - Sell Courses</title>
+              <meta name="description" content="Trang chủ dự án Sell Courses của Spacedev" />
+            </Helmet>
             <div className="container">
               <h2 className="main-title">KHOÁ HỌC SPACEDEV</h2>
               <p className="top-des">

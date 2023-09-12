@@ -1,6 +1,12 @@
+import { Helmet } from 'react-helmet-async'
+
 export default function Payment() {
   return (
     <main id="main">
+      <Helmet>
+        <title>Thanh toán - Sell Courses</title>
+        <meta name="description" content="Cách thức thanh toán khi mua khoá học dự án Sell Courses của Spacedev" />
+      </Helmet>
       <div className="paypage">
         <div className="container ">
           <section>

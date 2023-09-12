@@ -6,6 +6,7 @@ import { CourseCardLoading } from '@/components/CourseCard'
 import { CourseList } from '@/components/CourseList'
 import { Pagination } from '@/pages/Courses'
 import { SERVICE_STATUS } from '@/constants/serviceStatus'
+import { Helmet } from 'react-helmet-async'
 
 export default function Courses() {
   const queryParams = useQueryParams()
@@ -15,6 +16,10 @@ export default function Courses() {
 
   return (
     <main id="main">
+      <Helmet>
+        <title>Danh sách khóa học - Sell Courses</title>
+        <meta name="description" content="Danh sách các khóa học trong Sell Courses của Spacedev" />
+      </Helmet>
       <section className="section-1">
         <div className="container">
           <h2 className="main-title">KHÓA HỌC SPACEDEV</h2>

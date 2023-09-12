@@ -1,5 +1,6 @@
 import { Accordion } from '@/components/Accordion'
 import useScrollTop from '@/hook/useScrollTop'
+import { Helmet } from 'react-helmet-async'
 
 const GENERAL_INFO = [
   {
@@ -48,6 +49,10 @@ export default function About() {
 
   return (
     <main id="main">
+      <Helmet>
+        <title>Về chúng tôi - Sell Courses</title>
+        <meta name="description" content="Các thông tin và câu hỏi thường gặp dự án Sell Courses của Spacedev" />
+      </Helmet>
       <div className="faqpage">
         <div className="container">
           <section>

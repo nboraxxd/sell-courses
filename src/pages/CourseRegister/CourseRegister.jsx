@@ -18,6 +18,7 @@ import { handleError } from '@/utils/handleError'
 import { useContext, useEffect } from 'react'
 import { AuthContext } from '@/contexts/auth.context'
 import { toast } from 'sonner'
+import { Helmet } from 'react-helmet-async'
 
 export default function CourseRegister() {
   const params = useParams()
@@ -81,6 +82,10 @@ export default function CourseRegister() {
     <Page404 desc="Không tìm thấy khoá học" to={PATH.courses} linkText="Về trang danh sách khóa học" />
   ) : (
     <main id="main">
+      <Helmet>
+        <title>Đăng ký - {courseDetailData.title} | Sell Courses</title>
+        <meta name="description" content={courseDetailData.long_description} />
+      </Helmet>
       <section className="register-course">
         {courseRegisterService.status === SERVICE_STATUS.successful ? (
           <div className="register-success mx-auto my-40 max-w-[43rem] bg-white">

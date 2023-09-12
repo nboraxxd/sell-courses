@@ -8,6 +8,7 @@ import { max, min, regexp, required } from '@/utils/validate'
 import useAsync from '@/hook/useAsync'
 import { Button } from '@/components/Button'
 import { SERVICE_STATUS } from '@/constants/serviceStatus'
+import { Helmet } from 'react-helmet-async'
 
 const PASSWORD_MIN_LENGTH = 6
 const PASSWORD_MAX_LENGTH = 32
@@ -42,6 +43,10 @@ export default function Login() {
 
   return (
     <main id="main">
+      <Helmet>
+        <title>Đăng nhập - Sell Courses</title>
+        <meta name="description" content="Đăng nhập vào dự án Sell Courses của Spacedev" />
+      </Helmet>
       <div className="auth">
         <div className="wrap">
           {/* login-form */}

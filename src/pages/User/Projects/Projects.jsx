@@ -1,6 +1,12 @@
+import { Helmet } from 'react-helmet-async'
+
 export default function Projects() {
   return (
     <div className="tab3">
+      <Helmet>
+        <title>Dự án của bạn - Sell Courses</title>
+        <meta name="description" content="các dự án bạn đã thực hiện với Sell Courses của Spacedev" />
+      </Helmet>
       <div className="row">
         <div className="col-md-6 course">
           <div className="wrap">

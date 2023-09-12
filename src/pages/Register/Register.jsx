@@ -8,6 +8,7 @@ import useForm from '@/hook/useForm'
 import userService from '@/services/user.service'
 import { handleError } from '@/utils/handleError'
 import { confirm, max, min, regexp, required } from '@/utils/validate'
+import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
 import { twJoin } from 'tailwind-merge'
@@ -63,6 +64,10 @@ export default function Register() {
 
   return (
     <main id="main">
+      <Helmet>
+        <title>Đăng ký - Sell Courses</title>
+        <meta name="description" content="Đăng ký tài khoản dự án Sell Courses của Spacedev" />
+      </Helmet>
       <div className="auth">
         {registerService.status === SERVICE_STATUS.successful ? (
           <div className="register-success mx-auto my-40 max-w-[43rem] bg-white">

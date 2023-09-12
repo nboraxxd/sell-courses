@@ -16,6 +16,7 @@ import {
 } from '@/utils/token'
 import { confirm, max, min, regexp, required } from '@/utils/validate'
 import { useContext } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { toast } from 'sonner'
 
 export default function ResetPassword() {
@@ -84,6 +85,10 @@ export default function ResetPassword() {
 
   return (
     <main id="main">
+      <Helmet>
+        <title>Đặt lại mật khẩu - Sell Courses</title>
+        <meta name="description" content="Đặt lại mật khẩu cho tài khoản dự án Sell Courses của Spacedev" />
+      </Helmet>
       <div className="auth">
         {resetPasswordService.status !== SERVICE_STATUS.successful && code === undefined && (
           <form className="wrap" onSubmit={onResetPassword} noValidate>

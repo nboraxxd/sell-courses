@@ -1,4 +1,5 @@
 import PATH from '@/constants/path'
+import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 
 export default function Page404({
@@ -9,6 +10,10 @@ export default function Page404({
 }) {
   return (
     <main id="main">
+      <Helmet>
+        <title>Trang không tồn tại - Sell Courses</title>
+        <meta name="description" content="Vui lòng kiểm tra lại đường dẫn trong dự án Sell Courses của Spacedev" />
+      </Helmet>
       <div className="notfound">
         <div className="container">
           <section className="flex h-[45rem] w-full flex-col items-center justify-center">

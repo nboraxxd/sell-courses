@@ -1,10 +1,16 @@
+import { Helmet } from 'react-helmet-async'
+
 export default function Coin() {
   return (
     <main id="main">
+      <Helmet>
+        <title>Coin - Sell Courses</title>
+        <meta name="description" content="Giới thiệu về COIN dự án Sell Courses của Spacedev" />
+      </Helmet>
       <div className="paypage">
         <div className="container">
           <section>
-            <h2 className="main-title">Giới thiệu Coin</h2>
+            <h1 className="main-title">Giới thiệu Coin</h1>
             <div className="content">
               <div className="section">
                 <h2>Tổng quan về COIN</h2>

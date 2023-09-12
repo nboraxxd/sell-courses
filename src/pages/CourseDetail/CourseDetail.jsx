@@ -14,6 +14,7 @@ import { Teacher } from '@/pages/CourseDetail'
 import { Modal } from '@/components/Modal'
 import { useMemo, useState } from 'react'
 import dayjs from 'dayjs'
+import { Helmet } from 'react-helmet-async'
 
 export default function CourseDetail() {
   const params = useParams()
@@ -49,6 +50,10 @@ export default function CourseDetail() {
     <Page404 desc="Không tìm thấy khoá học" to={PATH.courses} linkText="Về trang danh sách khóa học" />
   ) : (
     <main id="main">
+      <Helmet>
+        <title>{courseDetail.title} - Sell Courses</title>
+        <meta name="description" content={courseDetail.long_description} />
+      </Helmet>
       <div className="course-detail">
         <section className="banner style2" style={{ '--background': courseDetail.template_color_banner || '#cde6fb' }}>
           <div className="container">

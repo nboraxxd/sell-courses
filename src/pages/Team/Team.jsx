@@ -1,6 +1,12 @@
+import { Helmet } from 'react-helmet-async'
+
 export default function Team() {
   return (
     <main id="main">
+      <Helmet>
+        <title>Thành viên - Sell Courses</title>
+        <meta name="description" content="Các thành viên của dự án Sell Courses của Spacedev" />
+      </Helmet>
       <section className="team">
         <div className="container">
           <div className="top">
