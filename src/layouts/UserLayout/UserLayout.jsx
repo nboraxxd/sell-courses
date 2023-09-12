@@ -1,9 +1,10 @@
-import { useContext } from 'react'
+import { Suspense, useContext } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { AuthContext } from '@/contexts/auth.context'
 import PATH from '@/constants/path'
 import { avatarDefault } from '@/constants/images'
 import useScrollTop from '@/hook/useScrollTop'
+import { SuspenseLoading } from '@/components/SuspenseLoading'
 
 export default function UserLayout() {
   const { user } = useContext(AuthContext)
@@ -31,7 +32,9 @@ export default function UserLayout() {
               <NavLink to={PATH.user.changePassword}>Đổi mật khẩu</NavLink>
             </div>
             <div className="tab-content">
-              <Outlet context={{ user }} />
+              <Suspense fallback={<SuspenseLoading className="h-96 justify-start" />}>
+                <Outlet context={{ user }} />
+              </Suspense>
             </div>
           </div>
         </div>
