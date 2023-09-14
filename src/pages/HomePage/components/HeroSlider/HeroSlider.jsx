@@ -33,7 +33,7 @@ export const HeroSlider = () => {
           </div>
         </div>
         <div className="jarallax-img">
-          <img src="./img/banner1.jpg" alt="" />
+          <img src="/img/banner1.jpg" alt="" />
         </div>
       </div>
       <div className="item">
@@ -47,7 +47,7 @@ export const HeroSlider = () => {
           </div>
         </div>
         <div className="jarallax-img">
-          <img src="./img/banner2.jpg" alt="" />
+          <img src="/img/banner2.jpg" alt="" />
         </div>
       </div>
       <div className="item">
@@ -61,7 +61,7 @@ export const HeroSlider = () => {
           </div>
         </div>
         <div className="jarallax-img">
-          <img src="./img/banner3.jpg" alt="" />
+          <img src="/img/banner3.jpg" alt="" />
         </div>
       </div>
     </div>

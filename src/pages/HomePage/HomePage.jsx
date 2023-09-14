@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import useScrollTop from '@/hook/useScrollTop'
-import useFetch from '@/hook/useFetch'
 import PATH from '@/constants/path'
 import coursesService from '@/services/courses.service'
 import { CourseList } from '@/components/CourseList'
@@ -12,12 +11,13 @@ import { TeamGallery } from './components/TeamGallery'
 import { SERVICE_STATUS } from '@/constants/serviceStatus'
 import { Helmet } from 'react-helmet-async'
 import { HeroSlider } from './components/HeroSlider'
+import useQuery from '@/hook/useQuery'
 
 export default function HomePage() {
   useScrollTop()
   const [isOpenVideoModal, setIsOpenVideoModal] = useState(false)
 
-  const { status, data } = useFetch(coursesService.getCourses, [coursesService.getCourses])
+  const { data, status } = useQuery({ queryFn: coursesService.getCourses, queryKey: 'courses', cacheTime: 3000 })
   const courses = data?.data
 
   return (
