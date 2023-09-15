@@ -7,19 +7,14 @@ import { Pagination } from '@/pages/Courses'
 import { SERVICE_STATUS } from '@/constants/serviceStatus'
 import { Helmet } from 'react-helmet-async'
 import useQuery from '@/hook/useQuery'
-import { useCallback } from 'react'
 import { Skeleton } from '@/components/Skeleton'
 
 export default function Courses() {
   const queryParams = useQueryParams()
   useScrollTop([queryParams.limit, queryParams.page])
 
-  const getCourses = useCallback(() => {
-    return coursesService.getCourses(queryParams.page, queryParams.limit)
-  }, [queryParams.limit, queryParams.page])
-
   const { data: courses, status } = useQuery({
-    queryFn: getCourses,
+    queryFn: () => coursesService.getCourses(queryParams.page, queryParams.limit),
     queryKey: `courses?page=${queryParams.page ?? 1}&limit=${queryParams.limit ?? 6}`,
     cacheTime: 3000,
   })

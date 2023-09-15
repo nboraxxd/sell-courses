@@ -11,7 +11,7 @@ import { SERVICE_STATUS } from '@/constants/serviceStatus'
 import { CourseCardLoading } from '@/components/CourseCard'
 import { Teacher } from '@/pages/CourseDetail'
 import { Modal } from '@/components/Modal'
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 import { Helmet } from 'react-helmet-async'
 import useQuery from '@/hook/useQuery'
@@ -23,12 +23,18 @@ export default function CourseDetail() {
 
   const [isOpenVideoModal, setIsOpenVideoModal] = useState(false)
 
-  const getCourseDetail = useCallback(() => coursesService.getCourseDetail(id), [id])
-  const courseDetailService = useQuery({ queryFn: getCourseDetail, queryKey: `course-id${id}`, cacheTime: 3000 })
+  const courseDetailService = useQuery({
+    queryFn: () => coursesService.getCourseDetail(id),
+    queryKey: `course-id${id}`,
+    cacheTime: 3000,
+  })
   const courseDetail = courseDetailService.data?.data
 
-  const getCoursesRelated = useCallback(() => coursesService.getCoursesRelated(id), [id])
-  const coursesRelatedService = useQuery({ queryFn: getCoursesRelated, queryKey: `courses_related-id${id}`, cacheTime: 3000 })
+  const coursesRelatedService = useQuery({
+    queryFn: () => coursesService.getCoursesRelated(id),
+    queryKey: `courses_related-id${id}`,
+    cacheTime: 3000,
+  })
   const coursesRelated = coursesRelatedService.data?.data
 
   const courseRegisterPath = useMemo(
