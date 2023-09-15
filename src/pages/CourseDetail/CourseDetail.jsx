@@ -1,6 +1,5 @@
 import { Link, generatePath, useParams } from 'react-router-dom'
 import useScrollTop from '@/hook/useScrollTop'
-import useFetch from '@/hook/useFetch'
 import PATH from '@/constants/path'
 import coursesService from '@/services/courses.service'
 import { formatCurrency, getIdFromParams } from '@/utils/utils'
@@ -12,9 +11,10 @@ import { SERVICE_STATUS } from '@/constants/serviceStatus'
 import { CourseCardLoading } from '@/components/CourseCard'
 import { Teacher } from '@/pages/CourseDetail'
 import { Modal } from '@/components/Modal'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 import { Helmet } from 'react-helmet-async'
+import useQuery from '@/hook/useQuery'
 
 export default function CourseDetail() {
   const params = useParams()
@@ -23,10 +23,12 @@ export default function CourseDetail() {
 
   const [isOpenVideoModal, setIsOpenVideoModal] = useState(false)
 
-  const courseDetailService = useFetch(() => coursesService.getCourseDetail(id), [id])
+  const getCourseDetail = useCallback(() => coursesService.getCourseDetail(id), [id])
+  const courseDetailService = useQuery({ queryFn: getCourseDetail, queryKey: `course-id${id}`, cacheTime: 3000 })
   const courseDetail = courseDetailService.data?.data
 
-  const coursesRelatedService = useFetch(() => coursesService.getCoursesRelated(id), [id])
+  const getCoursesRelated = useCallback(() => coursesService.getCoursesRelated(id), [id])
+  const coursesRelatedService = useQuery({ queryFn: getCoursesRelated, queryKey: `courses_related-id${id}`, cacheTime: 3000 })
   const coursesRelated = coursesRelatedService.data?.data
 
   const courseRegisterPath = useMemo(

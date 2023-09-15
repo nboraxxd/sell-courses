@@ -1,27 +1,38 @@
 import { SERVICE_STATUS } from '@/constants/serviceStatus'
-import { localStorageCache } from '@/utils/cache'
+import { localStorageCache, sessionStorageCache } from '@/utils/cache'
 import { useEffect, useState } from 'react'
+
+// _cache sẽ đại diện cho localStorageCache hoặc sessionStorageCache
+const _cache = {
+  localStorage: localStorageCache,
+  sessionStorage: sessionStorageCache,
+}
 
 export default function useQuery(options = {}) {
   const {
     queryFn, // Function dùng để gọi API
     queryKey, // Tên key để lưu trữ data trong cache
     cacheTime, // Thời gian data tồn tại trong cache
+    enabled = true, // Dùng để quyết định có thực thi queryFn hay không? Mặc định là true
+    storeDriver = 'sessionStorage', // Dùng để quyết định nơi lưu trữ data. Mặc định là sessionStorage
   } = options
+
+  // Quyết định cache sẽ là localStorageCache hay sessionStorageCache
+  const cache = _cache[storeDriver]
 
   const [data, setData] = useState(null) // Dùng state để giữ data của queryFn
   const [status, setStatus] = useState(SERVICE_STATUS.idle)
   const [error, setError] = useState()
 
   useEffect(() => {
-    ;(async function () {
+    async function fetchData() {
       try {
         setStatus(SERVICE_STATUS.pending)
 
         let response
         // Nếu có queryKey thì lấy data từ cache ra
         if (queryKey) {
-          response = localStorageCache.get(queryKey)
+          response = cache.get(queryKey)
         }
 
         // Sau khi đã lấy data từ trong cache ra thì kiểm tra lại response
@@ -41,14 +52,18 @@ export default function useQuery(options = {}) {
             expired = expired + Date.now()
           }
 
-          localStorageCache.set(queryKey, response, expired)
+          cache.set(queryKey, response, expired)
         }
       } catch (err) {
         setError(err)
         setStatus(SERVICE_STATUS.rejected)
       }
-    })()
-  }, [cacheTime, queryFn, queryKey])
+    }
+
+    if (enabled === true) {
+      fetchData()
+    }
+  }, [cacheTime, enabled, queryFn, queryKey])
 
   return {
     data,
